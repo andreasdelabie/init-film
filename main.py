@@ -1,19 +1,26 @@
 import sys, os
+osname = os.name
+
+def clearConsole():
+    if osname == 'nt':
+        _ = os.system('cls')
+    else :
+        _ = os.system('clear')
 
 
 
 # CREATE PROJECT FOLDER
-workingTitle = sys.argv[1]
+clearConsole()
+print(f'''Enter project name:''')
+workingTitle = input('$ ')
 currentDirectory = os.getcwd()
 projectDirectory = os.path.join(currentDirectory, workingTitle)
-
-print(f'Creating project folder for {workingTitle}')
-
 os.mkdir(projectDirectory)
 
 
 
 # LEVEL 1 FOLDERS
+clearConsole()
 print(f'''Select needed level 1 folders for {workingTitle}:
 
     1) PROJECT FILES
@@ -32,6 +39,7 @@ for string in level1Selection:
         os.mkdir(folderDirectory)
 
         # LEVEL 2 FOLDERS
+        clearConsole()
         print(f'''Select needed level 2 folders for {level1FolderName}:
 
     EDITING:
@@ -182,12 +190,13 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
         os.mkdir(folderDirectory)
 
         # LEVEL 2 FOLDERS
+        clearConsole()
         print(f'''Select needed level 2 folders for {level1FolderName}:
 
-        1) _graded
-        2) _VFX
+    1) _graded
+    2) _VFX
 
-        Type numbers to select or type custom folder names (separate by SPACE)''')
+Type numbers to select or type custom folder names (separate by SPACE)''')
         level2Selection = input('$ ').split()
         level2FolderNumber = 1
         for string in level2Selection:
@@ -206,15 +215,16 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
         os.mkdir(folderDirectory)
 
         # LEVEL 2 FOLDERS
+        clearConsole()
         print(f'''Select needed level 2 folders for {level1FolderName}:
 
-	1) PFX
-	2) SFX
-	3) FOLEY
-	4) AMBIANCE
-	5) MUSIC
-	6) SOUNDTRACK
-	7) VOICEOVER
+    1) PFX
+    2) SFX
+    3) FOLEY
+    4) AMBIANCE
+    5) MUSIC
+    6) SOUNDTRACK
+    7) VOICEOVER
     8) ADR
 
 Type numbers to select or type custom folder names (separate by SPACE)''')
@@ -261,6 +271,7 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
         os.mkdir(folderDirectory)
 
         # LEVEL 2 FOLDERS
+        clearConsole()
         print(f'''Select needed level 2 folders for {level1FolderName}:
 
 	1) PREVIEWS
@@ -286,3 +297,5 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
             level2FolderNumber = level2FolderNumber + 1
 
     level1FolderNumber = level1FolderNumber + 1
+
+exit()
