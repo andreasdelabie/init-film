@@ -1,0 +1,8 @@
+LICENSE
+README.md
+setup.py
+init_film.egg-info/PKG-INFO
+init_film.egg-info/SOURCES.txt
+init_film.egg-info/dependency_links.txt
+init_film.egg-info/entry_points.txt
+init_film.egg-info/top_level.txt

@@ -1,0 +1,2 @@
+[console_scripts]
+init-film = main
