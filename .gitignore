@@ -3,3 +3,4 @@
 /build
 /dist
 /init_film.egg-info
+/__pycache__
