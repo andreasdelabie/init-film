@@ -274,8 +274,8 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
         clearConsole()
         print(f'''Select needed level 2 folders for {level1FolderName}:
 
-	1) PREVIEWS
-	2) MASTER
+    1) PREVIEWS
+    2) MASTER
     3) DELIVERABLES
 
 Type numbers to select or type custom folder names (separate by SPACE)''')
