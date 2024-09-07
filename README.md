@@ -1,8 +1,16 @@
+Tired of manually creating folder structures for your film/video projects?  
+Want a folder structure that dynamically changes based on the needs for your project?  
+Then init-film was made for you!  
+By filmmakers, for filmmakers ;)  
+
 ## Installation:
 1. Download the repo by typing `git clone https://github.com/andreasdelabie/init-film` in a terminal or download the zip folder directly from the GitHub page.
 2. Navigate to the folder by using `cd (path to repo)` or using a file explorer.
 3. Install all the Python requirements by using `pip install -r requirements.txt`.
 4. Run the setup script by using `python setup.py install`.
+
+## Usage:
+Use the CLI command `init-film` in any folder to start a new film/video project.
 
 ## Uninstalling:
 1. Navigate to the installation folder by using `cd (path to repo)` or using a file explorer.
