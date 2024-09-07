@@ -37,7 +37,6 @@ for string in level1Selection:
         level1FolderName = str(level1FolderNumber) + '. PROJECT FILES'
         folderDirectory = os.path.join(projectDirectory, level1FolderName)
         os.mkdir(folderDirectory)
-
         # LEVEL 2 FOLDERS
         clearConsole()
         print(f'''Select needed level 2 folders for {level1FolderName}:
@@ -177,6 +176,10 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
                 level2FolderName = str(level2FolderNumber) + '. FL STUDIO'
                 folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
                 os.mkdir(folderDirectory)
+            else:
+                level2FolderName = str(level1FolderNumber) + '. ' + string
+                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
+                os.mkdir(folderDirectory)
             level2FolderNumber = level2FolderNumber + 1
 
     elif string == '2':
@@ -207,6 +210,10 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
             elif string == '2':
                 level2FolderName = '_VFX'
                 folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
+                os.mkdir(folderDirectory)
+            else:
+                level1FolderName = str(level1FolderNumber) + '. ' + string
+                folderDirectory = os.path.join(projectDirectory, level1FolderName)
                 os.mkdir(folderDirectory)
 
     elif string == '4':
@@ -263,6 +270,10 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
                 level2FolderName = str(level2FolderNumber) + '. ADR'
                 folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
                 os.mkdir(folderDirectory)
+            else:
+                level2FolderName = str(level1FolderNumber) + '. ' + string
+                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
+                os.mkdir(folderDirectory)
             level2FolderNumber = level2FolderNumber + 1
 
     elif string == '5':
@@ -294,7 +305,16 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
                 level2FolderName = str(level2FolderNumber) + '. DELIVERABLES'
                 folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
                 os.mkdir(folderDirectory)
+            else:
+                level2FolderName = str(level1FolderNumber) + '. ' + string
+                folderDirectory = os.path.join(projectDirectory, level2FolderName)
+                os.mkdir(folderDirectory)
             level2FolderNumber = level2FolderNumber + 1
+
+    else:
+        level1FolderName = str(level1FolderNumber) + '. ' + string
+        folderDirectory = os.path.join(projectDirectory, level1FolderName)
+        os.mkdir(folderDirectory)
 
     level1FolderNumber = level1FolderNumber + 1
 
