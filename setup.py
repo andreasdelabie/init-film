@@ -9,7 +9,7 @@ setuptools.setup(
     install_requires=install_requires,
     entry_points={
         'console_scripts': [
-            'init-film = main',
+            'init-film = main:__main__',
         ],
     },
     include_package_data=True,
