@@ -9,7 +9,7 @@ By filmmakers, for filmmakers ;)
 1. Download the repo by typing `git clone https://github.com/andreasdelabie/init-film` in a terminal or download the zip folder directly from the GitHub page.  
 2. Navigate to the folder by using `cd (path to repo)` or using a file explorer.  
 3. Install all the Python requirements by using `pip install -r requirements.txt`.  
-4. Run the setup script by using `python setup.py install`.  
+4. Run the setup script by using `python setup.py develop`. _(Still figuring out how to make `install` work)_  
 5. **Don't remove the installation folder, as it contains the source code for the CLI script.**  
 Deleting this folder will break the thing and makes uninstalling a pain :(  
 
@@ -23,3 +23,6 @@ Folder names can't contain spaces. Instead use a `-` or `_`.
 2. Remove all the script files by using `python uninstall.py`.  
 3. Check that there is no file named `init_film-(version).egg` in `user\appdata\local\programs\python\python(version)\lib\site-packages\`  
 4. You can now safely delete the installation folder.  
+
+## Support:
+<a href="https://www.buymeacoffee.com/andreasdelabie" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=andreasdelabie&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff" /></a>
