@@ -23,3 +23,6 @@ Folder names can't contain spaces. Instead use a `-` or `_`.
 2. Remove all the script files by using `python uninstall.py`.  
 3. Check that there is no file named `init_film-(version).egg` in `user\appdata\local\programs\python\python(version)\lib\site-packages\`  
 4. You can now safely delete the installation folder.  
+
+## Support:
+<a href="https://www.buymeacoffee.com/andreasdelabie"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=andreasdelabie&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff" /></a>
