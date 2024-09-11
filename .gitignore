@@ -1,6 +1,11 @@
 /.vscode
+
 /init-film.url
+
 /build
 /dist
 /init_film.egg-info
 /__pycache__
+
+tox.ini
+/.tox
