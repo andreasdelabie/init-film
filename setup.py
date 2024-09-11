@@ -4,12 +4,12 @@ install_requires = []
 
 setuptools.setup(
     name="init-film",
-    version="0.2.2a",
+    version="1.0.0",
     packages=setuptools.find_packages(),
     install_requires=install_requires,
     entry_points={
         'console_scripts': [
-            'init-film = main:__main__',
+            'init-film = main:main',
         ],
     },
     include_package_data=True,

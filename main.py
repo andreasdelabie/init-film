@@ -1,27 +1,39 @@
 import sys, os
+
 osname = os.name
+
+
 
 def clearConsole():
     if osname == 'nt':
-        _ = os.system('cls')
-    else :
-        _ = os.system('clear')
+        _ = os.system('cls') # For macOS & Linux
+    else:
+        _ = os.system('clear') # For Windows
 
 
+def createFolder_level0():
+    global projectDirectory, workingTitle
 
-# CREATE PROJECT FOLDER
-clearConsole()
-print(f'''Enter project name:''')
-workingTitle = input('$ ')
-currentDirectory = os.getcwd()
-projectDirectory = os.path.join(currentDirectory, workingTitle)
-os.mkdir(projectDirectory)
+    clearConsole()
+    print('Enter project name:')
+
+    workingTitle = input('$ ')
+    currentDirectory = os.getcwd()
+    projectDirectory = os.path.join(currentDirectory, workingTitle)
+
+    os.mkdir(projectDirectory)
 
 
+def createFolder_level1(number, name):
+    level1_folder_name = f'{str(number)}. {name}'
+    level1_folder_directory = os.path.join(projectDirectory, level1_folder_name)
 
-# LEVEL 1 FOLDERS
-clearConsole()
-print(f'''Select needed level 1 folders for {workingTitle}:
+    os.mkdir(level1_folder_directory)
+
+
+def createFolder_level1_project():
+    clearConsole()
+    print(f'''Select needed level 1 folders for {workingTitle}
 
     1) PROJECT FILES
     2) ASSETS
@@ -30,16 +42,43 @@ print(f'''Select needed level 1 folders for {workingTitle}:
     5) EXPORT
 
 Type numbers to select or type custom folder names (separate by SPACE)''')
-level1Selection = input('$ ').split()
-level1FolderNumber = 1
-for string in level1Selection:
-    if string == '1':
-        level1FolderName = str(level1FolderNumber) + '. PROJECT FILES'
-        folderDirectory = os.path.join(projectDirectory, level1FolderName)
-        os.mkdir(folderDirectory)
-        # LEVEL 2 FOLDERS
-        clearConsole()
-        print(f'''Select needed level 2 folders for {level1FolderName}:
+
+    level1_project_selection = input('$ ').split()
+    global level1_project_folderNumber
+    level1_project_folderNumber = 1
+
+    for string in level1_project_selection:
+        if string == '1':
+            createFolder_level1(level1_project_folderNumber, 'PROJECT FILES')
+            createFolder_level2_projectFiles()
+        elif string == '2':
+            createFolder_level1(level1_project_folderNumber, 'ASSETS')
+            createFolder_level2_assets()
+        elif string == '3':
+            createFolder_level1(level1_project_folderNumber, 'FOOTAGE')
+            createFolder_level2_footage()
+        elif string == '4':
+            createFolder_level1(level1_project_folderNumber, 'AUDIO')
+            createFolder_level2_audio()
+        elif string == '5':
+            createFolder_level1(level1_project_folderNumber, 'EXPORT')
+            createFolder_level2_export()
+        else:
+            createFolder_level1(level1_project_folderNumber, string.upper())
+            createFolder_level2_custom(f'{str(level1_project_folderNumber)}. ' + string.upper())
+        level1_project_folderNumber = level1_project_folderNumber + 1
+
+
+def createFolder_level2(parent, number, name):
+    level2_folder_name = f'{str(number)}. {name}'
+    level2_folder_directory = os.path.join(projectDirectory, parent, level2_folder_name)
+
+    os.mkdir(level2_folder_directory)
+
+
+def createFolder_level2_projectFiles():
+    clearConsole()
+    print(f'''Select needed level 2 folders for {level1_project_folderNumber}. PROJECT FILES:
 
     EDITING:
         1) PREMIERE PRO
@@ -73,157 +112,82 @@ for string in level1Selection:
         25) FL STUDIO
 
 Type numbers to select or type custom folder names (separate by SPACE)''')
-        level2Selection = input('$ ').split()
-        level2FolderNumber = 1
-        for string in level2Selection:
-            if string == '1':
-                level2FolderName = str(level2FolderNumber) + '. PREMIERE PRO'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '2':
-                level2FolderName = str(level2FolderNumber) + '. DAVINCI RESOLVE'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '3':
-                level2FolderName = str(level2FolderNumber) + '. MEDIA COMPOSER'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '4':
-                level2FolderName = str(level2FolderNumber) + '. FINAL CUT PRO'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '5':
-                level2FolderName = str(level2FolderNumber) + '. SONY VEGAS'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '6':
-                level2FolderName = str(level2FolderNumber) + '. HITFILM EXPRESS'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '7':
-                level2FolderName = str(level2FolderNumber) + '. AFTER EFFECTS'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '8':
-                level2FolderName = str(level2FolderNumber) + '. PHOTOSHOP'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '9':
-                level2FolderName = str(level2FolderNumber) + '. ILLUSTRATOR'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '10':
-                level2FolderName = str(level2FolderNumber) + '. BLENDER'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '11':
-                level2FolderName = str(level2FolderNumber) + '. CINEMA 4D'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '12':
-                level2FolderName = str(level2FolderNumber) + '. MAYA'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '13':
-                level2FolderName = str(level2FolderNumber) + '. NUKE'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '14':
-                level2FolderName = str(level2FolderNumber) + '. HOUDINI'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '15':
-                level2FolderName = str(level2FolderNumber) + '. ZBRUSH'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '16':
-                level2FolderName = str(level2FolderNumber) + '. AFFINITY DESIGNER'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '17':
-                level2FolderName = str(level2FolderNumber) + '. PRO TOOLS'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '18':
-                level2FolderName = str(level2FolderNumber) + '. ABLETON'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '19':
-                level2FolderName = str(level2FolderNumber) + '. CUBASE'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '20':
-                level2FolderName = str(level2FolderNumber) + '. REAPER'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '21':
-                level2FolderName = str(level2FolderNumber) + '. IZOTOPE RX'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '22':
-                level2FolderName = str(level2FolderNumber) + '. AUDITION'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '23':
-                level2FolderName = str(level2FolderNumber) + '. AUDACITY'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '24':
-                level2FolderName = str(level2FolderNumber) + '. LOGIC PRO'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '25':
-                level2FolderName = str(level2FolderNumber) + '. FL STUDIO'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            else:
-                level2FolderName = str(level1FolderNumber) + '. ' + string
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            level2FolderNumber = level2FolderNumber + 1
 
-    elif string == '2':
-        level1FolderName = str(level1FolderNumber) + '. ASSETS'
-        folderDirectory = os.path.join(projectDirectory, level1FolderName)
-        os.mkdir(folderDirectory)
+    level2_projectFiles_selection = input('$ ').split()
+    global level2_projectFiles_folderNumber
+    level2_projectFiles_folderNumber = 1
 
-    elif string == '3':
-        level1FolderName = str(level1FolderNumber) + '. FOOTAGE'
-        folderDirectory = os.path.join(projectDirectory, level1FolderName)
-        os.mkdir(folderDirectory)
+    for string in level2_projectFiles_selection:
+        if string == '1': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'PREMIERE PRO')
+        elif string == '2': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'DAVINCI RESOLVE')
+        elif string == '3': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'MEDIA COMPOSER')
+        elif string == '4': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'FINAL CUT PRO')
+        elif string == '5': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'SONY VEGAS')
+        elif string == '6': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'HITFILM EXPRESS')
+        elif string == '7': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'AFTER EFFECT')
+        elif string == '8': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'PHOTOSHOP')
+        elif string == '9': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'ILLUSTRATOR')
+        elif string == '10': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'BLENDER')
+        elif string == '11': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'CINEMA 4D')
+        elif string == '12': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'MAYA')
+        elif string == '13': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'NUKE')
+        elif string == '14': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'HOUDINI')
+        elif string == '15': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'ZBRUSH')
+        elif string == '16': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'AFFINITY DESIGNER')
+        elif string == '17': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'PRO TOOLS')
+        elif string == '18': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'ABLETON')
+        elif string == '19': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'CUBASE')
+        elif string == '20': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'REAPER')
+        elif string == '21': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'IZOTOPE RX')
+        elif string == '22': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'AUDITION')
+        elif string == '23': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'AUDACITY')
+        elif string == '24': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'LOGIC PRO')
+        elif string == '25': createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, 'FL STUDIO')
+        else: createFolder_level2(f'{level1_project_folderNumber}. PROJECT FILES', level2_projectFiles_folderNumber, string.upper())
+        level2_projectFiles_folderNumber = level2_projectFiles_folderNumber + 1
 
-        # LEVEL 2 FOLDERS
-        clearConsole()
-        print(f'''Select needed level 2 folders for {level1FolderName}:
 
-    1) _graded
-    2) _VFX
+def createFolder_level2_assets():
+    clearConsole()
+    print(f'''Select needed level 2 folders for {level1_project_folderNumber}. ASSETS
 
+Type custom folder names (separate by SPACE)''')
+
+    level2_assets_selection = input('$ ').split()
+    global level2_assets_folderNumber
+    level2_assets_folderNumber = 1
+
+    for string in level2_assets_selection:
+        createFolder_level2(f'{level1_project_folderNumber}. ASSETS', level2_assets_folderNumber, string.upper())
+        level2_assets_folderNumber = level2_assets_folderNumber + 1
+
+
+def createFolder_level2_footage():
+    clearConsole()
+    print(f'''Select needed level 2 folders for {level1_project_folderNumber}. FOOTAGE
+    
+        1) GRADED
+        2) VFX
+          
 Type numbers to select or type custom folder names (separate by SPACE)''')
-        level2Selection = input('$ ').split()
-        level2FolderNumber = 1
-        for string in level2Selection:
-            if string == '1':
-                level2FolderName = '_graded'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '2':
-                level2FolderName = '_VFX'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            else:
-                level1FolderName = str(level1FolderNumber) + '. ' + string
-                folderDirectory = os.path.join(projectDirectory, level1FolderName)
-                os.mkdir(folderDirectory)
 
-    elif string == '4':
-        level1FolderName = str(level1FolderNumber) + '. AUDIO'
-        folderDirectory = os.path.join(projectDirectory, level1FolderName)
-        os.mkdir(folderDirectory)
+    level2_footage_selection = input('$ ').split()
+    global level2_footage_folderNumber
+    level2_footage_folderNumber = 1
 
-        # LEVEL 2 FOLDERS
-        clearConsole()
-        print(f'''Select needed level 2 folders for {level1FolderName}:
+    for string in level2_footage_selection:
+        if string == '1':
+            createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'GRADED')
+        elif string == '2':
+            createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'VFX')
+        else:
+            createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, string.upper())
+        level2_footage_folderNumber = level2_footage_folderNumber + 1
+
+
+def createFolder_level2_audio():
+    clearConsole()
+    print(f'''Select needed level 2 folders for {level1_project_folderNumber}. AUDIO
 
     1) PFX
     2) SFX
@@ -235,87 +199,63 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
     8) ADR
 
 Type numbers to select or type custom folder names (separate by SPACE)''')
-        level2Selection = input('$ ').split()
-        level2FolderNumber = 1
-        for string in level2Selection:
-            if string == '1':
-                level2FolderName = str(level2FolderNumber) + '. PFX'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '2':
-                level2FolderName = str(level2FolderNumber) + '. SFX'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '3':
-                level2FolderName = str(level2FolderNumber) + '. FOLEY'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '4':
-                level2FolderName = str(level2FolderNumber) + '. AMBIANCE'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '5':
-                level2FolderName = str(level2FolderNumber) + '. MUSIC'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '6':
-                level2FolderName = str(level2FolderNumber) + '. SOUNDTRACK'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '7':
-                level2FolderName = str(level2FolderNumber) + '. VOICEOVER'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '8':
-                level2FolderName = str(level2FolderNumber) + '. ADR'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            else:
-                level2FolderName = str(level1FolderNumber) + '. ' + string
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            level2FolderNumber = level2FolderNumber + 1
+    
+    level2_audio_selection = input('$ ').split()
+    global level2_audio_folderNumber
+    level2_audio_folderNumber = 1
 
-    elif string == '5':
-        level1FolderName = str(level1FolderNumber) + '. EXPORT'
-        folderDirectory = os.path.join(projectDirectory, level1FolderName)
-        os.mkdir(folderDirectory)
+    for string in level2_audio_selection:
+        if string == '1': createFolder_level2(f'{level1_project_folderNumber}. AUDIO', level2_audio_folderNumber, 'PFX')
+        elif string == '2': createFolder_level2(f'{level1_project_folderNumber}. AUDIO', level2_audio_folderNumber, 'SFX')
+        elif string == '3': createFolder_level2(f'{level1_project_folderNumber}. AUDIO', level2_audio_folderNumber, 'FOLEY')
+        elif string == '4': createFolder_level2(f'{level1_project_folderNumber}. AUDIO', level2_audio_folderNumber, 'AMBIANCE')
+        elif string == '5': createFolder_level2(f'{level1_project_folderNumber}. AUDIO', level2_audio_folderNumber, 'MUSIC')
+        elif string == '6': createFolder_level2(f'{level1_project_folderNumber}. AUDIO', level2_audio_folderNumber, 'SOUNDTRACK')
+        elif string == '7': createFolder_level2(f'{level1_project_folderNumber}. AUDIO', level2_audio_folderNumber, 'VOICEOVER')
+        elif string == '8': createFolder_level2(f'{level1_project_folderNumber}. AUDIO', level2_audio_folderNumber, 'ADR')
+        else: createFolder_level2(f'{level1_project_folderNumber}. AUDIO', level2_audio_selection, string.upper())
+        level2_audio_folderNumber = level2_audio_folderNumber + 1
 
-        # LEVEL 2 FOLDERS
-        clearConsole()
-        print(f'''Select needed level 2 folders for {level1FolderName}:
+
+def createFolder_level2_export():
+    clearConsole()
+    print(f'''Select needed level 2 folders for {level1_project_folderNumber}. EXPORT
 
     1) PREVIEWS
     2) MASTER
     3) DELIVERABLES
 
 Type numbers to select or type custom folder names (separate by SPACE)''')
-        level2Selection = input('$ ').split()
-        level2FolderNumber = 1
-        for string in level2Selection:
-            if string == '1':
-                level2FolderName = str(level2FolderNumber) + '. PREVIEWS'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '2':
-                level2FolderName = str(level2FolderNumber) + '. MASTER'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            elif string == '3':
-                level2FolderName = str(level2FolderNumber) + '. DELIVERABLES'
-                folderDirectory = os.path.join(projectDirectory, level1FolderName, level2FolderName)
-                os.mkdir(folderDirectory)
-            else:
-                level2FolderName = str(level1FolderNumber) + '. ' + string
-                folderDirectory = os.path.join(projectDirectory, level2FolderName)
-                os.mkdir(folderDirectory)
-            level2FolderNumber = level2FolderNumber + 1
+    
+    level2_export_selection = input('$ ').split()
+    global level2_export_folderNumber
+    level2_export_folderNumber = 1
 
-    else:
-        level1FolderName = str(level1FolderNumber) + '. ' + string
-        folderDirectory = os.path.join(projectDirectory, level1FolderName)
-        os.mkdir(folderDirectory)
+    for string in level2_export_selection:
+        if string == '1': createFolder_level2(f'{level1_project_folderNumber}. EXPORT', level2_export_folderNumber, 'PREVIEWS')
+        elif string == '2': createFolder_level2(f'{level1_project_folderNumber}. EXPORT', level2_export_folderNumber, 'MASTER')
+        elif string == '3': createFolder_level2(f'{level1_project_folderNumber}. EXPORT', level2_export_folderNumber, 'DELIVERABLES')
+        else: createFolder_level2(f'{level1_project_folderNumber}. EXPORT', level2_export_folderNumber, string.upper())
+        level2_export_folderNumber = level2_export_folderNumber + 1
 
-    level1FolderNumber = level1FolderNumber + 1
 
-exit()
+def createFolder_level2_custom(level2_custom_parent):
+    clearConsole()
+    print(f'''Select needed level 2 folders for {level2_custom_parent}
+
+Type custom folder names (separate by SPACE)''')
+    
+    level2_custom_selection = input('$ ').split()
+    global level2_custom_folderNumber
+    level2_custom_folderNumber = 1
+
+    for string in level2_custom_selection:
+        createFolder_level2(level2_custom_parent, level2_custom_folderNumber, string.upper())
+        level2_custom_folderNumber = level2_custom_folderNumber + 1
+
+
+
+def main():
+    createFolder_level0()
+    createFolder_level1_project()
+main()
