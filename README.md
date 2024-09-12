@@ -14,6 +14,7 @@ Make sure you have any of the following [Python](https://www.python.org/) versio
   - [3.8](https://www.python.org/downloads/release/python-3810/)  
 
 ## Installation:  
+[Watch YouTube tutorial](https://www.youtube.com/watch?v=NGrjQcJ-8Xs)  
 1. Download the repo by typing `git clone https://github.com/andreasdelabie/init-film` in a terminal or download the zip folder directly from the GitHub page.  
 2. Navigate to the folder by using `cd (path to repo)` or using a file explorer.  
 3. Install all the Python requirements by using `pip install -r requirements.txt`.  
