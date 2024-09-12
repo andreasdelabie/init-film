@@ -18,7 +18,7 @@ Make sure you have any of the following [Python](https://www.python.org/) versio
 1. Download the repo by typing `git clone https://github.com/andreasdelabie/init-film` in a terminal or download the zip folder directly from the GitHub page.  
 2. Navigate to the folder by using `cd (path to repo)` or using a file explorer.  
 3. Install all the Python requirements by using `pip install -r requirements.txt`.  
-4. Run the setup script by using `python setup.py install`.  
+4. Run the setup script by using `python setup.py install` (or `python setup.py develop` if you encounter errors).  
 5. **Don't remove the installation folder, as it contains the source code for the CLI script.**  
 Deleting this folder will break the thing and makes uninstalling a pain :(  
 
