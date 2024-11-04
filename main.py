@@ -166,8 +166,9 @@ def createFolder_level2_footage():
     clearConsole()
     print(f'''Select needed level 2 folders for {level1_project_folderNumber}. FOOTAGE
     
-        1) GRADED
-        2) VFX
+        1) RAW
+        2) GRADED
+        3) VFX
           
 Type numbers to select or type custom folder names (separate by SPACE)''')
 
@@ -177,8 +178,10 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
 
     for string in level2_footage_selection:
         if string == '1':
-            createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'GRADED')
+            createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'RAW')
         elif string == '2':
+            createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'GRADED')
+        elif string == '3':
             createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'VFX')
         else:
             createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, string.upper())
@@ -258,4 +261,3 @@ Type custom folder names (separate by SPACE)''')
 def main():
     createFolder_level0()
     createFolder_level1_project()
-main()
