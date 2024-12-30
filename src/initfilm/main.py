@@ -1,10 +1,9 @@
-import sys, os
-
-osname = os.name
+import os
 
 
 
 def clearConsole():
+    osname = os.name
     if osname == 'nt':
         _ = os.system('cls') # For Windows
     else:

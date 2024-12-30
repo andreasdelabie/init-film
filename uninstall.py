@@ -1,24 +1,41 @@
-import os, sys
+import os, sys, shutil
+version = '1.1.0'
 
 
-# Get & print python path
-pythonVersion = f'{sys.version_info.major}{sys.version_info.minor}'
-pythonPath = os.path.expanduser(f'~\\AppData\\Local\\Programs\\Python\\Python{pythonVersion}\\Scripts')
-print(f'Python version {pythonVersion} ({pythonPath})')
+def showTitle():
+    print('---------------------\nINIT-FILM UNINSTALLER\n---------------------')
 
 
-# Remove script
-scriptName = "init-film"
-scriptFileName1 = scriptName+"-script.py"
-scriptFileName2 = scriptName+".exe"
-scriptPath1 = os.path.join(pythonPath, scriptFileName1)
-scriptPath2 = os.path.join(pythonPath, scriptFileName2)
+def getPythonPath():
+    global pythonVersion, pythonPath
+    pythonVersion = f'{sys.version_info.major}{sys.version_info.minor}'
+    pythonPath = os.path.expanduser(f'~\\AppData\\Local\\Programs\\Python\\Python{pythonVersion}')
 
-if os.path.exists(scriptPath1):
-    os.remove(scriptPath1)
-    print(f'Uninstalled {scriptName} from {scriptPath1}')
-if os.path.exists(scriptPath2):
-    os.remove(scriptPath2)
-    print(f'Uninstalled {scriptName} from {scriptPath2}')
-else:
-    print(f'{scriptName} not found in {pythonPath}')
+    print(f'Python version: {pythonVersion}\nPath: {pythonPath}\n---------------------')
+
+
+def removeFiles():
+    files = [
+        os.path.join(pythonPath, 'Scripts\init-film.exe'),
+        os.path.join(pythonPath, f'Lib\\site-packages\\init_film-{version}.dist-info'),
+        os.path.join(pythonPath, f'Lib\\site-packages\\initfilm')
+    ]
+
+    for file in files:
+        if os.path.exists(file):
+            if os.path.isfile(file):
+                os.remove(file)
+            elif os.path.isdir(file):
+                shutil.rmtree(file)
+            print(f'[REMOVED] {file}')
+        else:
+            print(f'[SKIPPED] {file} (not found or already removed)')
+
+
+def main():
+    showTitle()
+    getPythonPath()
+    removeFiles()
+
+
+main()

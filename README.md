@@ -15,15 +15,10 @@ Make sure you have any of the following [Python](https://www.python.org/) versio
   - [3.8](https://www.python.org/downloads/release/python-3810/)  
 
 ## Installation:  
-[Watch YouTube tutorial](https://www.youtube.com/watch?v=NGrjQcJ-8Xs)  
-1. Download the repo by typing `git clone https://github.com/andreasdelabie/init-film` in a terminal or download the zip folder directly from the GitHub page.  
-2. Navigate to the folder by using `cd (path to repo)` or using a file explorer.  
-3. Install all the Python requirements by using `pip install -r requirements.txt`.  
-4. Run the setup script by using `python setup.py install`.
-5. Test the script by using `init-film`.
-6. If you encounter any errors, run `python setup.py develop` and retry the `init-film` command.
-7. **Don't remove the installation folder, as it contains the source code for the CLI script.**  
-Deleting this folder will break the thing and makes uninstalling a pain :(  
+<s>[Watch YouTube tutorial](https://www.youtube.com/watch?v=NGrjQcJ-8Xs)</s> (depreciated)  
+1. Download the repo by using `git clone https://github.com/andreasdelabie/init-film` in a terminal or download the zip folder from the [releases](https://github.com/andreasdelabie/init-film/releases).  
+2. Navigate to the folder by using `cd [path to folder]` or using a file explorer.  
+3. Use `pip install .` to install the script.  
 
 ## Usage:  
 Use the CLI command `init-film` in any folder to start a new film/video project.  
@@ -31,10 +26,9 @@ Use the CLI command `init-film` in any folder to start a new film/video project.
 Folder names can't contain spaces. Instead use a `-` or `_`.  
 
 ## Uninstalling:  
-1. Navigate to the installation folder by using `cd (path to repo)` or using a file explorer.  
-2. Remove all the script files by using `python uninstall.py`.  
-3. Check that there is no file named `init_film-(version).egg` in `user\appdata\local\programs\python\python(version)\lib\site-packages\`  
-4. You can now safely delete the installation folder.  
+1. Navigate to the installation folder by using `cd [path to folder]` or using a file explorer.  
+2. Remove all the script files by using `python uninstall.py` (currently only works on Windows).  
+3. You can now delete the installation folder.  
 
 ## Support:  
 <a href="https://www.buymeacoffee.com/andreasdelabie"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=andreasdelabie&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff"/></a>  
