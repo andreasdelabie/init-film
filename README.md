@@ -31,9 +31,7 @@ Use the CLI command `init-film` in any folder to start a new film/video project.
 Folder names can't contain spaces. Instead use a `-` or `_`.  
 
 ## Uninstalling:  
-1. Navigate to the installation folder by using `cd [path to folder]` or using a file explorer.  
-2. Remove all the script files by using `python uninstall.py` (currently only works on Windows).  
-3. You can now delete the installation folder.  
+Use `pip uninstall init-film` in a terminal to fully uninstall init-film from your system.
 
 ## Support:  
 <a href="https://www.buymeacoffee.com/andreasdelabie"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=andreasdelabie&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff"/></a>  
