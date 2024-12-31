@@ -15,12 +15,17 @@ Make sure you have any of the following [Python](https://www.python.org/) versio
   - [3.8](https://www.python.org/downloads/release/python-3810/)  
 
 ## Installation:  
+### Method 1 (from PyPi):  
+Use `pip install init-film` in a terminal to install the latest version of init-film.  
+
+### Method 2 (from source):  
 [Watch YouTube tutorial](https://www.youtube.com/watch?v=oiKy_RU5WHE)  
 1. Download the repo by using `git clone https://github.com/andreasdelabie/init-film` in a terminal or download the zip folder from the [releases](https://github.com/andreasdelabie/init-film/releases).  
 2. Navigate to the folder by using `cd [path to folder]` or using a file explorer.  
 3. Use `pip install .` to install the script.  
 
 ## Usage:  
+### Basic usage:  
 Use the CLI command `init-film` in any folder to start a new film/video project.  
 ### Custom folder names:  
 Folder names can't contain spaces. Instead use a `-` or `_`.  
