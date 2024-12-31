@@ -5,6 +5,26 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "init-film"
 version = "1.1.0"
+authors = [{name="Andreas Delabie", email="andreas.delabie@gmail.com"}]
+description = "Tired of manually creating folder structures for your film/video projects? Want a folder structure that dynamically changes based on the needs for your project? Then Init-Film was made for you! By filmmakers, for filmmakers ;)"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Natural Language :: English",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Multimedia :: Video"
+]
+
+[project.urls]
+Repository = "https://github.com/andreasdelabie/init-film"
+Issues = "https://github.com/andreasdelabie/init-film/issues"
+Donate = "https://www.buymeacoffee.com/andreasdelabie"
 
 [project.scripts]
 init-film = "initfilm.main:main"
