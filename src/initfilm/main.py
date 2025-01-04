@@ -39,6 +39,7 @@ def createFolder_level1_project():
     3) FOOTAGE
     4) AUDIO
     5) EXPORT
+    6) MARKETING
 
 Type numbers to select or type custom folder names (separate by SPACE)''')
 
@@ -62,6 +63,9 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
         elif string == '5':
             createFolder_level1(level1_project_folderNumber, 'EXPORT')
             createFolder_level2_export()
+        elif string == '6':
+            createFolder_level1(level1_project_folderNumber, 'MARKETING')
+            createFolder_level2_marketing()
         else:
             createFolder_level1(level1_project_folderNumber, string.upper())
             createFolder_level2_custom(f'{str(level1_project_folderNumber)}. ' + string.upper())
@@ -239,6 +243,28 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
         elif string == '3': createFolder_level2(f'{level1_project_folderNumber}. EXPORT', level2_export_folderNumber, 'DELIVERABLES')
         else: createFolder_level2(f'{level1_project_folderNumber}. EXPORT', level2_export_folderNumber, string.upper())
         level2_export_folderNumber = level2_export_folderNumber + 1
+
+
+def createFolder_level2_marketing():
+    clearConsole()
+    print(f'''Select needed level 2 folders for {level1_project_folderNumber}. MARKETING
+    
+    1) POSTERS
+    2) SOCIAL MEDIA
+    3) TRAILERS
+    
+Type numbers to select or type custom folder names (separate by SPACE)''')
+    
+    level2_marketing_selection = input('$ ').split()
+    global level2_marketing_folderNumber
+    level2_marketing_folderNumber = 1
+
+    for string in level2_marketing_selection:
+        if string == '1': createFolder_level2(f'{level1_project_folderNumber}. MARKETING', level2_marketing_folderNumber, 'POSTERS')
+        elif string == '2': createFolder_level2(f'{level1_project_folderNumber}. MARKETING', level2_marketing_folderNumber, 'SOCIAL MEDIA')
+        elif string == '3': createFolder_level2(f'{level1_project_folderNumber}. MARKETING', level2_marketing_folderNumber, 'TRAILERS')
+        else: createFolder_level2(f'{level1_project_folderNumber}. MARKETING', level2_marketing_folderNumber, string.upper())
+        level2_marketing_folderNumber = level2_marketing_folderNumber + 1
 
 
 def createFolder_level2_custom(level2_custom_parent):

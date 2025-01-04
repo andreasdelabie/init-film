@@ -28,7 +28,7 @@ Use `pip install init-film` in a terminal to install the latest version of init-
 ### Basic usage:  
 Use the CLI command `init-film` in any folder to start a new film/video project.  
 ### Custom folder names:  
-Folder names can't contain spaces. Instead use a `-` or `_`.  
+Folder names can't contain spaces (with the exception of the project name). Instead use a `-` or `_`.  
 
 ## Uninstalling:  
 Use `pip uninstall init-film` in a terminal to fully uninstall init-film from your system.

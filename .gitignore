@@ -1,5 +1,6 @@
 /.vscode
 /.tox
 /build
+/dist
 */init_film.egg-info
 tox.ini
