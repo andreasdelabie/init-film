@@ -6,6 +6,7 @@ Then Init-Film was made for you!
 By filmmakers, for filmmakers ;)  
 ### ->>[Watch showcase](https://www.youtube.com/watch?v=QheWe-1PqUM)<<-  
 
+
 ## Before installing:  
 Make sure you have any of the following [Python](https://www.python.org/) versions installed (tested with tox):  
   - [3.13](https://www.python.org/downloads/release/python-3131/) (recommended)  
@@ -14,6 +15,7 @@ Make sure you have any of the following [Python](https://www.python.org/) versio
   - [3.10](https://www.python.org/downloads/release/python-31011/)  
   - [3.9](https://www.python.org/downloads/release/python-3913/)  
   - [3.8](https://www.python.org/downloads/release/python-3810/)  
+
 
 ## Installation:  
 ### Method 1 (from PyPi):  
@@ -26,10 +28,6 @@ Use `pip install init-film` to install the latest version of init-film.
 2. Navigate to the folder by using `cd [path to folder]` or using a file explorer.  
 3. Use `pip install .` to install the script.  
 
-### Method 3 (for externally managed environments):  
-1. Install [pipx](https://github.com/pypa/pipx) (follow instructions for your OS).  
-2. Use `pipx install init-film` to install the latest version of init-film.  
-3. Use `pipx ensurepath` to add `~/.local/bin` to `PATH`.  
 
 ## Usage:  
 [Watch showcase](https://www.youtube.com/watch?v=QheWe-1PqUM)  
@@ -38,8 +36,14 @@ Use the CLI command `init-film` in any folder to start a new film/video project.
 ### Custom folder names:  
 Folder names can't contain spaces (with the exception of the project name). Instead use a `-` or `_`.  
 
+
+## Updating:  
+Use `pip install --upgrade init-film` to update to the latest version of init-film.  
+
+
 ## Uninstalling:  
 Use `pip uninstall init-film` to fully uninstall init-film from your system.
+
 
 ## Support:  
 <a href="https://www.buymeacoffee.com/andreasdelabie"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=andreasdelabie&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff"/></a>  
