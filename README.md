@@ -4,6 +4,7 @@ Tired of manually creating folder structures for your film/video projects?
 Want a folder structure that dynamically changes based on the needs for your project?  
 Then Init-Film was made for you!  
 By filmmakers, for filmmakers ;)  
+### ->>[Watch showcase](https://www.youtube.com/watch?v=QheWe-1PqUM)<<-  
 
 ## Before installing:  
 Make sure you have any of the following [Python](https://www.python.org/) versions installed (tested with tox):  
@@ -16,6 +17,7 @@ Make sure you have any of the following [Python](https://www.python.org/) versio
 
 ## Installation:  
 ### Method 1 (from PyPi):  
+[Watch YouTube tutorial](https://www.youtube.com/watch?v=Z5_rhFlNFM8)  
 Use `pip install init-film` to install the latest version of init-film.  
 
 ### Method 2 (from source):  
@@ -30,6 +32,7 @@ Use `pip install init-film` to install the latest version of init-film.
 3. Use `pipx ensurepath` to add `~/.local/bin` to `PATH`.  
 
 ## Usage:  
+[Watch showcase](https://www.youtube.com/watch?v=QheWe-1PqUM)  
 ### Basic usage:  
 Use the CLI command `init-film` in any folder to start a new film/video project.  
 ### Custom folder names:  
