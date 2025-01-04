@@ -22,6 +22,8 @@ def createFolder_level0():
 
     os.mkdir(projectDirectory)
 
+    createFolder_level1_project()
+
 
 def createFolder_level1(number, name):
     level1_folder_name = f'{str(number)}. {name}'
@@ -280,9 +282,3 @@ Type custom folder names (separate by SPACE)''')
     for string in level2_custom_selection:
         createFolder_level2(level2_custom_parent, level2_custom_folderNumber, string.upper())
         level2_custom_folderNumber = level2_custom_folderNumber + 1
-
-
-
-def main():
-    createFolder_level0()
-    createFolder_level1_project()

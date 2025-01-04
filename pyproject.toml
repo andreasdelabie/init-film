@@ -27,4 +27,4 @@ Issues = "https://github.com/andreasdelabie/init-film/issues"
 Donate = "https://www.buymeacoffee.com/andreasdelabie"
 
 [project.scripts]
-init-film = "initfilm.main:main"
+init-film = "initfilm.main:createFolder_level0"
