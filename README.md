@@ -16,13 +16,18 @@ Make sure you have any of the following [Python](https://www.python.org/) versio
 
 ## Installation:  
 ### Method 1 (from PyPi):  
-Use `pip install init-film` in a terminal to install the latest version of init-film.  
+Use `pip install init-film` to install the latest version of init-film.  
 
 ### Method 2 (from source):  
 [Watch YouTube tutorial](https://www.youtube.com/watch?v=oiKy_RU5WHE)  
-1. Download the repo by using `git clone https://github.com/andreasdelabie/init-film` in a terminal or download the zip folder from the [releases](https://github.com/andreasdelabie/init-film/releases).  
+1. Download the repo by using `git clone https://github.com/andreasdelabie/init-film` or download the zip folder from the [releases](https://github.com/andreasdelabie/init-film/releases).  
 2. Navigate to the folder by using `cd [path to folder]` or using a file explorer.  
 3. Use `pip install .` to install the script.  
+
+### Method 3 (for externally managed environments):  
+1. Install [pipx](https://github.com/pypa/pipx) (follow instructions for your OS).  
+2. Use `pipx install init-film` to install the latest version of init-film.  
+3. Use `pipx ensurepath` to add `~/.local/bin` to `PATH`.  
 
 ## Usage:  
 ### Basic usage:  
@@ -31,7 +36,7 @@ Use the CLI command `init-film` in any folder to start a new film/video project.
 Folder names can't contain spaces (with the exception of the project name). Instead use a `-` or `_`.  
 
 ## Uninstalling:  
-Use `pip uninstall init-film` in a terminal to fully uninstall init-film from your system.
+Use `pip uninstall init-film` to fully uninstall init-film from your system.
 
 ## Support:  
 <a href="https://www.buymeacoffee.com/andreasdelabie"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=andreasdelabie&button_colour=FFDD00&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=ffffff"/></a>  
