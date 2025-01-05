@@ -26,7 +26,11 @@ Use `pip install init-film` to install the latest version of init-film.
 [Watch YouTube tutorial](https://www.youtube.com/watch?v=oiKy_RU5WHE)  
 1. Download the repo by using `git clone https://github.com/andreasdelabie/init-film` or download the zip folder from the [releases](https://github.com/andreasdelabie/init-film/releases).  
 2. Navigate to the folder by using `cd [path to folder]` or using a file explorer.  
-3. Use `pip install .` to install the script.  
+3. Use `pip install .` to install the script.
+
+### Error: externally-managed-environment
+![image](https://github.com/user-attachments/assets/71cae57b-8baf-4a1f-b0ac-3bbf978bff38)  
+Check out the documentation for [externally managed environments](https://github.com/andreasdelabie/init-film/blob/main/README-ExternallyManagedEnvironments.md).
 
 
 ## Usage:  
