@@ -10,6 +10,7 @@ def clearConsole():
         _ = os.system('clear') # For macOS & Linux
 
 
+
 def createFolder_level0():
     global projectDirectory, workingTitle
 
@@ -25,11 +26,13 @@ def createFolder_level0():
     createFolder_level1_project()
 
 
+
 def createFolder_level1(number, name):
     level1_folder_name = f'{str(number)}. {name}'
     level1_folder_directory = os.path.join(projectDirectory, level1_folder_name)
 
     os.mkdir(level1_folder_directory)
+
 
 
 def createFolder_level1_project():
@@ -41,7 +44,8 @@ def createFolder_level1_project():
     3) FOOTAGE
     4) AUDIO
     5) EXPORT
-    6) MARKETING
+    6) DOCUMENTS
+    7) MARKETING
 
 Type numbers to select or type custom folder names (separate by SPACE)''')
 
@@ -66,6 +70,9 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
             createFolder_level1(level1_project_folderNumber, 'EXPORT')
             createFolder_level2_export()
         elif string == '6':
+            createFolder_level1(level1_project_folderNumber, 'DOCUMENTS')
+            createFolder_level2_documents()
+        elif string == '7':
             createFolder_level1(level1_project_folderNumber, 'MARKETING')
             createFolder_level2_marketing()
         else:
@@ -74,11 +81,13 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
         level1_project_folderNumber = level1_project_folderNumber + 1
 
 
+
 def createFolder_level2(parent, number, name):
     level2_folder_name = f'{str(number)}. {name}'
     level2_folder_directory = os.path.join(projectDirectory, parent, level2_folder_name)
 
     os.mkdir(level2_folder_directory)
+
 
 
 def createFolder_level2_projectFiles():
@@ -152,9 +161,16 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
         level2_projectFiles_folderNumber = level2_projectFiles_folderNumber + 1
 
 
+
 def createFolder_level2_assets():
     clearConsole()
     print(f'''Select needed level 2 folders for {level1_project_folderNumber}. ASSETS
+
+    1. LOGOS
+    2. GRAPHICS
+    3. FONTS
+    4. OVERLAYS
+    5. REFERENCE
 
 Type custom folder names (separate by SPACE)''')
 
@@ -163,8 +179,14 @@ Type custom folder names (separate by SPACE)''')
     level2_assets_folderNumber = 1
 
     for string in level2_assets_selection:
-        createFolder_level2(f'{level1_project_folderNumber}. ASSETS', level2_assets_folderNumber, string.upper())
+        if string == '1': createFolder_level2(f'{level1_project_folderNumber}. ASSETS', level2_assets_folderNumber, 'LOGOS')
+        elif string == '2': createFolder_level2(f'{level1_project_folderNumber}. ASSETS', level2_assets_folderNumber, 'GRAPHICS')
+        elif string == '3': createFolder_level2(f'{level1_project_folderNumber}. ASSETS', level2_assets_folderNumber, 'FONTS')
+        elif string == '4': createFolder_level2(f'{level1_project_folderNumber}. ASSETS', level2_assets_folderNumber, 'OVERLAYS')
+        elif string == '5': createFolder_level2(f'{level1_project_folderNumber}. ASSETS', level2_assets_folderNumber, 'REFERENCE')
+        else: createFolder_level2(f'{level1_project_folderNumber}. ASSETS', level2_assets_folderNumber, string.upper())
         level2_assets_folderNumber = level2_assets_folderNumber + 1
+
 
 
 def createFolder_level2_footage():
@@ -172,8 +194,10 @@ def createFolder_level2_footage():
     print(f'''Select needed level 2 folders for {level1_project_folderNumber}. FOOTAGE
     
         1) RAW
-        2) GRADED
-        3) VFX
+        2) PROXIES
+        3) STOCK
+        4) VFX
+        5) GRADED
           
 Type numbers to select or type custom folder names (separate by SPACE)''')
 
@@ -182,15 +206,14 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
     level2_footage_folderNumber = 1
 
     for string in level2_footage_selection:
-        if string == '1':
-            createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'RAW')
-        elif string == '2':
-            createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'GRADED')
-        elif string == '3':
-            createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'VFX')
-        else:
-            createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, string.upper())
+        if string == '1': createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'RAW')
+        elif string == '2': createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'PROXIES')
+        elif string == '3': createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'STOCK')
+        elif string == '4': createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'VFX')
+        elif string == '5': createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'GRADED')
+        else: createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, string.upper())
         level2_footage_folderNumber = level2_footage_folderNumber + 1
+
 
 
 def createFolder_level2_audio():
@@ -225,6 +248,7 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
         level2_audio_folderNumber = level2_audio_folderNumber + 1
 
 
+
 def createFolder_level2_export():
     clearConsole()
     print(f'''Select needed level 2 folders for {level1_project_folderNumber}. EXPORT
@@ -247,6 +271,34 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
         level2_export_folderNumber = level2_export_folderNumber + 1
 
 
+
+def createFolder_level2_documents():
+    clearConsole()
+    print(f'''Select needed level 2 folders for {level1_project_folderNumber}. DOCUMENTS
+    
+    1) MOODBOARD
+    2) STORYBOARD
+    3) SCRIPT
+    4) LEGAL
+    5) FINANCIAL
+
+Type numbers to select or type custom folder names (separate by SPACE)''')
+    
+    level2_documents_selection = input('$ ').split()
+    global level2_documents_folderNumber
+    level2_documents_folderNumber = 1
+
+    for string in level2_documents_selection:
+        if string == '1': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'MOODBOARD')
+        elif string == '2': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'STORYBOARD')
+        elif string == '3': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'SCRIPT')
+        elif string == '4': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'LEGAL')
+        elif string == '5': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'FINANCIAL')
+        else: createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, string.upper())
+        level2_documents_folderNumber = level2_documents_folderNumber + 1
+
+
+
 def createFolder_level2_marketing():
     clearConsole()
     print(f'''Select needed level 2 folders for {level1_project_folderNumber}. MARKETING
@@ -267,6 +319,7 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
         elif string == '3': createFolder_level2(f'{level1_project_folderNumber}. MARKETING', level2_marketing_folderNumber, 'TRAILERS')
         else: createFolder_level2(f'{level1_project_folderNumber}. MARKETING', level2_marketing_folderNumber, string.upper())
         level2_marketing_folderNumber = level2_marketing_folderNumber + 1
+
 
 
 def createFolder_level2_custom(level2_custom_parent):
