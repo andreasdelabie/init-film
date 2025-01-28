@@ -193,11 +193,11 @@ def createFolder_level2_footage():
     clearConsole()
     print(f'''Select needed level 2 folders for {level1_project_folderNumber}. FOOTAGE
     
-        1) RAW
-        2) PROXIES
-        3) STOCK
-        4) VFX
-        5) GRADED
+    1) RAW
+    2) PROXIES
+    3) STOCK
+    4) VFX
+    5) GRADED
           
 Type numbers to select or type custom folder names (separate by SPACE)''')
 
