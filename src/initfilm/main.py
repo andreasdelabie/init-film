@@ -206,7 +206,9 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
     level2_footage_folderNumber = 1
 
     for string in level2_footage_selection:
-        if string == '1': createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'RAW')
+        if string == '1':
+            createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'RAW')
+            createFolder_level3_raw()
         elif string == '2': createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'PROXIES')
         elif string == '3': createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'STOCK')
         elif string == '4': createFolder_level2(f'{level1_project_folderNumber}. FOOTAGE', level2_footage_folderNumber, 'VFX')
@@ -335,3 +337,37 @@ Type custom folder names (separate by SPACE)''')
     for string in level2_custom_selection:
         createFolder_level2(level2_custom_parent, level2_custom_folderNumber, string.upper())
         level2_custom_folderNumber = level2_custom_folderNumber + 1
+
+
+
+def createFolder_level3(parent_level1, parent_level2, number, name):
+    level3_folder_name = f'{str(number)}. {name}'
+    level3_folder_directory = os.path.join(projectDirectory, parent_level1, parent_level2, level3_folder_name)
+
+    os.mkdir(level3_folder_directory)
+
+
+
+def createFolder_level3_raw():
+    clearConsole()
+    print(f'''Select needer level 3 folders for {level2_footage_folderNumber}. RAW
+    1) A-CAM
+    2) B-CAM
+    3) C-CAM
+    4) D-CAM
+    99) SORT LATER
+
+Type numbers to select or type custom folder names (separate by SPACE)''')
+    
+    level3_raw_selection = input('$ ').split()
+    global level3_raw_folderNumber
+    level3_raw_folderNumber = 1
+
+    for string in level3_raw_selection:
+        if string == '1': createFolder_level3(f'{level1_project_folderNumber}. FOOTAGE', f'{level2_footage_folderNumber}. RAW', level3_raw_folderNumber, 'A-CAM')
+        elif string == '2': createFolder_level3(f'{level1_project_folderNumber}. FOOTAGE', f'{level2_footage_folderNumber}. RAW', level3_raw_folderNumber, 'B-CAM')
+        elif string == '3': createFolder_level3(f'{level1_project_folderNumber}. FOOTAGE', f'{level2_footage_folderNumber}. RAW', level3_raw_folderNumber, 'C-CAM')
+        elif string == '4': createFolder_level3(f'{level1_project_folderNumber}. FOOTAGE', f'{level2_footage_folderNumber}. RAW', level3_raw_folderNumber, 'D-CAM')
+        elif string == '99': createFolder_level3(f'{level1_project_folderNumber}. FOOTAGE', f'{level2_footage_folderNumber}. RAW', 99, 'SORT LATER')
+        else: createFolder_level3(f'{level1_project_folderNumber}. FOOTAGE', f'{level2_footage_folderNumber}. RAW', level3_raw_folderNumber, string.upper())
+        level3_raw_folderNumber = level3_raw_folderNumber + 1
