@@ -278,11 +278,13 @@ def createFolder_level2_documents():
     clearConsole()
     print(f'''Select needed level 2 folders for {level1_project_folderNumber}. DOCUMENTS
     
-    1) MOODBOARD
-    2) STORYBOARD
-    3) SCRIPT
-    4) LEGAL
-    5) FINANCIAL
+    1) NOTES
+    2) MOODBOARD
+    3) STORYBOARD
+    4) SCRIPT
+    5) PITCH
+    6) LEGAL
+    7) FINANCIAL
 
 Type numbers to select or type custom folder names (separate by SPACE)''')
     
@@ -291,11 +293,13 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
     level2_documents_folderNumber = 1
 
     for string in level2_documents_selection:
-        if string == '1': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'MOODBOARD')
-        elif string == '2': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'STORYBOARD')
-        elif string == '3': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'SCRIPT')
-        elif string == '4': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'LEGAL')
-        elif string == '5': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'FINANCIAL')
+        if string == '1': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'NOTES')
+        elif string == '2': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'MOODBOARD')
+        elif string == '3': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'STORYBOARD')
+        elif string == '4': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'SCRIPT')
+        elif string == '5': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'PITCH')
+        elif string == '6': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'LEGAL')
+        elif string == '7': createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, 'FINANCIAL')
         else: createFolder_level2(f'{level1_project_folderNumber}. DOCUMENTS', level2_documents_folderNumber, string.upper())
         level2_documents_folderNumber = level2_documents_folderNumber + 1
 
