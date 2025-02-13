@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "init-film"
-version = "1.1.8"
+version = "1.2.0"
 authors = [
     {name = "Andreas Delabie"},
     {email = "andreas.delabie@gmail.com"}
@@ -13,6 +13,9 @@ description = "Tired of manually creating folder structures for your film/video 
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.8"
+dependencies = [
+    "importlib.metadata>8.6"
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python :: 3",
@@ -26,8 +29,9 @@ classifiers = [
 
 [project.urls]
 Repository = "https://github.com/andreasdelabie/init-film"
+Changelog = "https://github.com/andreasdelabie/init-film/releases"
 Issues = "https://github.com/andreasdelabie/init-film/issues"
 Donate = "https://www.buymeacoffee.com/andreasdelabie"
 
 [project.scripts]
-init-film = "initfilm.main:createFolder_level0"
+init-film = "initfilm.cli:main"

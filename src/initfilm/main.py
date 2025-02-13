@@ -27,7 +27,7 @@ def createFolder_level0():
 
 
 
-def createFolder_level1(number, name):
+def createFolder_level1(number:int, name:str):
     level1_folder_name = f'{str(number)}. {name}'
     level1_folder_directory = os.path.join(projectDirectory, level1_folder_name)
 
@@ -82,7 +82,7 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
 
 
 
-def createFolder_level2(parent, number, name):
+def createFolder_level2(parent:str, number:int, name:str):
     level2_folder_name = f'{str(number)}. {name}'
     level2_folder_directory = os.path.join(projectDirectory, parent, level2_folder_name)
 
@@ -344,7 +344,7 @@ Type custom folder names (separate by SPACE)''')
 
 
 
-def createFolder_level3(parent_level1, parent_level2, number, name):
+def createFolder_level3(parent_level1:str, parent_level2:str, number:int, name:str):
     level3_folder_name = f'{str(number)}. {name}'
     level3_folder_directory = os.path.join(projectDirectory, parent_level1, parent_level2, level3_folder_name)
 
