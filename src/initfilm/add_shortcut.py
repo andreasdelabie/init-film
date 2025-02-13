@@ -1,4 +1,4 @@
-import os, sys, requests
+import os, sys, requests, darkdetect
 
 
 def main():
@@ -13,8 +13,12 @@ def main():
     try:
         user = os.path.expanduser("~")
         python = f"Python{sys.version_info.major}{sys.version_info.minor}"
+        windows_theme = darkdetect.theme()
 
-        image_data = requests.get("https://raw.githubusercontent.com/andreasdelabie/init-film/refs/heads/main/logo/Init-Film_Icon.ico").content
+        if windows_theme == 'Dark':
+            image_data = requests.get("https://raw.githubusercontent.com/andreasdelabie/init-film/refs/heads/main/logo/Init-Film_Icon_White.ico").content
+        else:
+            image_data = requests.get("https://raw.githubusercontent.com/andreasdelabie/init-film/refs/heads/main/logo/Init-Film_Icon_Black.ico").content
         with open(f"{user}\AppData\Local\Programs\Python\{python}\Lib\site-packages\initfilm\Init-Film_Icon.ico", 'wb') as file:
             file.write(image_data)
 
@@ -28,7 +32,7 @@ def main():
         winreg.SetValueEx(initfilm, "Icon", 0, winreg.REG_SZ, f"{user}\AppData\Local\Programs\Python\{python}\Lib\site-packages\initfilm\Init-Film_Icon.ico") # Shortcut icon
         winreg.SetValueEx(command, "", 0, winreg.REG_SZ, f"{user}\AppData\Local\Programs\Python\{python}\Scripts\init-film.exe") # Shortcut executable path
         
-        print("Successfully added Init-Film to context menu!")
+        print("Successfully added Init-Film to context menu!\nIt's best to restart your PC now.")
 
 
     except Exception as err:
