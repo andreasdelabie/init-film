@@ -14,7 +14,7 @@ def main():
         user = os.path.expanduser("~")
         python = f"Python{sys.version_info.major}{sys.version_info.minor}"
 
-        image_data = requests.get("https://github.com/andreasdelabie/init-film/blob/a8777b7cb77b9a099a04a985a70f354024e5317b/logo/Init-Film_Icon.ico").content
+        image_data = requests.get("https://raw.githubusercontent.com/andreasdelabie/init-film/refs/heads/main/logo/Init-Film_Icon.ico").content
         with open(f"{user}\AppData\Local\Programs\Python\{python}\Lib\site-packages\initfilm\Init-Film_Icon.ico", 'wb') as file:
             file.write(image_data)
 

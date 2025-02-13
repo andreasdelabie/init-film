@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "init-film"
-version = "1.2.2"
+version = "1.2.3"
 authors = [
     {name = "Andreas Delabie"},
     {email = "andreas.delabie@gmail.com"}
