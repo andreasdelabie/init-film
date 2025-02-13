@@ -1,4 +1,4 @@
-import os, winreg
+import os
 
 
 def main():
@@ -6,6 +6,8 @@ def main():
     if osname != 'nt':
         print("This feature currently only works on Windows!")
         exit()
+    else:
+        import winreg
 
 
     try:
