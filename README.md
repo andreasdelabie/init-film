@@ -39,6 +39,11 @@ Check out the documentation for [externally managed environments](https://github
 Use the CLI command `init-film` in any folder to start a new film/video project.  
 ### Custom folder names:  
 Folder names can't contain spaces (with the exception of the project name). Instead use a `-` or `_`.  
+### Add shortcut to Windows context menu (right click menu):  
+Use `init-film --add-shortcut` to add Init-Film to your Windows context menu.  
+Use `init-film --remove-shortcut` to remove it.  
+### Help:  
+Use `init-film --help` or `init-film -h` to show the help screen.  
 
 
 ## Updating:  
