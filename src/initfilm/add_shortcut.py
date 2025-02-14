@@ -15,13 +15,6 @@ def main():
         python = f"Python{sys.version_info.major}{sys.version_info.minor}"
         windows_theme = darkdetect.theme()
 
-        if windows_theme == 'Dark':
-            image_data = requests.get("https://raw.githubusercontent.com/andreasdelabie/init-film/refs/heads/main/logo/Init-Film_Icon_White.ico").content
-        else:
-            image_data = requests.get("https://raw.githubusercontent.com/andreasdelabie/init-film/refs/heads/main/logo/Init-Film_Icon_Black.ico").content
-        with open(f"{user}\AppData\Local\Programs\Python\{python}\Lib\site-packages\initfilm\Init-Film_Icon.ico", 'wb') as file:
-            file.write(image_data)
-
         location = winreg.HKEY_CLASSES_ROOT
         shell = winreg.OpenKeyEx(location, r"Directory\\Background\\shell")
 
@@ -29,10 +22,14 @@ def main():
         command = winreg.CreateKey(initfilm, "command")
 
         winreg.SetValueEx(initfilm, "", 0, winreg.REG_SZ, "Start Init-Film Project") # Shortcut name
-        winreg.SetValueEx(initfilm, "Icon", 0, winreg.REG_SZ, f"{user}\AppData\Local\Programs\Python\{python}\Lib\site-packages\initfilm\Init-Film_Icon.ico") # Shortcut icon
         winreg.SetValueEx(command, "", 0, winreg.REG_SZ, f"{user}\AppData\Local\Programs\Python\{python}\Scripts\init-film.exe") # Shortcut executable path
+
+        if windows_theme == 'Dark':
+            winreg.SetValueEx(initfilm, "Icon", 0, winreg.REG_SZ, f"{user}\AppData\Local\Programs\Python\{python}\Lib\site-packages\initfilm\Init-Film_Icon_White.ico")
+        else:
+            winreg.SetValueEx(initfilm, "Icon", 0, winreg.REG_SZ, f"{user}\AppData\Local\Programs\Python\{python}\Lib\site-packages\initfilm\Init-Film_Icon_Black.ico")
         
-        print("Successfully added Init-Film to context menu!\nIt's best to restart your PC now.")
+        print("Successfully added Init-Film to context menu!")
 
 
     except Exception as err:

@@ -1,4 +1,4 @@
-import os, sys
+import os
 
 
 def main():
@@ -11,11 +11,6 @@ def main():
 
 
     try:
-        user = os.path.expanduser("~")
-        python = f"Python{sys.version_info.major}{sys.version_info.minor}"
-
-        os.remove(f"{user}\AppData\Local\Programs\Python\{python}\Lib\site-packages\initfilm\Init-Film_Icon.ico")
-
         location = winreg.HKEY_CLASSES_ROOT
         shell = winreg.OpenKeyEx(location, r"Directory\\Background\\shell")
         initfilm = winreg.CreateKey(shell, "Init-Film")
