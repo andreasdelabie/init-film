@@ -34,4 +34,9 @@ def main():
 
 
     except Exception as err:
-        print(err, "\nAre you administrator?")
+        if str(err).__contains__('WinError 5'):
+            print(err, "\n\nAre you administrator?")
+        elif str(err).__contains__('WinError 2'):
+            print(err, "\n\nThis probably means the shortcut has already been removed, or hasn't been installed correctly...")
+        else:
+            print(err)

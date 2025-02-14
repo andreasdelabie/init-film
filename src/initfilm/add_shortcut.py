@@ -36,4 +36,7 @@ def main():
 
 
     except Exception as err:
-        print(err, "\nAre you administrator?")
+        if str(err).__contains__('WinError 5'):
+            print(err, "\n\nAre you administrator?")
+        else:
+            print(err)
