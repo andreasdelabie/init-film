@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "init-film"
-version = "1.2.5"
+version = "1.2.6"
 authors = [
     {name = "Andreas Delabie"},
     {email = "andreas.delabie@gmail.com"}
@@ -39,4 +39,4 @@ Donate = "https://www.buymeacoffee.com/andreasdelabie"
 init-film = "initfilm.cli:main"
 
 [tool.setuptools.package-data]
-initfilm = ["Init-Film_Icon_White.ico", "Init-Film_Icon_Black.ico"]
+initfilm = ["*.ico", "*.json"]

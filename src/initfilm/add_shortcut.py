@@ -1,4 +1,4 @@
-import os, sys, requests, darkdetect
+import os, sys, darkdetect
 
 
 def main():

@@ -2,6 +2,7 @@ import sys, importlib.metadata
 import initfilm.main
 import initfilm.add_shortcut
 import initfilm.remove_shortcut
+import initfilm.config
 
 
 def main():
@@ -21,11 +22,25 @@ By Andreas Delabie
 Usage: init-film [option]
 
 Options:
-    --add-shortcut      Adds the Init-Film shortcut to the Windows context menu (right click menu)
-    --remove-shortcut   Removes the Init-Film shortcut to the Windows context menu (right click menu)
-    -v --version        Print current version
-    -h --help           Shows this screen
+    --set-number-style      Set number style to default (1. PROJECT FILES) or double (01. PROJECT FILES)
+    --set-separator-style   Set separator style to dot (default), underscore, parenthesis or space
+    --show-config           Print current configuration
+
+    --add-shortcut          Adds the Init-Film shortcut to the Windows context menu (right click menu)
+    --remove-shortcut       Removes the Init-Film shortcut to the Windows context menu (right click menu)
+
+    -v --version            Print current version
+    -h --help               Shows this screen
 ''')
+        
+        elif argument == "--set-number-style":
+            initfilm.config.setNumberStyle(sys.argv[2])
+        
+        elif argument == "--set-separator-style":
+            initfilm.config.setSeparatorStyle(sys.argv[2])
+        
+        elif argument == "--show-config":
+            initfilm.config.show()
 
         elif argument == "--add-shortcut":
             initfilm.add_shortcut.main()
