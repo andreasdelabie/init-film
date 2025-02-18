@@ -20,24 +20,31 @@ By Andreas Delabie
 ------------------
 
 Usage: init-film [option]
+e.g. init-film --set-number-style double
 
 Options:
-    --set-number-style      Set number style to default (1. PROJECT FILES) or double (01. PROJECT FILES)
-    --set-separator-style   Set separator style to dot (default), underscore, parenthesis or space
-    --show-config           Print current configuration
+    --set-number-style <style>      Set number style to default (1. PROJECT FILES) or double (01. PROJECT FILES)
+    --set-separator-style <style>   Set separator style to dot (default), underscore, parenthesis or space
+    --show-config                   Print current configuration
 
-    --add-shortcut          Adds the Init-Film shortcut to the Windows context menu (right click menu)
-    --remove-shortcut       Removes the Init-Film shortcut to the Windows context menu (right click menu)
+    --add-shortcut                  Adds the Init-Film shortcut to the Windows context menu (right click menu)
+    --remove-shortcut               Removes the Init-Film shortcut to the Windows context menu (right click menu)
 
-    -v --version            Print current version
-    -h --help               Shows this screen
+    -v --version                    Print current version
+    -h --help                       Shows this screen
 ''')
         
         elif argument == "--set-number-style":
-            initfilm.config.setNumberStyle(sys.argv[2])
+            if len(sys.argv) > 2:
+                initfilm.config.setNumberStyle(sys.argv[2])
+            else:
+                print("Please specify a valid number style like 'default' or 'double'.")
         
         elif argument == "--set-separator-style":
-            initfilm.config.setSeparatorStyle(sys.argv[2])
+            if len(sys.argv) > 2:
+                initfilm.config.setSeparatorStyle(sys.argv[2])
+            else:
+                print("Please specify a valid separator style like 'dot', 'underscore', 'parenthesis' or 'space'.")
         
         elif argument == "--show-config":
             initfilm.config.show()
