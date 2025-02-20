@@ -4,6 +4,8 @@ import initfilm.config
 
 
 def clearConsole():
+    """Clears the console."""
+
     osname = os.name
     if osname == 'nt':
         _ = os.system('cls') # For Windows
@@ -12,7 +14,13 @@ def clearConsole():
 
 
 
-def prefix(number_input:int):
+def prefix(number_input:int) -> str:
+    """Returns a styled prefix based on the values in the config file.
+    Args:
+        number_input (int): The prefix number.
+    Returns:
+        prefix (str): Styled prefix with a number and separator."""
+
     number_style = initfilm.config.get("prefix", "number_style")
     separator_style = initfilm.config.get("prefix", "separator_style")
 

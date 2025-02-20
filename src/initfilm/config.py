@@ -1,14 +1,19 @@
-import os, sys, json
+import sysconfig, json
 
 
 
-user = os.path.expanduser("~")
-python = f"Python{sys.version_info.major}{sys.version_info.minor}"
+python_sitepackages = sysconfig.get_path("purelib")
 
 
 
 def set(name:str, parameter:str, value:str):
-    with open(f"{user}\AppData\Local\Programs\Python\{python}\Lib\site-packages\initfilm\config.json", "r+") as file:
+    """Change values in the config file.
+    Args:
+        name (str): Name of the config property you want to change. (ex. 'prefix' or 'templates')
+        parameter (str): Name of the property parameter you want to change. (ex. 'number_style' or 'path')
+        value (str): Value to change the property to. (ex. 'default' or 'dot')"""
+
+    with open(f"{python_sitepackages}\\initfilm\\config.json", "r+") as file:
         config = json.load(file)
         config[name][parameter] = value
         file.seek(0)
@@ -17,21 +22,34 @@ def set(name:str, parameter:str, value:str):
 
 
 
-def get(name:str, parameter:str):
-    with open(f"{user}\AppData\Local\Programs\Python\{python}\Lib\site-packages\initfilm\config.json", "r") as file:
+def get(name:str, parameter:str) -> str:
+    """Get values from the config file.
+    Args:
+        name (str): Name of the config property you want to get. (ex. 'prefix' or 'templates')
+        parameter (str): Name of the property parameter you want to get. (ex. 'number_style' or 'path')
+    Returns:
+        value (str): The value of the parameter you defined."""
+
+    with open(f"{python_sitepackages}\\initfilm\\config.json", "r") as file:
         config = json.load(file)
     return config[name][parameter]
 
 
 
 def show():
-    with open(f"{user}\AppData\Local\Programs\Python\{python}\Lib\site-packages\initfilm\config.json", "r") as file:
+    """Print current configuration."""
+
+    with open(f"{python_sitepackages}\\initfilm\\config.json", "r") as file:
         config = json.dumps(json.load(file), indent=2)
     print(config)
 
 
 
 def setNumberStyle(input:str):
+    """Set `number_style` parameter to input.
+    Args:
+        input (str): Value to set `number_style` to."""
+
     match input:
         case "default" | "double":
             set("prefix", "number_style", input)
@@ -41,6 +59,10 @@ def setNumberStyle(input:str):
 
 
 def setSeparatorStyle(input:str):
+    """Set `separator_style` parameter to input.
+    Args:
+        input (str): Value to set `separator_style` to."""
+
     match input:
         case "dot" | "underscore" | "parenthesis" | "space":
             set("prefix", "separator_style", input)

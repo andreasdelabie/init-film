@@ -2,6 +2,9 @@ import os
 
 
 def main():
+    """Removes the Init-Film shortcut to the Windows context menu."""
+
+    
     osname = os.name
     if osname != 'nt':
         print("This feature currently only works on Windows!")
@@ -12,7 +15,7 @@ def main():
 
     try:
         location = winreg.HKEY_CLASSES_ROOT
-        shell = winreg.OpenKeyEx(location, r"Directory\\Background\\shell")
+        shell = winreg.OpenKeyEx(location, "Directory\\Background\\shell")
         initfilm = winreg.CreateKey(shell, "Init-Film")
         command = winreg.CreateKey(initfilm, "command")
 
