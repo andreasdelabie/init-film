@@ -13,7 +13,7 @@ def set(name:str, parameter:str, value:str):
         parameter (str): Name of the property parameter you want to change. (ex. 'number_style' or 'path')
         value (str): Value to change the property to. (ex. 'default' or 'dot')"""
 
-    with open(f"{python_sitepackages}\\initfilm\\config.json", "r+") as file:
+    with open(f"{python_sitepackages}/initfilm/config.json", "r+") as file:
         config = json.load(file)
         config[name][parameter] = value
         file.seek(0)
@@ -30,7 +30,7 @@ def get(name:str, parameter:str) -> str:
     Returns:
         value (str): The value of the parameter you defined."""
 
-    with open(f"{python_sitepackages}\\initfilm\\config.json", "r") as file:
+    with open(f"{python_sitepackages}/initfilm/config.json", "r") as file:
         config = json.load(file)
     return config[name][parameter]
 
@@ -39,7 +39,7 @@ def get(name:str, parameter:str) -> str:
 def show():
     """Print current configuration."""
 
-    with open(f"{python_sitepackages}\\initfilm\\config.json", "r") as file:
+    with open(f"{python_sitepackages}/initfilm/config.json", "r") as file:
         config = json.dumps(json.load(file), indent=2)
     print(config)
 

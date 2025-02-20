@@ -25,12 +25,12 @@ def main():
         command = winreg.CreateKey(initfilm, "command")
 
         winreg.SetValueEx(initfilm, "", 0, winreg.REG_SZ, "Start Init-Film Project") # Shortcut name
-        winreg.SetValueEx(command, "", 0, winreg.REG_SZ, f"{python_scripts}\\init-film.exe") # Shortcut executable path
+        winreg.SetValueEx(command, "", 0, winreg.REG_SZ, f"{python_scripts}/init-film.exe") # Shortcut executable path
 
         if windows_theme == 'Dark':
-            winreg.SetValueEx(initfilm, "Icon", 0, winreg.REG_SZ, f"{python_sitepackages}\\initfilm\\Init-Film_Icon_White.ico")
+            winreg.SetValueEx(initfilm, "Icon", 0, winreg.REG_SZ, f"{python_sitepackages}/initfilm/Init-Film_Icon_White.ico")
         else:
-            winreg.SetValueEx(initfilm, "Icon", 0, winreg.REG_SZ, f"{python_sitepackages}\\initfilm\\Init-Film_Icon_Black.ico")
+            winreg.SetValueEx(initfilm, "Icon", 0, winreg.REG_SZ, f"{python_sitepackages}/initfilm/Init-Film_Icon_Black.ico")
         
         print("Successfully added Init-Film to context menu!")
 
