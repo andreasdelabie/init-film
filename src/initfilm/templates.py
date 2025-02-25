@@ -63,7 +63,7 @@ def copy(relative_source_path:str, destination_path:str, destination_name:str):
     print(f'Select needed files for {destination_name}\n')
     for id, template in enumerate(files, start=1):
         print(f'    {id}) {template}')
-    print('\nType numbers to select (separate by SPACE), leave blank for none')
+    print('\nType numbers to select (separate by SPACE)')
     selection = input('$ ').split()
 
     for id in selection:

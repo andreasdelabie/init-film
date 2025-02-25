@@ -41,7 +41,7 @@ def show():
 
     with open(f"{python_sitepackages}/initfilm/config.json", "r") as file:
         config = json.dumps(json.load(file), indent=2)
-    print(config)
+    print(f"{python_sitepackages}/initfilm/config.json\n" + config)
 
 
 

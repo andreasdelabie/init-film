@@ -24,6 +24,8 @@ e.g. init-film --set-number-style double
 Options:
     --set-number-style <style>      Set number style to default (1. PROJECT FILES) or double (01. PROJECT FILES)
     --set-separator-style <style>   Set separator style to dot (default), underscore, parenthesis or space
+    --set-templates-path <path>     Set templates path (source path) to python (.../site-packages/init-film/templates)
+                                    or custom path (ex. C:/Users/Spielberg/Videos/templates). ALWAYS USE FORWARD SLASHES!
     --show-config                   Print current configuration
 
     --add-shortcut                  Adds the Init-Film shortcut to the Windows context menu (right click menu)
@@ -44,6 +46,12 @@ Options:
                 initfilm.config.setSeparatorStyle(sys.argv[2])
             else:
                 print("Please specify a valid separator style like 'dot', 'underscore', 'parenthesis' or 'space'.")
+        
+        elif argument == "--set-templates-path":
+            if len(sys.argv) > 2:
+                initfilm.config.set("templates", "path", sys.argv[2])
+            else:
+                print("Please specify a templates path like python (.../site-packages/init-film/templates) of a custom path (ex. C:/Users/Spielberg/Videos/templates).")
         
         elif argument == "--show-config":
             initfilm.config.show()
