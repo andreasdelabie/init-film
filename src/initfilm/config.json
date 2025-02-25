@@ -2,5 +2,8 @@
     "prefix": {
         "number_style": "default",
         "separator_style": "dot"
+    },
+    "templates": {
+        "path": "python"
     }
 }
