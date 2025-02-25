@@ -19,9 +19,8 @@ def add():
         python_sitepackages = sysconfig.get_path("purelib")
         windows_theme = darkdetect.theme()
 
-        location = winreg.HKEY_CLASSES_ROOT
-        shell = winreg.OpenKeyEx(location, "Directory\\Background\\shell")
-
+        location = winreg.HKEY_CURRENT_USER
+        shell = winreg.CreateKey(location, "Software\\Classes\\Directory\\Background\\shell")
         initfilm = winreg.CreateKey(shell, "Init-Film")
         command = winreg.CreateKey(initfilm, "command")
 
@@ -57,8 +56,8 @@ def remove():
 
 
     try:
-        location = winreg.HKEY_CLASSES_ROOT
-        shell = winreg.OpenKeyEx(location, "Directory\\Background\\shell")
+        location = winreg.HKEY_CURRENT_USER
+        shell = winreg.CreateKey(location, "Software\\Classes\\Directory\\Background\\shell")
         initfilm = winreg.CreateKey(shell, "Init-Film")
         command = winreg.CreateKey(initfilm, "command")
 
