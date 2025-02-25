@@ -1,7 +1,6 @@
 import sys, importlib.metadata
 import initfilm.main
-import initfilm.add_shortcut
-import initfilm.remove_shortcut
+import initfilm.shortcut
 import initfilm.config
 
 
@@ -50,10 +49,10 @@ Options:
             initfilm.config.show()
 
         elif argument == "--add-shortcut":
-            initfilm.add_shortcut.main()
+            initfilm.shortcut.add()
 
         elif argument == "--remove-shortcut":
-            initfilm.remove_shortcut.main()
+            initfilm.shortcut.remove()
         
         elif argument == "--version" or argument == "-v":
             print(version)
