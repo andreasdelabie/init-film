@@ -1,8 +1,16 @@
-import sysconfig, json
+import sysconfig, os, json
 
 
 
 python_sitepackages = sysconfig.get_path("purelib")
+
+if not os.path.exists(f"{python_sitepackages}/initfilm/config.json"):
+    with open(f"{python_sitepackages}/initfilm/config_default.json", "r") as config_default:
+        config_default = json.load(config_default)
+        with open(f"{python_sitepackages}/initfilm/config.json", "w") as config:
+            config.seek(0)
+            json.dump(config_default, config, indent=4)
+            config.truncate()
 
 
 

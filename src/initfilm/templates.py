@@ -36,7 +36,7 @@ def check(relative_source_path:str) -> bool:
     source_path = os.path.join(template_path, relative_source_path)
 
     try:
-        files = [f for f in os.listdir(source_path) if os.path.isfile(os.path.join(source_path, f))] # Lists all contents in source_path & only returns files
+        files = [f for f in os.listdir(source_path) if os.path.isfile(os.path.join(source_path, f)) and f != ".DS_Store"] # Lists all contents in source_path & excludes folders and .DS_Store files
 
         if files == []:
             return False
@@ -45,6 +45,7 @@ def check(relative_source_path:str) -> bool:
 
     except:
         return False
+
 
 
 def copy(relative_source_path:str, destination_path:str, destination_name:str):
@@ -57,7 +58,7 @@ def copy(relative_source_path:str, destination_path:str, destination_name:str):
     """
 
     source_path = os.path.join(template_path, relative_source_path)
-    files = [f for f in os.listdir(source_path) if os.path.isfile(os.path.join(source_path, f))] # Lists all contents in source_path & only returns files
+    files = [f for f in os.listdir(source_path) if os.path.isfile(os.path.join(source_path, f)) and f != ".DS_Store"] # Lists all contents in source_path & excludes folders and .DS_Store files
 
     clearConsole()
     print(f'Select needed files for {destination_name}\n')
