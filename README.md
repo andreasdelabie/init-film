@@ -4,6 +4,13 @@ Tired of manually creating folder structures for your film/video projects?
 Want a folder structure that dynamically changes based on the needs for your project?  
 Then Init-Film was made for you!  
 By filmmakers, for filmmakers ;)  
+### Key features:  
+- ♥️ Supports Windows, Linux, and macOS
+- ✅ Dynamically create folder structures by selecting options from a list  
+- 🖋️ Use custom folder names  
+- 📝 Import file templates & project assets to reuse across multiple projects  
+- ✨ Customize the prefix style to your preference!  
+- 🖱️ Start a new project by right-clicking in a folder and selecting "Start Init-Film Project" *(Windows only)*  
 ### ->>[Watch showcase](https://www.youtube.com/watch?v=QheWe-1PqUM)<<-  
 
 
@@ -42,10 +49,10 @@ Use the CLI command `init-film` in any folder to start a new film/video project.
 Folder names can't contain spaces (with the exception of the project name). Instead use a `-` or `_`.  
 
 ### Configuration:  
-Use `init-film --set-number-style <style>` to set the number style to `default` (1. PROJECT FILES) or `double` (01. PROJECT FILES).  
-Use `init-film --set-separator-style <style>` to set the separator style to `dot` (default), `underscore`, `parenthesis`, or `space`.  
-Use `init-film --set-templates-path` to set the template path to `python` (`.../site-packages/initfilm/templates`) or a custom path (ex. `C:/Users/Spielberg/Videos/templates`). Make sure to <ins>ALWAYS USE FORWARD SLASHES</ins>!  
-Use `init-film --show-config` to print the current configuration and the path to the `config.json` file.  
+- Use `init-film --set-number-style <style>` to set the number style to `default` (1. PROJECT FILES) or `double` (01. PROJECT FILES).  
+- Use `init-film --set-separator-style <style>` to set the separator style to `dot` (default), `underscore`, `parenthesis`, or `space`.  
+- Use `init-film --set-templates-path` to set the template path to `python` (`.../site-packages/initfilm/templates`) or a custom path (ex. `C:/Users/Spielberg/Videos/templates`). Make sure to <ins>ALWAYS USE FORWARD SLASHES</ins>!  
+- Use `init-film --show-config` to print the current configuration and the path to the `config.json` file.  
 
 ### Templates:  
 Put your template files in the relative template folders (use `init-film --show-templates-path` to show the location).  
@@ -92,8 +99,8 @@ CUSTOM-FOLDER
 ```
 
 ### Add shortcut to Windows context menu (right click menu):  
-Use `init-film --add-shortcut` to add Init-Film to your Windows context menu.  
-Use `init-film --remove-shortcut` to remove it.  
+- Use `init-film --add-shortcut` to add Init-Film to your Windows context menu.  
+- Use `init-film --remove-shortcut` to remove it.  
 
 
 ### Help:  
