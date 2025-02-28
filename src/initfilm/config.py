@@ -53,8 +53,21 @@ def show():
 
 
 
+def setPrefixVisibility(input:str):
+    """Set `prefix` `visibility` parameter to input.
+    Args:
+        input (str): Value to set `visibility` to."""
+    
+    match input:
+        case "visible" | "hidden":
+            set("prefix", "visibility", input)
+        case _:
+            print("Please specify if you want the prefix to be 'visible' or 'hidden'.")
+
+
+
 def setNumberStyle(input:str):
-    """Set `number_style` parameter to input.
+    """Set `prefix` `number_style` parameter to input.
     Args:
         input (str): Value to set `number_style` to."""
 
@@ -67,7 +80,7 @@ def setNumberStyle(input:str):
 
 
 def setSeparatorStyle(input:str):
-    """Set `separator_style` parameter to input.
+    """Set `prefix` `separator_style` parameter to input.
     Args:
         input (str): Value to set `separator_style` to."""
 

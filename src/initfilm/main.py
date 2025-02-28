@@ -22,6 +22,11 @@ def prefix(number_input:int) -> str:
     Returns:
         prefix (str): Styled prefix with a number and separator."""
 
+    try:
+        visible = initfilm.config.get("prefix", "visibility")
+    except:
+        initfilm.config.setPrefixVisibility("visible")
+        visible = initfilm.config.get("prefix", "visibility")
     number_style = initfilm.config.get("prefix", "number_style")
     separator_style = initfilm.config.get("prefix", "separator_style")
 
@@ -39,7 +44,10 @@ def prefix(number_input:int) -> str:
     else:
         separator = ". "
     
-    return f"{number_output}{separator}"
+    if visible == "hidden":
+        return ""
+    else:
+        return f"{number_output}{separator}"
 
 
 

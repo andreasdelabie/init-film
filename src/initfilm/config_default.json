@@ -1,5 +1,6 @@
 {
     "prefix": {
+        "visibility": "visible",
         "number_style": "default",
         "separator_style": "dot"
     },
