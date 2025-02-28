@@ -176,7 +176,6 @@ def createFolder_level2_projectFiles():
 Type numbers to select or type custom folder names (separate by SPACE)''')
 
     level2_projectFiles_selection = input('$ ').split()
-    global level2_projectFiles_folderNumber
     level2_projectFiles_folderNumber = 1
 
     for string in level2_projectFiles_selection:
@@ -223,7 +222,6 @@ def createFolder_level2_assets():
 Type custom folder names (separate by SPACE)''')
 
     level2_assets_selection = input('$ ').split()
-    global level2_assets_folderNumber
     level2_assets_folderNumber = 1
 
     for string in level2_assets_selection:
@@ -282,7 +280,6 @@ def createFolder_level2_audio():
 Type numbers to select or type custom folder names (separate by SPACE)''')
     
     level2_audio_selection = input('$ ').split()
-    global level2_audio_folderNumber
     level2_audio_folderNumber = 1
 
     for string in level2_audio_selection:
@@ -310,7 +307,6 @@ def createFolder_level2_export():
 Type numbers to select or type custom folder names (separate by SPACE)''')
     
     level2_export_selection = input('$ ').split()
-    global level2_export_folderNumber
     level2_export_folderNumber = 1
 
     for string in level2_export_selection:
@@ -337,7 +333,6 @@ def createFolder_level2_documents():
 Type numbers to select or type custom folder names (separate by SPACE)''')
     
     level2_documents_selection = input('$ ').split()
-    global level2_documents_folderNumber
     level2_documents_folderNumber = 1
 
     for string in level2_documents_selection:
@@ -364,7 +359,6 @@ def createFolder_level2_marketing():
 Type numbers to select or type custom folder names (separate by SPACE)''')
     
     level2_marketing_selection = input('$ ').split()
-    global level2_marketing_folderNumber
     level2_marketing_folderNumber = 1
 
     for string in level2_marketing_selection:
@@ -383,7 +377,6 @@ def createFolder_level2_custom(level2_custom_parent, relative_template_path):
 Type custom folder names (separate by SPACE)''')
     
     level2_custom_selection = input('$ ').split()
-    global level2_custom_folderNumber
     level2_custom_folderNumber = 1
 
     for string in level2_custom_selection:
@@ -414,7 +407,6 @@ def createFolder_level3_raw():
 Type numbers to select or type custom folder names (separate by SPACE)''')
     
     level3_raw_selection = input('$ ').split()
-    global level3_raw_folderNumber
     level3_raw_folderNumber = 1
 
     for string in level3_raw_selection:
