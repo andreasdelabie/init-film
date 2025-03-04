@@ -1,4 +1,4 @@
-import os, sysconfig, shutil
+import os, sysconfig, shutil, threading, time
 import initfilm.config
 
 
@@ -68,4 +68,21 @@ def copy(relative_source_path:str, destination_path:str, destination_name:str):
     selection = input('$ ').split()
 
     for id in selection:
-        shutil.copy2(f"{source_path}/{files[int(id) - 1]}", destination_path)
+        template = files[int(id) - 1]
+
+        def animation():
+            spinner = ['|', '/', '-', '\\']
+            while status == 'pending':
+                for char in spinner:
+                    print(f"\rCopying {template} to {destination_name} {char}", end="", flush=True)
+                    time.sleep(0.1)
+
+        status = 'pending'
+        animation_thread = threading.Thread(target=animation)
+        animation_thread.start()
+
+        shutil.copy2(f"{source_path}/{template}", destination_path)
+
+        status = 'completed'
+        animation_thread.join()
+        print(f"\rCopying {template} to {destination_name} completed!")
