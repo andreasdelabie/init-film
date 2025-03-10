@@ -1,4 +1,4 @@
-import os
+import os, pyperclip
 import initfilm.config
 import initfilm.templates
 
@@ -58,6 +58,7 @@ def createFolder_level0():
     print('Enter project name:')
 
     workingTitle = input('$ ')
+    pyperclip.copy(workingTitle)
     currentDirectory = os.getcwd()
     projectDirectory = os.path.join(currentDirectory, workingTitle)
 
