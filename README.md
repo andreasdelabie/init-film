@@ -9,7 +9,8 @@ By filmmakers, for filmmakers ;)
 - ✅ Dynamically create folder structures by selecting options from a list  
 - 🖋️ Use custom folder names  
 - 📝 Import file templates & project assets to reuse across multiple projects  
-- ✨ Customize the prefix style to your preference!  
+- ✨ Customize the prefix style to your preference!
+- 📋 Auto copies the project title to your clipboard
 - 🖱️ Start a new project by right-clicking in a folder and selecting "Start Init-Film Project" *(Windows only)*  
 ### ->>[Watch showcase](https://www.youtube.com/watch?v=QheWe-1PqUM)<<-  
 
