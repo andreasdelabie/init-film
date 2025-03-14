@@ -50,6 +50,7 @@ Use the CLI command `init-film` in any folder to start a new film/video project.
 Folder names can't contain spaces (with the exception of the project name). Instead use a `-` or `_`.  
 
 ### Configuration:  
+- Use `init-film --set-prefix <option>` to set the prefix to `visible` (default) or `hidden`.
 - Use `init-film --set-number-style <style>` to set the number style to `default` (1. PROJECT FILES) or `double` (01. PROJECT FILES).  
 - Use `init-film --set-separator-style <style>` to set the separator style to `dot` (default), `underscore`, `parenthesis`, or `space`.  
 - Use `init-film --set-templates-path` to set the template path to `python` (`.../site-packages/initfilm/templates`) or a custom path (ex. `C:/Users/Spielberg/Videos/templates`). Make sure to <ins>ALWAYS USE FORWARD SLASHES</ins>!  
@@ -98,6 +99,13 @@ AUDIO
 CUSTOM-FOLDER
   Custom_Folder_Template_File.docx
 ```
+
+### Copy project title to clipboard:
+After you have entered the project title, it will automatically get copied to your clipboard.  
+On Linux, you may have to install a clipboard manager like [xclip](https://github.com/astrand/xclip).  
+- Debian/Ubuntu based systems: `sudo apt install xclip`  
+- Arch/Manjaro based systems: `sudo pacman -S xclip`  
+- Fedora based systems: `sudo dnf install xclip`  
 
 ### Add shortcut to Windows context menu (right click menu):  
 - Use `init-film --add-shortcut` to add Init-Film to your Windows context menu.  
