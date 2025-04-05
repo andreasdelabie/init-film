@@ -10,10 +10,10 @@ By filmmakers, for filmmakers ;)
 - ♥️ Supports Windows, Linux, and macOS
 - ✅ Dynamically create folder structures by selecting options from a list  
 - 🖋️ Use custom folder names  
-- [📝](https://github.com/andreasdelabie/init-film/edit/main/README.md#add-shortcut-to-windows-context-menu-right-click-menu) Import file templates & project assets to reuse across multiple projects  
-- [✨](https://github.com/andreasdelabie/init-film/edit/main/README.md#add-shortcut-to-windows-context-menu-right-click-menu) Customize the prefix style to your preference!
-- [📋](https://github.com/andreasdelabie/init-film/edit/main/README.md#add-shortcut-to-windows-context-menu-right-click-menu) Auto copies the project title to your clipboard
-- [🖱️](https://github.com/andreasdelabie/init-film/edit/main/README.md#add-shortcut-to-windows-context-menu-right-click-menu) Start a new project by right-clicking in a folder and selecting "Start Init-Film Project" *(Windows only)*  
+- [📝](https://github.com/andreasdelabie/init-film/?tab=readme-ov-file#templates) Import file templates & project assets to reuse across multiple projects  
+- [✨](https://github.com/andreasdelabie/init-film/?tab=readme-ov-file#configuration) Customize the prefix style to your preference!
+- [📋](https://github.com/andreasdelabie/init-film/?tab=readme-ov-file#copy-project-title-to-clipboard) Auto copies the project title to your clipboard
+- [🖱️](https://github.com/andreasdelabie/init-film/?tab=readme-ov-file#add-shortcut-to-windows-context-menu-right-click-menu) Start a new project by right-clicking in a folder and selecting "Start Init-Film Project" *(Windows only)*  
 ### ->>[Watch showcase](https://www.youtube.com/watch?v=QheWe-1PqUM)<<-  
 
 
