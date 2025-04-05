@@ -4,14 +4,16 @@ Tired of manually creating folder structures for your film/video projects?
 Want a folder structure that dynamically changes based on the needs for your project?  
 Then Init-Film was made for you!  
 By filmmakers, for filmmakers ;)  
+
+
 ### Key features:  
 - ♥️ Supports Windows, Linux, and macOS
 - ✅ Dynamically create folder structures by selecting options from a list  
 - 🖋️ Use custom folder names  
-- 📝 Import file templates & project assets to reuse across multiple projects  
-- ✨ Customize the prefix style to your preference!
-- 📋 Auto copies the project title to your clipboard
-- 🖱️ Start a new project by right-clicking in a folder and selecting "Start Init-Film Project" *(Windows only)*  
+- [📝](https://github.com/andreasdelabie/init-film/edit/main/README.md#add-shortcut-to-windows-context-menu-right-click-menu) Import file templates & project assets to reuse across multiple projects  
+- [✨](https://github.com/andreasdelabie/init-film/edit/main/README.md#add-shortcut-to-windows-context-menu-right-click-menu) Customize the prefix style to your preference!
+- [📋](https://github.com/andreasdelabie/init-film/edit/main/README.md#add-shortcut-to-windows-context-menu-right-click-menu) Auto copies the project title to your clipboard
+- [🖱️](https://github.com/andreasdelabie/init-film/edit/main/README.md#add-shortcut-to-windows-context-menu-right-click-menu) Start a new project by right-clicking in a folder and selecting "Start Init-Film Project" *(Windows only)*  
 ### ->>[Watch showcase](https://www.youtube.com/watch?v=QheWe-1PqUM)<<-  
 
 
