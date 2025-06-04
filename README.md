@@ -19,7 +19,7 @@ By filmmakers, for filmmakers ;)
 
 ## Before installing:  
 Make sure you have any of the following [Python](https://www.python.org/) versions installed (tested with tox):  
-  - [3.13](https://www.python.org/downloads/release/python-3133/) (recommended)  
+  - [3.13](https://www.python.org/downloads/release/python-3134/) (recommended)  
   - [3.12](https://www.python.org/downloads/release/python-31210/)  
   - [3.11](https://www.python.org/downloads/release/python-3119/)  
   - [3.10](https://www.python.org/downloads/release/python-31011/)  
