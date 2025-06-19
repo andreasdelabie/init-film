@@ -1,4 +1,4 @@
-import os, sysconfig, shutil, threading, time
+import os, sysconfig, shutil, yaspin
 import initfilm.config
 
 
@@ -70,19 +70,7 @@ def copy(relative_source_path:str, destination_path:str, destination_name:str):
     for id in selection:
         template = files[int(id) - 1]
 
-        def animation():
-            spinner = ['|', '/', '-', '\\']
-            while status == 'pending':
-                for char in spinner:
-                    print(f"\rCopying {template} to {destination_name} {char}", end="", flush=True)
-                    time.sleep(0.1)
-
-        status = 'pending'
-        animation_thread = threading.Thread(target=animation)
-        animation_thread.start()
-
-        shutil.copy2(f"{source_path}/{template}", destination_path)
-
-        status = 'completed'
-        animation_thread.join()
-        print(f"\rCopying {template} to {destination_name} completed!")
+        with yaspin.yaspin(color="yellow", text=f"Copying {template} to {destination_name}...") as spinner:
+            shutil.copy2(f"{source_path}/{template}", destination_path)
+            spinner.text = f"Copying {template} to {destination_name} completed!"
+            spinner.ok("✔")

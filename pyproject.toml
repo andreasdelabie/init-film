@@ -16,7 +16,8 @@ requires-python = ">=3.9"
 dependencies = [
     "importlib.metadata>=8.6",
     "darkdetect>=0.8",
-    "pyperclip>=1.9"
+    "pyperclip>=1.9",
+    "yaspin>=3.1",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
