@@ -6,5 +6,9 @@
     },
     "templates": {
         "path": "python"
+    },
+    "proxies": {
+        "default_codec": "h264",
+        "default_resolution": "1280x720"
     }
 }
