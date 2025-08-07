@@ -19,6 +19,7 @@ dependencies = [
     "pyperclip>=1.9",
     "yaspin>=3.1",
     "typer>=0.16.0",
+    "ffmpeg-python>=0.2.0",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",

@@ -1,10 +1,11 @@
 import os, sysconfig, shutil, yaspin
-import initfilm.config
+from . import config
+from .clearconsole import clearConsole
 
 
 
 python_sitepackages = sysconfig.get_path("purelib")
-template_path = initfilm.config.get("templates", "path")
+template_path = config.get("templates", "path")
 
 if template_path == "python":
     template_path = f"{python_sitepackages}/initfilm/templates"
@@ -12,17 +13,6 @@ if template_path == "python":
 else:
     template_path = template_path
     os.makedirs(template_path, exist_ok=True)
-
-
-
-def clearConsole():
-    """Clears the console."""
-
-    osname = os.name
-    if osname == 'nt':
-        _ = os.system('cls') # For Windows
-    else:
-        _ = os.system('clear') # For macOS & Linux
 
 
 
