@@ -1,5 +1,5 @@
 import typer, importlib.metadata
-from . import main, shortcut, config, templates
+from . import main, shortcut, config, templates, transcode
 
 
 
@@ -12,6 +12,10 @@ def cli():
 def default(context: typer.Context):
     if context.invoked_subcommand is None: # Only run if no subcommand is provided
         main.createFolder_level0()
+
+@app.command()
+def create_proxies(folder_footage:str, codec: str = 'h264', resolution: str = '1280x720'):
+    transcode.transcode_folder(folder_footage, codec, resolution)
 
 @app.command()
 def set_prefix(visibility: str):

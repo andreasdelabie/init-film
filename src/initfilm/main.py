@@ -58,6 +58,9 @@ def createFolder_level0():
 
     createFolder_level1_project()
 
+    if proxies_footage:
+        createProxies()
+
 
 
 def createFolder_level1(number:int, name:str):
@@ -252,7 +255,8 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
                 createFolder_level3_raw()
             case '2':
                 createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'PROXIES', "FOOTAGE/PROXIES")
-                transcode.transcode_folder(os.path.join(projectDirectory, f'{prefix(level1_project_folderNumber)}FOOTAGE'))
+                global proxies_footage
+                proxies_footage = f'{prefix(level1_project_folderNumber)}FOOTAGE'
             case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'STOCK', "FOOTAGE/STOCK")
             case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'VFX', "FOOTAGE/VFX")
             case '5': createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'GRADED', "FOOTAGE/GRADED")
@@ -398,7 +402,7 @@ def createFolder_level3(parent_level1:str, parent_level2:str, number:int, name:s
 
 def createFolder_level3_raw():
     clearConsole()
-    print(f'''Select needer level 3 folders for {level2_folder_name}
+    print(f'''Select needed level 3 folders for {level2_folder_name}
 
     1) A-CAM
     2) B-CAM
@@ -420,3 +424,31 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
             case '99': createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', 99, 'SORT LATER', "FOOTAGE/RAW/SORT LATER")
             case _: createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', level3_raw_folderNumber, string.upper(), f"FOOTAGE/RAW/{string.upper()}")
         level3_raw_folderNumber = level3_raw_folderNumber + 1
+
+
+
+def createProxies():
+    clearConsole()
+    print('Would you like to create proxies for RAW footage? (Y/n)\n(You can always do this later! See --help)')
+    transcode_selection = input('$ ')
+    if transcode_selection == 'n':
+        print('Skipping proxy creation.')
+    
+    else:
+        clearConsole()
+        print(f'Select codec (supported: h264, dnxhr, prores-proxy, prores-lt):')
+        codec_selection = input('$ ')
+        if codec_selection:
+            codec = codec_selection
+        else:
+            codec = 'h264'
+
+        clearConsole()
+        print(f'Select resolution (ex. 1280x720):')
+        resolution_selection = input('$ ')
+        if resolution_selection:
+            resolution = resolution_selection
+        else:
+            resolution = '1280x720'
+        
+        transcode.transcode_folder(os.path.join(projectDirectory, proxies_footage), codec, resolution)

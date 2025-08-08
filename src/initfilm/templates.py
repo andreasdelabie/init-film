@@ -11,7 +11,6 @@ if template_path == "python":
     template_path = f"{python_sitepackages}/initfilm/templates"
     os.makedirs(template_path, exist_ok=True)
 else:
-    template_path = template_path
     os.makedirs(template_path, exist_ok=True)
 
 
