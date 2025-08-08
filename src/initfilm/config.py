@@ -1,8 +1,9 @@
-import sysconfig, os, json
+import sysconfig, os, json, typer
 
 
 
 python_sitepackages = sysconfig.get_path("purelib")
+app = typer.Typer(add_completion=False)
 
 if not os.path.exists(f"{python_sitepackages}/initfilm/config.json"):
     with open(f"{python_sitepackages}/initfilm/config_default.json", "r") as config_default:
@@ -23,6 +24,8 @@ def set(name:str, parameter:str, value:str):
 
     with open(f"{python_sitepackages}/initfilm/config.json", "r+") as file:
         config = json.load(file)
+        if name not in config:
+            config[name] = {}  # Create section if missing
         config[name][parameter] = value
         file.seek(0)
         json.dump(config, file, indent=4)
@@ -40,52 +43,71 @@ def get(name:str, parameter:str) -> str:
 
     with open(f"{python_sitepackages}/initfilm/config.json", "r") as file:
         config = json.load(file)
-    return config[name][parameter]
+    return config[name][parameter]     
 
 
 
-def show():
-    """Print current configuration."""
+@app.command()
+def set_prefix_visibility(visibility:str):
+    """Set prefix visibility to 'visible' or 'hidden'."""
+    match input:
+        case "visible" | "hidden":
+            set("prefix", "visibility", visibility)
+        case _:
+            print("Please specify if you want the prefix to be 'visible' or 'hidden'.")
 
+@app.command()
+def set_number_style(style:str):
+    """Set number style to 'default' or 'double'."""
+    match style:
+        case "default" | "double":
+            set("prefix", "number_style", style)
+        case _:
+            print("Invalid number style! Valid options are 'default' or 'double'.")
+
+@app.command()
+def set_separator_style(style:str):
+    """Set separator style to 'dot', 'underscore', 'parenthesis' or 'space'."""
+    match style:
+        case "dot" | "underscore" | "parenthesis" | "space":
+            set("prefix", "separator_style", style)
+        case _:
+            print("Invalid separator style! Valid options are 'dot', 'underscore', 'parenthesis' or 'space'.")
+
+@app.command()
+def set_templates_path(path:str):
+    """Set templates path (source path) to 'python' or custom path. ALWAYS USE FORWARD SLASHES!"""
+    set("templates", "path", path)
+
+@app.command()
+def set_proxy_codec(codec:str):
+    """Set default proxy codec to 'h264', 'dnxhr', 'prores-proxy' or 'prores-lt'."""
+    match codec:
+        case "h264" | "dnxhr" | "prores-proxy" | "prores-lt":
+            set("proxies", "default_codec", codec)
+        case _:
+            print("Invalid codec! Valid options are 'h264', 'dnxhr', 'prores-proxy' or 'prores-lt'.")
+
+@app.command()
+def set_proxy_resolution(resolution:str):
+    """Set default proxy resolution. (ex. '1280x720', '1920x1080', '3840x2160')."""
+    set("proxies", "default_resolution", resolution)
+
+@app.command()
+def show_config():
+    """Print the current configuration."""
     with open(f"{python_sitepackages}/initfilm/config.json", "r") as file:
         config = json.dumps(json.load(file), indent=2)
     print(f"{python_sitepackages}/initfilm/config.json\n" + config)
 
+@app.command()
+def add_shortcut():
+    """Adds the Init-Film shortcut to the Windows context menu (right click menu)."""
+    from . import shortcut
+    shortcut.add()
 
-
-def setPrefixVisibility(input:str):
-    """Set `prefix` `visibility` parameter to input.
-    Args:
-        input (str): Value to set `visibility` to."""
-    
-    match input:
-        case "visible" | "hidden":
-            set("prefix", "visibility", input)
-        case _:
-            print("Please specify if you want the prefix to be 'visible' or 'hidden'.")
-
-
-
-def setNumberStyle(input:str):
-    """Set `prefix` `number_style` parameter to input.
-    Args:
-        input (str): Value to set `number_style` to."""
-
-    match input:
-        case "default" | "double":
-            set("prefix", "number_style", input)
-        case _:
-            print("Invalid number style! Valid options are 'default' or 'double'.")
-
-
-
-def setSeparatorStyle(input:str):
-    """Set `prefix` `separator_style` parameter to input.
-    Args:
-        input (str): Value to set `separator_style` to."""
-
-    match input:
-        case "dot" | "underscore" | "parenthesis" | "space":
-            set("prefix", "separator_style", input)
-        case _:
-            print("Invalid separator style! Valid options are 'dot', 'underscore', 'parenthesis' or 'space'.")
+@app.command()
+def remove_shortcut():
+    """Removes the Init-Film shortcut from the Windows context menu (right click menu)."""
+    from . import shortcut
+    shortcut.remove()

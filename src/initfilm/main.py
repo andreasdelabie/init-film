@@ -14,7 +14,7 @@ def prefix(number_input:int) -> str:
     try:
         visible = config.get("prefix", "visibility")
     except:
-        config.setPrefixVisibility("visible")
+        config.set_prefix_visibility("visible")
         visible = config.get("prefix", "visibility")
     number_style = config.get("prefix", "number_style")
     separator_style = config.get("prefix", "separator_style")
@@ -245,8 +245,9 @@ def createFolder_level2_footage():
 Type numbers to select or type custom folder names (separate by SPACE)''')
 
     level2_footage_selection = input('$ ').split()
-    global level2_footage_folderNumber
+    global level2_footage_folderNumber, proxies_footage
     level2_footage_folderNumber = 1
+    proxies_footage = None
 
     for string in level2_footage_selection:
         match string:
@@ -255,7 +256,6 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
                 createFolder_level3_raw()
             case '2':
                 createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'PROXIES', "FOOTAGE/PROXIES")
-                global proxies_footage
                 proxies_footage = f'{prefix(level1_project_folderNumber)}FOOTAGE'
             case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'STOCK', "FOOTAGE/STOCK")
             case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'VFX', "FOOTAGE/VFX")

@@ -1,5 +1,17 @@
 import ffmpeg, os, pathlib, re
+from . import config
 from .clearconsole import clearConsole
+
+
+
+try:
+    default_codec = config.get('proxies', 'default_codec')
+    default_resolution = config.get('proxies', 'default_resolution')
+except:
+    config.set_proxy_codec('h264')
+    config.set_proxy_resolution('1280x720')
+    default_codec = config.get('proxies', 'default_codec')
+    default_resolution = config.get('proxies', 'default_resolution')
 
 
 
@@ -24,7 +36,7 @@ def find_folder(folder_footage:str, subfolder:str) -> str:
 
 
 
-def transcode(folder_raw:str, folder_proxies:str, codec:str='h264', resolution:str='1280x720'):
+def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resolution:str=default_resolution):
     """Main transcode function. Transcodes all files in RAW folder to PROXIES folder.
     Args:
         folder_raw (str): Full path to RAW folder.
@@ -88,7 +100,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str='h264', resolution:s
 
 
 
-def transcode_footage(folder_footage:str, codec:str='h264', resolution:str='1280x720'):
+def transcode_footage(folder_footage:str, codec:str=default_codec, resolution:str=default_resolution):
     """Find RAW and PROXIES folders in FOOTAGE folder and transcode files.
     Args:
         folder_footage (str): Full path to footage folder.
