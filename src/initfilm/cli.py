@@ -1,4 +1,4 @@
-import typer, importlib.metadata
+import typer, initfilm
 from . import main, shortcut, config, templates, transcode
 
 
@@ -60,5 +60,5 @@ def remove_shortcut():
 @app.command()
 def version():
     """Print the current version."""
-    version = importlib.metadata.version("init-film")
+    version = initfilm.__version__
     print(version)
