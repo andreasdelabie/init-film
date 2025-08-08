@@ -38,8 +38,7 @@ def check(relative_source_path:str) -> bool:
 
 
 def copy(relative_source_path:str, destination_path:str, destination_name:str):
-    """
-    Lists all template files in source folder, let's user select files & copies files to destination.
+    """Lists all template files in source folder, let's user select files & copies files to destination.
     Args:
         relative_source_path (str): Path to template files, relative to `template_path` (ex. "ASSETS/LOGOS").
         destination_path (str): Full path to destination folder.

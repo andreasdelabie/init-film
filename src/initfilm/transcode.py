@@ -24,7 +24,14 @@ def find_folder(folder_footage:str, subfolder:str) -> str:
 
 
 
-def transcode(folder_raw, folder_proxies, codec='h264', resolution='1280x720'):
+def transcode(folder_raw:str, folder_proxies:str, codec:str='h264', resolution:str='1280x720'):
+    """Main transcode function. Transcodes all files in RAW folder to PROXIES folder.
+    Args:
+        folder_raw (str): Full path to RAW folder.
+        folder_proxies (str): Full path to PROXIES folder.
+        codec (str): Codec to use for transcoding (default: 'h264').
+        resolution (str): Resolution to use for transcoding (default: '1280x720')."""
+    
     for file in os.listdir(folder_raw):
         file_input = os.path.join(folder_raw, file)
         file_output = f'{os.path.join(folder_proxies, pathlib.Path(file).stem)}_proxy_{codec}_{resolution}'
@@ -81,7 +88,13 @@ def transcode(folder_raw, folder_proxies, codec='h264', resolution='1280x720'):
 
 
 
-def transcode_folder(folder_footage, codec='h264', resolution='1280x720'):
+def transcode_footage(folder_footage:str, codec:str='h264', resolution:str='1280x720'):
+    """Find RAW and PROXIES folders in FOOTAGE folder and transcode files.
+    Args:
+        folder_footage (str): Full path to footage folder.
+        codec (str): Codec to use for transcoding (default: 'h264').
+        resolution (str): Resolution to use for transcoding (default: '1280x720')."""
+
     if folder_footage == '.':
         folder_footage = os.getcwd()
     folder_raw = find_folder(folder_footage, 'RAW')

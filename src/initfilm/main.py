@@ -428,6 +428,8 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
 
 
 def createProxies():
+    """Ask user to make proxies & input codec and resolution. Transcode footage."""
+
     clearConsole()
     print('Would you like to create proxies for RAW footage? (Y/n)\n(You can always do this later! See --help)')
     transcode_selection = input('$ ')
@@ -451,4 +453,4 @@ def createProxies():
         else:
             resolution = '1280x720'
         
-        transcode.transcode_folder(os.path.join(projectDirectory, proxies_footage), codec, resolution)
+        transcode.transcode_footage(os.path.join(projectDirectory, proxies_footage), codec, resolution)
