@@ -1,4 +1,4 @@
-import ffmpeg, os, pathlib, re
+import ffmpeg, os, pathlib, re, platform
 from . import config
 from .clearconsole import clearConsole
 
@@ -36,6 +36,29 @@ def find_folder(folder_footage:str, subfolder:str) -> str:
 
 
 
+def detect_encoder(codec:str) -> str:
+    """Detect encoder to use for current platform.
+    Args:
+        codec (str): Codec to use for transcoding (ex. 'h264', 'prores').
+    Returns:
+        encoder (str): Encoder to use for transcoding."""
+    
+    platform_name = platform.system().lower()
+    
+    match codec:
+        case 'h264':
+            if platform_name == 'darwin':
+                return 'h264_videotoolbox'
+            return 'libx264'
+        case 'prores':
+            if platform_name == 'darwin':
+                print('Would you like to use EXPERIMENTAL ProRes hardware acceleration? (y/N)')
+                if input('$ ').lower() == 'y':
+                    return 'prores_videotoolbox'
+            return 'prores'
+
+
+
 def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resolution:str=default_resolution):
     """Main transcode function. Transcodes all files in RAW folder to PROXIES folder.
     Args:
@@ -53,7 +76,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                 stream = ffmpeg.output(
                     ffmpeg.input(file_input),
                     file_output+'.mp4',
-                    **{'c:v':'libx264',
+                    **{'c:v':detect_encoder('h264'),
                     'c:a':'copy',
                     'b:v':'2M',
                     'preset':'veryfast',
@@ -76,6 +99,18 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                     threads=os.cpu_count(),
                     n=None # Never overwrite files
                 )
+            case 'h264-amd':
+                stream = ffmpeg.output(
+                    ffmpeg.input(file_input, hwaccel='dxva2', hwaccel_output_format='dxva2_vld'),
+                    file_output+'.mp4',
+                    **{'c:v':'h264_amf',
+                    'c:a':'copy',
+                    'b:v':'2M',
+                    'pix_fmt':'yuv420p',
+                    's': resolution},
+                    threads=os.cpu_count(),
+                    n=None # Never overwrite files
+                )
             case 'dnxhr':
                 stream = ffmpeg.output(
                     ffmpeg.input(file_input),
@@ -93,7 +128,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                 stream = ffmpeg.output(
                     ffmpeg.input(file_input),
                     file_output+'.mov',
-                    **{'c:v':'prores',
+                    **{'c:v':detect_encoder('prores'),
                     'c:a':'copy',
                     'b:v':'2M',
                     'profile:v':0,
@@ -106,7 +141,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                 stream = ffmpeg.output(
                     ffmpeg.input(file_input),
                     file_output+'.mov',
-                    **{'c:v':'prores',
+                    **{'c:v':detect_encoder('prores'),
                     'c:a':'copy',
                     'b:v':'2M',
                     'profile:v':1,
