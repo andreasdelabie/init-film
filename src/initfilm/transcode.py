@@ -70,13 +70,16 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
         resolution (str): Resolution to use for transcoding (default: '1280x720')."""
     
     for file in os.listdir(folder_raw):
+        if not file.lower().endswith(('.mp4', '.mov', '.avi', '.mts', '.mxf', '.mkv', '.wmv', '.flv')): # Only process video files
+            continue
         file_input = os.path.join(folder_raw, file)
         file_output = f'{os.path.join(folder_proxies, pathlib.Path(file).stem)}_proxy_{codec}_{resolution}'
 
         match codec:
-            case 'h264':
-                stream = ffmpeg.output(
-                    ffmpeg.input(file_input),
+            case 'h264': (
+                ffmpeg
+                .input(file_input)
+                .output(
                     file_output+'.mp4',
                     **{'c:v':detect_encoder('h264'),
                     'c:a':'copy',
@@ -87,9 +90,12 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                     threads=os.cpu_count(),
                     n=None # Never overwrite files
                 )
-            case 'h264-nvidia':
-                stream = ffmpeg.output(
-                    ffmpeg.input(file_input, hwaccel='cuda', hwaccel_output_format='cuda'),
+                .run()
+            )
+            case 'h264-nvidia': (
+                ffmpeg
+                .input(file_input, hwaccel='cuda')
+                .output(
                     file_output+'.mp4',
                     **{'c:v':'h264_nvenc',
                     'c:a':'copy',
@@ -101,9 +107,12 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                     threads=os.cpu_count(),
                     n=None # Never overwrite files
                 )
-            case 'h264-amd':
-                stream = ffmpeg.output(
-                    ffmpeg.input(file_input, hwaccel='dxva2', hwaccel_output_format='dxva2_vld'),
+                .run()
+            )
+            case 'h264-amd': (
+                ffmpeg
+                .input(file_input, hwaccel='dxva2')
+                .output(
                     file_output+'.mp4',
                     **{'c:v':'h264_amf',
                     'c:a':'copy',
@@ -113,9 +122,12 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                     threads=os.cpu_count(),
                     n=None # Never overwrite files
                 )
-            case 'dnxhr':
-                stream = ffmpeg.output(
-                    ffmpeg.input(file_input),
+                .run()
+            )
+            case 'dnxhr': (
+                ffmpeg
+                .input(file_input)
+                .output(
                     file_output+'.mov',
                     **{'c:v':'dnxhd',
                     'c:a':'copy',
@@ -126,9 +138,12 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                     threads=os.cpu_count(),
                     n=None # Never overwrite files
                 )
-            case 'prores-proxy':
-                stream = ffmpeg.output(
-                    ffmpeg.input(file_input),
+                .run()
+            )
+            case 'prores-proxy': (
+                ffmpeg
+                .input(file_input)
+                .output(
                     file_output+'.mov',
                     **{'c:v':detect_encoder('prores'),
                     'c:a':'copy',
@@ -139,9 +154,12 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                     threads=os.cpu_count(),
                     n=None # Never overwrite files
                 )
-            case 'prores-lt':
-                stream = ffmpeg.output(
-                    ffmpeg.input(file_input),
+                .run()
+            )
+            case 'prores-lt': (
+                ffmpeg
+                .input(file_input)
+                .output(
                     file_output+'.mov',
                     **{'c:v':detect_encoder('prores'),
                     'c:a':'copy',
@@ -152,8 +170,8 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                     threads=os.cpu_count(),
                     n=None # Never overwrite files
                 )
-                
-        ffmpeg.run(stream)
+                .run()
+            )
 
 
 
