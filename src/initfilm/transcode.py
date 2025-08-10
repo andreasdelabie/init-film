@@ -1,4 +1,4 @@
-import ffmpeg, os, pathlib, re
+import ffmpeg, os, pathlib, re, platform, subprocess
 from . import config
 from .clearconsole import clearConsole
 
@@ -100,6 +100,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
 
 
 
+# TODO: Pick a better name for this function
 def transcode_footage(folder_footage:str, codec:str=default_codec, resolution:str=default_resolution):
     """Find RAW and PROXIES folders in FOOTAGE folder and transcode files.
     Args:
