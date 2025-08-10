@@ -48,7 +48,9 @@ def detect_encoder(codec:str) -> str:
     match codec:
         case 'h264':
             if platform_name == 'darwin':
-                return 'h264_videotoolbox'
+                print('Would you like to use EXPERIMENTAL H.264 hardware acceleration? (y/N)')
+                if input('$ ').lower() == 'y':
+                    return 'h264_videotoolbox'
             return 'libx264'
         case 'prores':
             if platform_name == 'darwin':
