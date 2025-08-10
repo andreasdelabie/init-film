@@ -1,4 +1,4 @@
-import ffmpeg, os, pathlib, re, platform, subprocess
+import ffmpeg, os, pathlib, re
 from . import config
 from .clearconsole import clearConsole
 
@@ -55,10 +55,25 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                     file_output+'.mp4',
                     **{'c:v':'libx264',
                     'c:a':'copy',
-                    'crf':24,
-                    'preset':'veryfast'},
+                    'b:v':'2M',
+                    'preset':'veryfast',
+                    'pix_fmt':'yuv422p',
+                    's': resolution},
                     threads=os.cpu_count(),
-                    s=resolution,
+                    n=None # Never overwrite files
+                )
+            case 'h264-nvidia':
+                stream = ffmpeg.output(
+                    ffmpeg.input(file_input, hwaccel='cuda', hwaccel_output_format='cuda'),
+                    file_output+'.mp4',
+                    **{'c:v':'h264_nvenc',
+                    'c:a':'copy',
+                    'b:v':'2M',
+                    'preset':'p1',
+                    'tune':'ll',
+                    'pix_fmt':'yuv444p',
+                    's':resolution},
+                    threads=os.cpu_count(),
                     n=None # Never overwrite files
                 )
             case 'dnxhr':
@@ -67,10 +82,11 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                     file_output+'.mov',
                     **{'c:v':'dnxhd',
                     'c:a':'copy',
+                    'b:v':'2M',
                     'profile:v':'dnxhr_lb',
-                    'pix_fmt':'yuv422p'},
+                    'pix_fmt':'yuv422p',
+                    's':resolution},
                     threads=os.cpu_count(),
-                    s=resolution,
                     n=None # Never overwrite files
                 )
             case 'prores-proxy':
@@ -79,9 +95,11 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                     file_output+'.mov',
                     **{'c:v':'prores',
                     'c:a':'copy',
-                    'profile:v':0},
+                    'b:v':'2M',
+                    'profile:v':0,
+                    'pix_fmt':'yuv422p',
+                    's':resolution},
                     threads=os.cpu_count(),
-                    s=resolution,
                     n=None # Never overwrite files
                 )
             case 'prores-lt':
@@ -90,9 +108,11 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                     file_output+'.mov',
                     **{'c:v':'prores',
                     'c:a':'copy',
-                    'profile:v':1},
+                    'b:v':'2M',
+                    'profile:v':1,
+                    'pix_fmt':'yuv422p',
+                    's':resolution},
                     threads=os.cpu_count(),
-                    s=resolution,
                     n=None # Never overwrite files
                 )
                 
