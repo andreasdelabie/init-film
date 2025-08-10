@@ -22,7 +22,7 @@ Make sure you have any of the following [Python](https://www.python.org/) versio
 | Version                                                             | Comments               |
 | ------------------------------------------------------------------- | ---------------------- |
 | [3.14.0rc1](https://www.python.org/downloads/release/python-3140rc1/) | beta                   |
-| **[3.13](https://www.python.org/downloads/release/python-3135/)**   | recommended            |
+| **[3.13](https://www.python.org/downloads/release/python-3136/)**   | recommended            |
 | [3.12](https://www.python.org/downloads/release/python-31210/)      |                        |
 | [3.11](https://www.python.org/downloads/release/python-3119/)       |                        |
 | [3.10](https://www.python.org/downloads/release/python-31011/)      |                        |
