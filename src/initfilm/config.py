@@ -2,13 +2,13 @@ import sysconfig, os, json, typer
 
 
 
-python_sitepackages = sysconfig.get_path("purelib")
+python_sitepackages = sysconfig.get_path('purelib')
 app = typer.Typer(add_completion=False)
 
-if not os.path.exists(f"{python_sitepackages}/initfilm/config.json"):
-    with open(f"{python_sitepackages}/initfilm/config_default.json", "r") as config_default:
+if not os.path.exists(f'{python_sitepackages}/initfilm/config.json'):
+    with open(f'{python_sitepackages}/initfilm/config_default.json', 'r') as config_default:
         config_default = json.load(config_default)
-        with open(f"{python_sitepackages}/initfilm/config.json", "w") as config:
+        with open(f'{python_sitepackages}/initfilm/config.json', 'w') as config:
             config.seek(0)
             json.dump(config_default, config, indent=4)
             config.truncate()
@@ -16,13 +16,13 @@ if not os.path.exists(f"{python_sitepackages}/initfilm/config.json"):
 
 
 def set(name:str, parameter:str, value:str):
-    """Change values in the config file.
+    '''Change values in the config file.
     Args:
         name (str): Name of the config property you want to change. (ex. 'prefix' or 'templates')
         parameter (str): Name of the property parameter you want to change. (ex. 'number_style' or 'path')
-        value (str): Value to change the property to. (ex. 'default' or 'dot')"""
+        value (str): Value to change the property to. (ex. 'default' or 'dot')'''
 
-    with open(f"{python_sitepackages}/initfilm/config.json", "r+") as file:
+    with open(f'{python_sitepackages}/initfilm/config.json', 'r+') as file:
         config = json.load(file)
         if name not in config:
             config[name] = {}  # Create section if missing
@@ -34,14 +34,14 @@ def set(name:str, parameter:str, value:str):
 
 
 def get(name:str, parameter:str) -> str:
-    """Get values from the config file.
+    '''Get values from the config file.
     Args:
         name (str): Name of the config property you want to get. (ex. 'prefix' or 'templates')
         parameter (str): Name of the property parameter you want to get. (ex. 'number_style' or 'path')
     Returns:
-        value (str): The value of the parameter you defined."""
+        value (str): The value of the parameter you defined.'''
 
-    with open(f"{python_sitepackages}/initfilm/config.json", "r") as file:
+    with open(f'{python_sitepackages}/initfilm/config.json', 'r') as file:
         config = json.load(file)
     return config[name][parameter]     
 
@@ -49,65 +49,65 @@ def get(name:str, parameter:str) -> str:
 
 @app.command()
 def set_prefix_visibility(visibility:str):
-    """Set prefix visibility to 'visible' or 'hidden'."""
+    '''Set prefix visibility to 'visible' or 'hidden'.'''
     match input:
-        case "visible" | "hidden":
-            set("prefix", "visibility", visibility)
+        case 'visible' | 'hidden':
+            set('prefix', 'visibility', visibility)
         case _:
             print("Please specify if you want the prefix to be 'visible' or 'hidden'.")
 
 @app.command()
 def set_number_style(style:str):
-    """Set number style to 'default' or 'double'."""
+    '''Set number style to 'default' or 'double'.'''
     match style:
-        case "default" | "double":
-            set("prefix", "number_style", style)
+        case 'default' | 'double':
+            set('prefix', 'number_style', style)
         case _:
             print("Invalid number style! Valid options are 'default' or 'double'.")
 
 @app.command()
 def set_separator_style(style:str):
-    """Set separator style to 'dot', 'underscore', 'parenthesis' or 'space'."""
+    '''Set separator style to 'dot', 'underscore', 'parenthesis' or 'space'.'''
     match style:
-        case "dot" | "underscore" | "parenthesis" | "space":
-            set("prefix", "separator_style", style)
+        case 'dot' | 'underscore' | 'parenthesis' | 'space':
+            set('prefix', 'separator_style', style)
         case _:
             print("Invalid separator style! Valid options are 'dot', 'underscore', 'parenthesis' or 'space'.")
 
 @app.command()
 def set_templates_path(path:str):
-    """Set templates path (source path) to 'python' or custom path. ALWAYS USE FORWARD SLASHES!"""
-    set("templates", "path", path)
+    '''Set templates path (source path) to 'python' or custom path. ALWAYS USE FORWARD SLASHES!'''
+    set('templates', 'path', path)
 
 @app.command()
 def set_proxy_codec(codec:str):
-    """Set default proxy codec to 'h264', 'h264-nvidia', 'h264-amd', 'dnxhr', 'prores-proxy' or 'prores-lt'."""
+    '''Set default proxy codec to 'h264', 'h264-nvidia', 'h264-amd', 'dnxhr', 'prores-proxy' or 'prores-lt'.'''
     match codec:
-        case "h264" | "h264-nvidia" | "h264-amd" | "dnxhr" | "prores-proxy" | "prores-lt":
-            set("proxies", "default_codec", codec)
+        case 'h264' | 'h264-nvidia' | 'h264-amd' | 'dnxhr' | 'prores-proxy' | 'prores-lt':
+            set('proxies', 'default_codec', codec)
         case _:
             print("Invalid codec! Valid options are 'h264', 'h264-nvidia', 'h264-amd', 'dnxhr', 'prores-proxy' or 'prores-lt'.")
 
 @app.command()
 def set_proxy_resolution(resolution:str):
-    """Set default proxy resolution. (ex. '1280x720', '1920x1080', '3840x2160', ...)."""
-    set("proxies", "default_resolution", resolution)
+    '''Set default proxy resolution. (ex. '1280x720', '1920x1080', '3840x2160', ...).'''
+    set('proxies', 'default_resolution', resolution)
 
 @app.command()
 def show_config():
-    """Print the current configuration."""
-    with open(f"{python_sitepackages}/initfilm/config.json", "r") as file:
+    '''Print the current configuration.'''
+    with open(f'{python_sitepackages}/initfilm/config.json', 'r') as file:
         config = json.dumps(json.load(file), indent=2)
-    print(f"{python_sitepackages}/initfilm/config.json\n" + config)
+    print(f'{python_sitepackages}/initfilm/config.json\n' + config)
 
 @app.command()
 def add_shortcut():
-    """Adds the Init-Film shortcut to the Windows context menu (right click menu)."""
+    '''Adds the Init-Film shortcut to the Windows context menu (right click menu).'''
     from . import shortcut
     shortcut.add()
 
 @app.command()
 def remove_shortcut():
-    """Removes the Init-Film shortcut from the Windows context menu (right click menu)."""
+    '''Removes the Init-Film shortcut from the Windows context menu (right click menu).'''
     from . import shortcut
     shortcut.remove()

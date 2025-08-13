@@ -16,12 +16,12 @@ except:
 
 
 def find_folder(folder_footage:str, subfolder:str) -> str:
-    """Auto-detect RAW and PROXIES folders in footage folder.
+    '''Auto-detect RAW and PROXIES folders in footage folder.
     Args:
         folder_footage (str): Full path to footage folder.
         subfolder (str): Name of the subfolder to find (ex. 'RAW')
     Returns:
-        match (str): Matching folder path."""
+        match (str): Matching folder path.'''
 
     matches = []
 
@@ -30,18 +30,18 @@ def find_folder(folder_footage:str, subfolder:str) -> str:
             matches.append(os.path.join(folder_footage, folder))
 
     if not matches:
-        raise FileNotFoundError(f'No folder named "{subfolder}" found in {folder_footage}')
+        raise FileNotFoundError(f"No folder named '{subfolder}' found in {folder_footage}")
 
     return matches[0]
 
 
 
 def detect_encoder(codec:str) -> str:
-    """Detect encoder to use for current platform.
+    '''Detect encoder to use for current platform.
     Args:
         codec (str): Codec to use for transcoding (ex. 'h264', 'prores').
     Returns:
-        encoder (str): Encoder to use for transcoding."""
+        encoder (str): Encoder to use for transcoding.'''
     
     platform_name = platform.system().lower()
     
@@ -62,12 +62,12 @@ def detect_encoder(codec:str) -> str:
 
 
 def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resolution:str=default_resolution):
-    """Main transcode function. Transcodes all files in RAW folder to PROXIES folder.
+    '''Main transcode function. Transcodes all files in RAW folder to PROXIES folder.
     Args:
         folder_raw (str): Full path to RAW folder.
         folder_proxies (str): Full path to PROXIES folder.
         codec (str): Codec to use for transcoding (default: 'h264').
-        resolution (str): Resolution to use for transcoding (default: '1280x720')."""
+        resolution (str): Resolution to use for transcoding (default: '1280x720').'''
     
     for file in os.listdir(folder_raw):
         if not file.lower().endswith(('.mp4', '.mov', '.avi', '.mts', '.mxf', '.mkv', '.wmv', '.flv')): # Only process video files
@@ -177,11 +177,11 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
 
 # TODO: Pick a better name for this function
 def transcode_footage(folder_footage:str, codec:str=default_codec, resolution:str=default_resolution):
-    """Find RAW and PROXIES folders in FOOTAGE folder and transcode files.
+    '''Find RAW and PROXIES folders in FOOTAGE folder and transcode files.
     Args:
         folder_footage (str): Full path to footage folder.
         codec (str): Codec to use for transcoding (default: 'h264').
-        resolution (str): Resolution to use for transcoding (default: '1280x720')."""
+        resolution (str): Resolution to use for transcoding (default: '1280x720').'''
 
     if folder_footage == '.':
         folder_footage = os.getcwd()

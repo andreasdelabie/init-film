@@ -48,21 +48,32 @@ Check out the documentation for [externally managed environments](https://github
 ## Usage:  
 [Watch showcase](https://www.youtube.com/watch?v=QheWe-1PqUM)  
 
+
 ### Basic usage:  
 Use the CLI command `init-film` in any folder to start a new film/video project.  
+
+
+### Help:  
+Use `init-film --help` or `init-film -h` to show the help screen.  
+You can also use this on other commands (ex. `init-film config --help`).  
+
 
 ### Custom folder names:  
 Folder names can't contain spaces (with the exception of the project name). Instead use a `-` or `_`.  
 
+
 ### Configuration:  
-- Use `init-film --set-prefix <option>` to set the prefix to `visible` (default) or `hidden`.
-- Use `init-film --set-number-style <style>` to set the number style to `default` (1. PROJECT FILES) or `double` (01. PROJECT FILES).  
-- Use `init-film --set-separator-style <style>` to set the separator style to `dot` (default), `underscore`, `parenthesis`, or `space`.  
-- Use `init-film --set-templates-path` to set the template path to `python` (`.../site-packages/initfilm/templates`) or a custom path (ex. `C:/Users/Spielberg/Videos/templates`). Make sure to <ins>ALWAYS USE FORWARD SLASHES</ins>!  
-- Use `init-film --show-config` to print the current configuration and the path to the `config.json` file.  
+- Use `init-film config set-prefix-visibility <option>` to set the prefix to `visible` (default) or `hidden`.
+- Use `init-film config set-number-style <style>` to set the number style to `default` (1. PROJECT FILES) or `double` (01. PROJECT FILES).  
+- Use `init-film config set-separator-style <style>` to set the separator style to `dot` (default), `underscore`, `parenthesis`, or `space`.  
+- Use `init-film config set-templates-path` to set the template path to `python` (`.../site-packages/initfilm/templates`) or a custom path (ex. `C:/Users/Spielberg/Videos/templates`). Make sure to <ins>ALWAYS USE FORWARD SLASHES</ins>!  
+- Use `init-film config set-proxy-codec` to set the default proxy codec to `h264`, `h264-nvidia`, `h264-amd`, `dnxhr`, `prores-proxy` or `prores-lt`.
+- Use `init-film config set-proxy-resolution` to set the default proxy resolution (ex. `1280x720`, `1920x1080`, `3840x2160`, ...).
+- Use `init-film config show-config` to print the current configuration and the path to the `config.json` file.  
+
 
 ### Templates:  
-Put your template files in the relative template folders (use `init-film --show-templates-path` to show the location).  
+Put your template files in the relative template folders (use `init-film config show-config` to show the location).  
 Init-Film will automatically detect them and let you select them when creating a new project.  
 #### Example:  
 If I use the following folder structure:  
@@ -105,6 +116,7 @@ CUSTOM-FOLDER
   Custom_Folder_Template_File.docx
 ```
 
+
 ### Copy project title to clipboard:
 After you have entered the project title, it will automatically get copied to your clipboard.  
 On Linux, you may have to install a clipboard manager like [xclip](https://github.com/astrand/xclip).  
@@ -112,13 +124,10 @@ On Linux, you may have to install a clipboard manager like [xclip](https://githu
 - Arch/Manjaro based systems: `sudo pacman -S xclip`  
 - Fedora based systems: `sudo dnf install xclip`  
 
+
 ### Add shortcut to Windows context menu (right click menu):  
-- Use `init-film --add-shortcut` to add Init-Film to your Windows context menu.  
-- Use `init-film --remove-shortcut` to remove it.  
-
-
-### Help:  
-Use `init-film --help` or `init-film -h` to show the help screen.  
+- Use `init-film config add-shortcut` to add Init-Film to your Windows context menu.  
+- Use `init-film config remove-shortcut` to remove it.  
 
 
 ## Updating:  

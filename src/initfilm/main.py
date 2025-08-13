@@ -5,39 +5,39 @@ from .clearconsole import clearConsole
 
 
 def prefix(number_input:int) -> str:
-    """Returns a styled prefix based on the values in the config file.
+    '''Returns a styled prefix based on the values in the config file.
     Args:
         number_input (int): The prefix number.
     Returns:
-        prefix (str): Styled prefix with a number and separator."""
+        prefix (str): Styled prefix with a number and separator.'''
 
     try:
-        visible = config.get("prefix", "visibility")
+        visible = config.get('prefix', 'visibility')
     except:
-        config.set_prefix_visibility("visible")
-        visible = config.get("prefix", "visibility")
-    number_style = config.get("prefix", "number_style")
-    separator_style = config.get("prefix", "separator_style")
+        config.set_prefix_visibility('visible')
+        visible = config.get('prefix', 'visibility')
+    number_style = config.get('prefix', 'number_style')
+    separator_style = config.get('prefix', 'separator_style')
 
-    if number_style == "double":
-        number_output = f"{number_input:02d}"
+    if number_style == 'double':
+        number_output = f'{number_input:02d}'
     else:
         number_output = number_input
     
     match separator_style:
-        case "underscore":
-            separator = "_"
-        case "parenthesis":
-            separator = ") "
-        case "space":
-            separator = " "
+        case 'underscore':
+            separator = '_'
+        case 'parenthesis':
+            separator = ') '
+        case 'space':
+            separator = ' '
         case _:
-            separator = ". "
+            separator = '. '
     
-    if visible == "hidden":
-        return ""
+    if visible == 'hidden':
+        return ''
     else:
-        return f"{number_output}{separator}"
+        return f'{number_output}{separator}'
 
 
 
@@ -53,8 +53,8 @@ def createFolder_level0():
     projectDirectory = os.path.join(currentDirectory, workingTitle)
 
     os.mkdir(projectDirectory)
-    if templates.check("") == True:
-        templates.copy("", projectDirectory, workingTitle)
+    if templates.check('') == True:
+        templates.copy('', projectDirectory, workingTitle)
 
     createFolder_level1_project()
 
@@ -175,32 +175,32 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
 
     for string in level2_projectFiles_selection:
         match string:
-            case '1': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'PREMIERE PRO', "PROJECT FILES/PREMIERE PRO")
-            case '2': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'DAVINCI RESOLVE', "PROJECT FILES/DAVINCI RESOLVE")
-            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'MEDIA COMPOSER', "PROJECT FILES/MEDIA COMPOSER")
-            case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'FINAL CUT PRO', "PROJECT FILES/FINAL CUT PRO")
-            case '5': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'SONY VEGAS', "PROJECT FILES/SONY VEGAS")
-            case '6': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'HITFILM EXPRESS', "PROJECT FILES/HITFILM EXPRESS")
-            case '7': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'AFTER EFFECT', "PROJECT FILES/AFTER EFFECTS")
-            case '8': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'PHOTOSHOP', "PROJECT FILES/PHOTOSHOP")
-            case '9': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'ILLUSTRATOR', "PROJECT FILES/ILLUSTRATOR")
-            case '10': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'BLENDER', "PROJECT FILES/BLENDER")
-            case '11': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'CINEMA 4D', "PROJECT FILES/CINEMA 4D")
-            case '12': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'MAYA', "PROJECT FILES/MAYA")
-            case '13': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'NUKE', "PROJECT FILES/NUKE")
-            case '14': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'HOUDINI', "PROJECT FILES/HOUDINI")
-            case '15': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'ZBRUSH', "PROJECT FILES/ZBRUSH")
-            case '16': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'AFFINITY DESIGNER', "PROJECT FILES/AFFINITY DESIGNER")
-            case '17': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'PRO TOOLS', "PROJECT FILES/PRO TOOLS")
-            case '18': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'ABLETON', "PROJECT FILES/ABLETON")
-            case '19': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'CUBASE', "PROJECT FILES/CUBASE")
-            case '20': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'REAPER', "PROJECT FILES/REAPER")
-            case '21': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'IZOTOPE RX', "PROJECT FILES/IZOTOPE RX")
-            case '22': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'AUDITION', "PROJECT FILES/AUDITION")
-            case '23': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'AUDACITY', "PROJECT FILES/AUDACITY")
-            case '24': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'LOGIC PRO', "PROJECT FILES/LOGIC PRO")
-            case '25': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'FL STUDIO', "PROJECT FILES/FL STUDIO")
-            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, string.upper(), f"PROJECT FILES/{string.upper()}")
+            case '1': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'PREMIERE PRO', 'PROJECT FILES/PREMIERE PRO')
+            case '2': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'DAVINCI RESOLVE', 'PROJECT FILES/DAVINCI RESOLVE')
+            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'MEDIA COMPOSER', 'PROJECT FILES/MEDIA COMPOSER')
+            case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'FINAL CUT PRO', 'PROJECT FILES/FINAL CUT PRO')
+            case '5': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'SONY VEGAS', 'PROJECT FILES/SONY VEGAS')
+            case '6': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'HITFILM EXPRESS', 'PROJECT FILES/HITFILM EXPRESS')
+            case '7': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'AFTER EFFECT', 'PROJECT FILES/AFTER EFFECTS')
+            case '8': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'PHOTOSHOP', 'PROJECT FILES/PHOTOSHOP')
+            case '9': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'ILLUSTRATOR', 'PROJECT FILES/ILLUSTRATOR')
+            case '10': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'BLENDER', 'PROJECT FILES/BLENDER')
+            case '11': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'CINEMA 4D', 'PROJECT FILES/CINEMA 4D')
+            case '12': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'MAYA', 'PROJECT FILES/MAYA')
+            case '13': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'NUKE', 'PROJECT FILES/NUKE')
+            case '14': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'HOUDINI', 'PROJECT FILES/HOUDINI')
+            case '15': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'ZBRUSH', 'PROJECT FILES/ZBRUSH')
+            case '16': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'AFFINITY DESIGNER', 'PROJECT FILES/AFFINITY DESIGNER')
+            case '17': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'PRO TOOLS', 'PROJECT FILES/PRO TOOLS')
+            case '18': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'ABLETON', 'PROJECT FILES/ABLETON')
+            case '19': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'CUBASE', 'PROJECT FILES/CUBASE')
+            case '20': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'REAPER', 'PROJECT FILES/REAPER')
+            case '21': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'IZOTOPE RX', 'PROJECT FILES/IZOTOPE RX')
+            case '22': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'AUDITION', 'PROJECT FILES/AUDITION')
+            case '23': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'AUDACITY', 'PROJECT FILES/AUDACITY')
+            case '24': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'LOGIC PRO', 'PROJECT FILES/LOGIC PRO')
+            case '25': createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, 'FL STUDIO', 'PROJECT FILES/FL STUDIO')
+            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}PROJECT FILES', level2_projectFiles_folderNumber, string.upper(), f'PROJECT FILES/{string.upper()}')
         level2_projectFiles_folderNumber = level2_projectFiles_folderNumber + 1
 
 
@@ -222,12 +222,12 @@ Type custom folder names (separate by SPACE)''')
 
     for string in level2_assets_selection:
         match string:
-            case '1': createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, 'LOGOS', "ASSETS/LOGOS")
-            case '2': createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, 'GRAPHICS', "ASSETS/GRAPHICS")
-            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, 'FONTS', "ASSETS/FONTS")
-            case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, 'OVERLAYS', "ASSETS/OVERLAYS")
-            case '5': createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, 'REFERENCE', "ASSETS/REFERENCE")
-            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, string.upper(), f"ASSETS/{string.upper()}")
+            case '1': createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, 'LOGOS', 'ASSETS/LOGOS')
+            case '2': createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, 'GRAPHICS', 'ASSETS/GRAPHICS')
+            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, 'FONTS', 'ASSETS/FONTS')
+            case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, 'OVERLAYS', 'ASSETS/OVERLAYS')
+            case '5': createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, 'REFERENCE', 'ASSETS/REFERENCE')
+            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, string.upper(), f'ASSETS/{string.upper()}')
     level2_assets_folderNumber = level2_assets_folderNumber + 1
 
 
@@ -252,15 +252,15 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
     for string in level2_footage_selection:
         match string:
             case '1':
-                createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'RAW', "FOOTAGE/RAW")
+                createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'RAW', 'FOOTAGE/RAW')
                 createFolder_level3_raw()
             case '2':
-                createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'PROXIES', "FOOTAGE/PROXIES")
+                createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'PROXIES', 'FOOTAGE/PROXIES')
                 proxies_footage = f'{prefix(level1_project_folderNumber)}FOOTAGE'
-            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'STOCK', "FOOTAGE/STOCK")
-            case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'VFX', "FOOTAGE/VFX")
-            case '5': createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'GRADED', "FOOTAGE/GRADED")
-            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, string.upper(), f"FOOTAGE/{string.upper()}")
+            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'STOCK', 'FOOTAGE/STOCK')
+            case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'VFX', 'FOOTAGE/VFX')
+            case '5': createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, 'GRADED', 'FOOTAGE/GRADED')
+            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}FOOTAGE', level2_footage_folderNumber, string.upper(), f'FOOTAGE/{string.upper()}')
         level2_footage_folderNumber = level2_footage_folderNumber + 1
 
 
@@ -285,15 +285,15 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
 
     for string in level2_audio_selection:
         match string:
-            case '1': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'PFX', "AUDIO/PFX")
-            case '2': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'SFX', "AUDIO/SFX")
-            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'FOLEY', "AUDIO/FOLEY")
-            case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'AMBIANCE', "AUDIO/AMBIANCE")
-            case '5': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'MUSIC', "AUDIO/MUSIC")
-            case '6': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'SOUNDTRACK', "AUDIO/SOUNDTRACK")
-            case '7': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'VOICEOVER', "AUDIO/VOICEOVER")
-            case '8': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'ADR', "AUDIO/ADR")
-            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_selection, string.upper(), f"AUDIO/{string.upper()}")
+            case '1': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'PFX', 'AUDIO/PFX')
+            case '2': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'SFX', 'AUDIO/SFX')
+            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'FOLEY', 'AUDIO/FOLEY')
+            case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'AMBIANCE', 'AUDIO/AMBIANCE')
+            case '5': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'MUSIC', 'AUDIO/MUSIC')
+            case '6': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'SOUNDTRACK', 'AUDIO/SOUNDTRACK')
+            case '7': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'VOICEOVER', 'AUDIO/VOICEOVER')
+            case '8': createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_folderNumber, 'ADR', 'AUDIO/ADR')
+            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}AUDIO', level2_audio_selection, string.upper(), f'AUDIO/{string.upper()}')
         level2_audio_folderNumber = level2_audio_folderNumber + 1
 
 
@@ -313,10 +313,10 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
 
     for string in level2_export_selection:
         match string:
-            case '1': createFolder_level2(f'{prefix(level1_project_folderNumber)}EXPORT', level2_export_folderNumber, 'PREVIEWS', "EXPORT/PREVIEWS")
-            case '2': createFolder_level2(f'{prefix(level1_project_folderNumber)}EXPORT', level2_export_folderNumber, 'MASTER', "EXPORT/MASTER")
-            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}EXPORT', level2_export_folderNumber, 'DELIVERABLES', "EXPORT/DELIVERABLES")
-            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}EXPORT', level2_export_folderNumber, string.upper(), f"EXPORT/{string.upper()}")
+            case '1': createFolder_level2(f'{prefix(level1_project_folderNumber)}EXPORT', level2_export_folderNumber, 'PREVIEWS', 'EXPORT/PREVIEWS')
+            case '2': createFolder_level2(f'{prefix(level1_project_folderNumber)}EXPORT', level2_export_folderNumber, 'MASTER', 'EXPORT/MASTER')
+            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}EXPORT', level2_export_folderNumber, 'DELIVERABLES', 'EXPORT/DELIVERABLES')
+            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}EXPORT', level2_export_folderNumber, string.upper(), f'EXPORT/{string.upper()}')
         level2_export_folderNumber = level2_export_folderNumber + 1
 
 
@@ -340,14 +340,14 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
 
     for string in level2_documents_selection:
         match string:
-            case '1': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'NOTES', "DOCUMENTS/NOTES")
-            case '2': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'MOODBOARD', "DOCUMENTS/MOODBOARD")
-            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'STORYBOARD', "DOCUMENTS/STORYBOARD")
-            case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'SCRIPT', "DOCUMENTS/SCRIPT")
-            case '5': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'PITCH', "DOCUMENTS/PITCH")
-            case '6': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'LEGAL', "DOCUMENTS/LEGAL")
-            case '7': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'FINANCIAL', "DOCUMENTS/FINANCIAL")
-            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, string.upper(), f"DOCUMENTS/{string.upper()}")
+            case '1': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'NOTES', 'DOCUMENTS/NOTES')
+            case '2': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'MOODBOARD', 'DOCUMENTS/MOODBOARD')
+            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'STORYBOARD', 'DOCUMENTS/STORYBOARD')
+            case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'SCRIPT', 'DOCUMENTS/SCRIPT')
+            case '5': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'PITCH', 'DOCUMENTS/PITCH')
+            case '6': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'LEGAL', 'DOCUMENTS/LEGAL')
+            case '7': createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, 'FINANCIAL', 'DOCUMENTS/FINANCIAL')
+            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}DOCUMENTS', level2_documents_folderNumber, string.upper(), f'DOCUMENTS/{string.upper()}')
         level2_documents_folderNumber = level2_documents_folderNumber + 1
 
 
@@ -367,10 +367,10 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
 
     for string in level2_marketing_selection:
         match string:
-            case '1': createFolder_level2(f'{prefix(level1_project_folderNumber)}MARKETING', level2_marketing_folderNumber, 'POSTERS', "MARKETING/POSTERS")
-            case '2': createFolder_level2(f'{prefix(level1_project_folderNumber)}MARKETING', level2_marketing_folderNumber, 'SOCIAL MEDIA', "MARKETING/SOCIAL MEDIA")
-            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}MARKETING', level2_marketing_folderNumber, 'TRAILERS', "MARKETING/TRAILERS")
-            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}MARKETING', level2_marketing_folderNumber, string.upper(), f"MARKETING/{string.upper()}")
+            case '1': createFolder_level2(f'{prefix(level1_project_folderNumber)}MARKETING', level2_marketing_folderNumber, 'POSTERS', 'MARKETING/POSTERS')
+            case '2': createFolder_level2(f'{prefix(level1_project_folderNumber)}MARKETING', level2_marketing_folderNumber, 'SOCIAL MEDIA', 'MARKETING/SOCIAL MEDIA')
+            case '3': createFolder_level2(f'{prefix(level1_project_folderNumber)}MARKETING', level2_marketing_folderNumber, 'TRAILERS', 'MARKETING/TRAILERS')
+            case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}MARKETING', level2_marketing_folderNumber, string.upper(), f'MARKETING/{string.upper()}')
         level2_marketing_folderNumber = level2_marketing_folderNumber + 1
 
 
@@ -417,18 +417,18 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
 
     for string in level3_raw_selection:
         match string:
-            case '1': createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', level3_raw_folderNumber, 'A-CAM', "FOOTAGE/RAW/A-CAM")
-            case '2': createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', level3_raw_folderNumber, 'B-CAM', "FOOTAGE/RAW/B-CAM")
-            case '3': createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', level3_raw_folderNumber, 'C-CAM', "FOOTAGE/RAW/C-CAM")
-            case '4': createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', level3_raw_folderNumber, 'D-CAM', "FOOTAGE/RAW/D-CAM")
-            case '99': createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', 99, 'SORT LATER', "FOOTAGE/RAW/SORT LATER")
-            case _: createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', level3_raw_folderNumber, string.upper(), f"FOOTAGE/RAW/{string.upper()}")
+            case '1': createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', level3_raw_folderNumber, 'A-CAM', 'FOOTAGE/RAW/A-CAM')
+            case '2': createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', level3_raw_folderNumber, 'B-CAM', 'FOOTAGE/RAW/B-CAM')
+            case '3': createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', level3_raw_folderNumber, 'C-CAM', 'FOOTAGE/RAW/C-CAM')
+            case '4': createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', level3_raw_folderNumber, 'D-CAM', 'FOOTAGE/RAW/D-CAM')
+            case '99': createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', 99, 'SORT LATER', 'FOOTAGE/RAW/SORT LATER')
+            case _: createFolder_level3(f'{prefix(level1_project_folderNumber)}FOOTAGE', f'{prefix(level2_footage_folderNumber)}RAW', level3_raw_folderNumber, string.upper(), f'FOOTAGE/RAW/{string.upper()}')
         level3_raw_folderNumber = level3_raw_folderNumber + 1
 
 
 
 def createProxies():
-    """Ask user to make proxies & input codec and resolution. Transcode footage."""
+    '''Ask user to make proxies & input codec and resolution. Transcode footage.'''
 
     clearConsole()
     print('Would you like to create proxies for RAW footage? (Y/n)\n(You can always do this later! See --help)')

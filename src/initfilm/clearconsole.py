@@ -3,7 +3,7 @@ import os
 
 
 def clearConsole():
-    """Clears the console."""
+    '''Clears the console.'''
 
     osname = os.name
     if osname == 'nt':
