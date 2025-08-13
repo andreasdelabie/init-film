@@ -13,6 +13,8 @@ except:
     default_codec = config.get('proxies', 'default_codec')
     default_resolution = config.get('proxies', 'default_resolution')
 
+PLATFORM_NAME = platform.system().lower()
+
 
 
 def find_folder(folder_footage:str, subfolder:str) -> str:
@@ -43,17 +45,15 @@ def detect_encoder(codec:str) -> str:
     Returns:
         encoder (str): Encoder to use for transcoding.'''
     
-    platform_name = platform.system().lower()
-    
     match codec:
         case 'h264':
-            if platform_name == 'darwin':
+            if PLATFORM_NAME == 'darwin':
                 print('Would you like to use EXPERIMENTAL H.264 hardware acceleration? (y/N)')
                 if input('$ ').lower() == 'y':
                     return 'h264_videotoolbox'
             return 'libx264'
         case 'prores':
-            if platform_name == 'darwin':
+            if PLATFORM_NAME == 'darwin':
                 print('Would you like to use EXPERIMENTAL ProRes hardware acceleration? (y/N)')
                 if input('$ ').lower() == 'y':
                     return 'prores_videotoolbox'
@@ -78,7 +78,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
         match codec:
             case 'h264': (
                 ffmpeg
-                .input(file_input)
+                .input(file_input, hwaccel='auto')
                 .output(
                     file_output+'.mp4',
                     **{'c:v':detect_encoder('h264'),
@@ -86,7 +86,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                     'b:v':'2M',
                     'preset':'veryfast',
                     'pix_fmt':'yuv422p',
-                    's': resolution},
+                    's':resolution},
                     threads=os.cpu_count(),
                     n=None # Never overwrite files
                 )
@@ -111,14 +111,14 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
             )
             case 'h264-amd': (
                 ffmpeg
-                .input(file_input, hwaccel='dxva2')
+                .input(file_input, hwaccel='auto')
                 .output(
                     file_output+'.mp4',
                     **{'c:v':'h264_amf',
                     'c:a':'copy',
                     'b:v':'2M',
                     'pix_fmt':'yuv420p',
-                    's': resolution},
+                    's':resolution},
                     threads=os.cpu_count(),
                     n=None # Never overwrite files
                 )
@@ -126,7 +126,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
             )
             case 'dnxhr': (
                 ffmpeg
-                .input(file_input)
+                .input(file_input, hwaccel='auto')
                 .output(
                     file_output+'.mov',
                     **{'c:v':'dnxhd',
@@ -142,7 +142,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
             )
             case 'prores-proxy': (
                 ffmpeg
-                .input(file_input)
+                .input(file_input, hwaccel='auto')
                 .output(
                     file_output+'.mov',
                     **{'c:v':detect_encoder('prores'),
@@ -158,7 +158,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
             )
             case 'prores-lt': (
                 ffmpeg
-                .input(file_input)
+                .input(file_input, hwaccel='auto')
                 .output(
                     file_output+'.mov',
                     **{'c:v':detect_encoder('prores'),
