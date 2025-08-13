@@ -1,6 +1,6 @@
 import typer, initfilm
 from typing_extensions import Annotated
-from . import main, config, transcode
+from . import main, config, transcode, ffmpeg_installscript
 
 
 
@@ -21,11 +21,16 @@ def create_proxies(
     folder_footage:Annotated[str, typer.Argument(help='Full path to footage folder.')],
     codec:Annotated[str, typer.Option('--codec', '-c', help="Use 'h264', 'h264-nvidia', 'h264-amd', 'dnxhr', 'prores-proxy' or 'prores-lt'")]=config.get('proxies', 'default_codec'),
     resolution:Annotated[str, typer.Option('--resolution', '-r', help="Ex. '1280x720', '1920x1080', '3840x2160', ...")]=config.get('proxies', 'default_resolution')):
-    """Create proxies for footage in the specified footage folder."""
+    '''Create proxies for footage in the specified footage folder.'''
     transcode.transcode_footage(folder_footage, codec, resolution)
 
 @app.command()
+def install_ffmpeg():
+    '''Install FFmpeg.'''
+    ffmpeg_installscript.main()
+
+@app.command()
 def version():
-    """Print the current version."""
+    '''Print the current version.'''
     version = initfilm.__version__
     print(version)
