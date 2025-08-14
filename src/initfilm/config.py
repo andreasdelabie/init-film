@@ -98,7 +98,7 @@ def set_templates_path(path:str):
 
 @app.command()
 def set_proxy_codec(codec:str):
-    '''Set default proxy codec to 'h264', 'h264-nvidia', 'h264-amd', 'dnxhr', 'prores-proxy' or 'prores-lt'.'''
+    '''Set default proxy codec to 'h264', 'h264-nvidia', 'h264-amd', 'h264-intel', 'dnxhr', 'prores-proxy' or 'prores-lt'.'''
     match codec:
         case 'h264' | 'h264-nvidia' | 'h264-amd' | 'h264-intel' | 'dnxhr' | 'prores-proxy' | 'prores-lt':
             set('proxies', 'default_codec', codec)

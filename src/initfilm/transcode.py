@@ -155,7 +155,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=detect_defaults('cod
             )
             case 'h264-intel': (
                 ffmpeg
-                .input(file_input, hwaccel='qsv')
+                .input(file_input, hwaccel='auto')
                 .output(
                     file_output+'.mp4',
                     **{'c:v':'h264_qsv',
