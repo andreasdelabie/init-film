@@ -37,7 +37,7 @@ def detectOS() -> str:
 
 def install_windows():
     try:
-        subprocess.call('winget install ffmpeg')
+        subprocess.call('winget install ffmpeg', shell=True)
     except Exception as e:
         print(f"An error occurred while trying to install FFmpeg on Windows: {e}")
 
@@ -63,11 +63,11 @@ def install_linux(distro: str):
     try:
         match distro:
             case 'debian':
-                subprocess.call('sudo apt install ffmpeg')
+                subprocess.call('sudo apt install ffmpeg', shell=True)
             case 'arch':
-                subprocess.call('sudo pacman -S ffmpeg')
+                subprocess.call('sudo pacman -S ffmpeg', shell=True)
             case 'fedora':
-                subprocess.call('sudo dnf install ffmpeg')
+                subprocess.call('sudo dnf install ffmpeg', shell=True)
     except Exception as e:
         print(f"An error occurred while trying to install FFmpeg on Linux: {e}")
 
