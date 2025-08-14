@@ -460,12 +460,13 @@ def createProxies():
     
     else:
         clearConsole()
-        print(f'Select codec (supported: h264, h264-nvidia, h264-amd, dnxhr, prores-proxy, prores-lt):')
+        transcode.detect_defaults()
+        print(f'Select codec (supported: h264, h264-nvidia, h264-amd, h264-intel, dnxhr, prores-proxy, prores-lt):')
         codec_selection = input('$ ').lower()
         if codec_selection:
             codec = codec_selection
         else:
-            codec = 'h264'
+            codec = transcode.detect_defaults('codec')
 
         clearConsole()
         print(f'Select resolution (ex. 1280x720):')
@@ -473,6 +474,6 @@ def createProxies():
         if resolution_selection:
             resolution = resolution_selection
         else:
-            resolution = '1280x720'
-        
+            resolution = transcode.detect_defaults('resolution')
+
         transcode.transcode_footage(os.path.join(projectDirectory, proxies_footage), codec, resolution)

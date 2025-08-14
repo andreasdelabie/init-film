@@ -21,19 +21,6 @@ from .clearconsole import clearConsole
 
 
 
-try:
-    default_codec = config.get('proxies', 'default_codec')
-    default_resolution = config.get('proxies', 'default_resolution')
-except:
-    config.set_proxy_codec('h264')
-    config.set_proxy_resolution('1280x720')
-    default_codec = config.get('proxies', 'default_codec')
-    default_resolution = config.get('proxies', 'default_resolution')
-
-PLATFORM_NAME = platform.system().lower()
-
-
-
 def find_folder(folder_footage:str, subfolder:str) -> str:
     '''Auto-detect RAW and PROXIES folders in footage folder.
     Args:
@@ -55,6 +42,31 @@ def find_folder(folder_footage:str, subfolder:str) -> str:
 
 
 
+def detect_defaults(returns:str) -> str:
+    '''Detect default settings for transcoding. Set defaults if not already set.
+    Args:
+        returns (str): The setting to return (ex. 'codec', 'resolution').
+    Returns:
+        value (str): The value of the requested setting.'''
+
+    global default_codec, default_resolution
+
+    try:
+        default_codec = config.get('proxies', 'default_codec')
+        default_resolution = config.get('proxies', 'default_resolution')
+    except:
+        config.set_proxy_codec('h264')
+        config.set_proxy_resolution('1280x720')
+        default_codec = config.get('proxies', 'default_codec')
+        default_resolution = config.get('proxies', 'default_resolution')
+
+    match returns:
+        case 'codec':
+            return default_codec
+        case 'resolution':
+            return default_resolution
+
+
 def detect_encoder(codec:str) -> str:
     '''Detect encoder to use for current platform.
     Args:
@@ -64,13 +76,13 @@ def detect_encoder(codec:str) -> str:
     
     match codec:
         case 'h264':
-            if PLATFORM_NAME == 'darwin':
+            if platform.system().lower() == 'darwin':
                 print('Would you like to use EXPERIMENTAL H.264 hardware acceleration? (y/N)')
                 if input('$ ').lower() == 'y':
                     return 'h264_videotoolbox'
             return 'libx264'
         case 'prores':
-            if PLATFORM_NAME == 'darwin':
+            if platform.system().lower() == 'darwin':
                 print('Would you like to use EXPERIMENTAL ProRes hardware acceleration? (y/N)')
                 if input('$ ').lower() == 'y':
                     return 'prores_videotoolbox'
@@ -78,7 +90,7 @@ def detect_encoder(codec:str) -> str:
 
 
 
-def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resolution:str=default_resolution):
+def transcode(folder_raw:str, folder_proxies:str, codec:str=detect_defaults('codec'), resolution:str=detect_defaults('resolution')):
     '''Main transcode function. Transcodes all files in RAW folder to PROXIES folder.
     Args:
         folder_raw (str): Full path to RAW folder.
@@ -141,6 +153,21 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
                 )
                 .run()
             )
+            case 'h264-intel': (
+                ffmpeg
+                .input(file_input, hwaccel='qsv')
+                .output(
+                    file_output+'.mp4',
+                    **{'c:v':'h264_qsv',
+                    'c:a':'copy',
+                    'b:v':'2M',
+                    'pix_fmt':'yuv420p',
+                    's':resolution},
+                    threads=os.cpu_count(),
+                    n=None # Never overwrite files
+                )
+                .run()
+            )
             case 'dnxhr': (
                 ffmpeg
                 .input(file_input, hwaccel='auto')
@@ -193,7 +220,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=default_codec, resol
 
 
 # TODO: Pick a better name for this function
-def transcode_footage(folder_footage:str, codec:str=default_codec, resolution:str=default_resolution):
+def transcode_footage(folder_footage:str, codec:str=detect_defaults('codec'), resolution:str=detect_defaults('resolution')):
     '''Find RAW and PROXIES folders in FOOTAGE folder and transcode files.
     Args:
         folder_footage (str): Full path to footage folder.
