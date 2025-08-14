@@ -69,7 +69,7 @@ Folder names can't contain spaces (with the exception of the project name). Inst
 - Use `init-film config set-templates-path` to set the template path to `python` (`.../site-packages/initfilm/templates`) or a custom path (ex. `C:/Users/Spielberg/Videos/templates`). Make sure to <ins>ALWAYS USE FORWARD SLASHES</ins>!  
 - Use `init-film config set-proxy-codec` to set the default proxy codec to `h264`, `h264-nvidia`, `h264-amd`, `dnxhr`, `prores-proxy` or `prores-lt`.
 - Use `init-film config set-proxy-resolution` to set the default proxy resolution (ex. `1280x720`, `1920x1080`, `3840x2160`, ...).
-- Use `init-film config show-config` to print the current configuration and the path to the `config.json` file.  
+- Use `init-film config show` to print the current configuration and the path to the `config.json` file.  
 
 
 ### Templates:  

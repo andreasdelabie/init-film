@@ -111,7 +111,7 @@ def set_proxy_resolution(resolution:str):
     set('proxies', 'default_resolution', resolution)
 
 @app.command()
-def show_config():
+def show():
     '''Print the current configuration.'''
     with open(f'{python_sitepackages}/initfilm/config.json', 'r') as file:
         config = json.dumps(json.load(file), indent=2)
