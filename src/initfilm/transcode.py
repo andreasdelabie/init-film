@@ -15,9 +15,13 @@
 
 
 
-import ffmpeg, os, pathlib, re, platform
+import os, pathlib, re, platform, subprocess
 from . import config
 from .clearconsole import clearConsole
+
+
+
+PLATFORM = platform.system().lower()
 
 
 
@@ -76,17 +80,13 @@ def detect_encoder(codec:str) -> str:
     
     match codec:
         case 'h264':
-            if platform.system().lower() == 'darwin':
+            if PLATFORM == 'darwin':
                 print('Would you like to use EXPERIMENTAL H.264 hardware acceleration? (y/N)')
                 if input('$ ').lower() == 'y':
                     return 'h264_videotoolbox'
             return 'libx264'
-        case 'h264-amd':
-            if platform.system().lower() == 'linux':
-                return 'h264_vaapi'
-            return 'h264_amf'
         case 'prores':
-            if platform.system().lower() == 'darwin':
+            if PLATFORM == 'darwin':
                 print('Would you like to use EXPERIMENTAL ProRes hardware acceleration? (y/N)')
                 if input('$ ').lower() == 'y':
                     return 'prores_videotoolbox'
@@ -109,120 +109,158 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=detect_defaults('cod
         file_output = f'{os.path.join(folder_proxies, pathlib.Path(file).stem)}_proxy_{codec}_{resolution}'
 
         match codec:
-            case 'h264': (
-                ffmpeg
-                .input(file_input, hwaccel='auto')
-                .output(
-                    file_output+'.mp4',
-                    **{'c:v':detect_encoder('h264'),
-                    'c:a':'copy',
-                    'b:v':'2M',
-                    'preset':'veryfast',
-                    'pix_fmt':'yuv422p',
-                    's':resolution},
-                    threads=os.cpu_count(),
-                    n=None # Never overwrite files
-                )
-                .run()
-            )
-            case 'h264-nvidia': (
-                ffmpeg
-                .input(file_input, hwaccel='cuda')
-                .output(
-                    file_output+'.mp4',
-                    **{'c:v':'h264_nvenc',
-                    'c:a':'copy',
-                    'b:v':'2M',
-                    'preset':'p1',
-                    'tune':'ll',
-                    'pix_fmt':'yuv444p',
-                    's':resolution},
-                    threads=os.cpu_count(),
-                    n=None # Never overwrite files
-                )
-                .run()
-            )
-            case 'h264-amd': (
-                ffmpeg
-                .input(file_input, hwaccel='auto')
-                .output(
-                    file_output+'.mp4',
-                    **{'c:v':detect_encoder('h264-amd'),
-                    'c:a':'copy',
-                    'b:v':'2M',
-                    'pix_fmt':'yuv420p',
-                    's':resolution},
-                    threads=os.cpu_count(),
-                    n=None # Never overwrite files
-                )
-                .run()
-            )
-            case 'h264-intel': # No 10-bit support
-                w = resolution.split('x')[0]
-                h = resolution.split('x')[1]
-                (
-                ffmpeg
-                .input(file_input, hwaccel='vaapi', hwaccel_output_format='vaapi')
-                .output(
-                    file_output+'.mp4',
-                    **{'c:v':'h264_vaapi',
-                    'c:a':'copy',
-                    'b:v':'2M',
-                    'maxrate':'2M',
-                    'vf':f'scale_vaapi=w={w}:h={h}:format=nv12',},
-                    threads=os.cpu_count(),
-                    n=None # Never overwrite files
-                )
-                .run()
-            )
-            case 'dnxhr': (
-                ffmpeg
-                .input(file_input, hwaccel='auto')
-                .output(
-                    file_output+'.mov',
-                    **{'c:v':'dnxhd',
-                    'c:a':'copy',
-                    'b:v':'2M',
-                    'profile:v':'dnxhr_lb',
-                    'pix_fmt':'yuv422p',
-                    's':resolution},
-                    threads=os.cpu_count(),
-                    n=None # Never overwrite files
-                )
-                .run()
-            )
-            case 'prores-proxy': (
-                ffmpeg
-                .input(file_input, hwaccel='auto')
-                .output(
-                    file_output+'.mov',
-                    **{'c:v':detect_encoder('prores'),
-                    'c:a':'copy',
-                    'b:v':'2M',
-                    'profile:v':0,
-                    'pix_fmt':'yuv422p',
-                    's':resolution},
-                    threads=os.cpu_count(),
-                    n=None # Never overwrite files
-                )
-                .run()
-            )
-            case 'prores-lt': (
-                ffmpeg
-                .input(file_input, hwaccel='auto')
-                .output(
-                    file_output+'.mov',
-                    **{'c:v':detect_encoder('prores'),
-                    'c:a':'copy',
-                    'b:v':'2M',
-                    'profile:v':1,
-                    'pix_fmt':'yuv422p',
-                    's':resolution},
-                    threads=os.cpu_count(),
-                    n=None # Never overwrite files
-                )
-                .run()
-            )
+            case 'h264':
+                subprocess.run(f'ffmpeg -hwaccel auto -i "{file_input}" -c:v {detect_encoder('h264')} -c:a copy -b:v 2M -preset veryfast -pix_fmt yuv420p -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mp4"', shell=True, check=True)
+                # (
+                # ffmpeg
+                # .input(file_input, hwaccel='auto')
+                # .output(
+                #     file_output+'.mp4',
+                #     **{'c:v':detect_encoder('h264'),
+                #     'c:a':'copy',
+                #     'b:v':'2M',
+                #     'preset':'veryfast',
+                #     'pix_fmt':'yuv422p',
+                #     's':resolution},
+                #     threads=os.cpu_count(),
+                #     n=None # Never overwrite files
+                # )
+                # .run()
+                # )
+            case 'h264-nvidia':
+                subprocess.run(f'ffmpeg -hwaccel cuda -i "{file_input}" -c:v h264_nvenc -c:a copy -b:v 2M -preset p1 -tune ll -pix_fmt yuv444p -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mp4"', shell=True, check=True)
+                # (
+                # ffmpeg
+                # .input(file_input, hwaccel='cuda')
+                # .output(
+                #     file_output+'.mp4',
+                #     **{'c:v':'h264_nvenc',
+                #     'c:a':'copy',
+                #     'b:v':'2M',
+                #     'preset':'p1',
+                #     'tune':'ll',
+                #     'pix_fmt':'yuv444p',
+                #     's':resolution},
+                #     threads=os.cpu_count(),
+                #     n=None # Never overwrite files
+                # )
+                # .run()
+                # )
+            case 'h264-amd': 
+                match PLATFORM:
+                    case 'linux': # No 10-bit support
+                        w = resolution.split('x')[0]
+                        h = resolution.split('x')[1]
+                        subprocess.run(f'ffmpeg -hwaccel auto -hwaccel_output_format vaapi -i "{file_input}" -c:v h264_qsv -c:a copy -b:v 2M -maxrate 2M -vf "scale_vaapi=w={w}:h={h}:format=nv12" -threads {os.cpu_count()} -n "{file_output}.mp4"', shell=True, check=True)
+                    case _:
+                        subprocess.run(f'ffmpeg -hwaccel auto -i "{file_input}" -c:v h264_amf -c:a copy -b:v 2M -pix_fmt yuv422p -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mp4"', shell=True, check=True)
+                # (
+                # ffmpeg
+                # .input(file_input, hwaccel='auto')
+                # .output(
+                #     file_output+'.mp4',
+                #     **{'c:v':detect_encoder('h264-amd'),
+                #     'c:a':'copy',
+                #     'b:v':'2M',
+                #     'pix_fmt':'yuv420p',
+                #     's':resolution},
+                #     threads=os.cpu_count(),
+                #     n=None # Never overwrite files
+                # )
+                # .run()
+                # )
+            case 'h264-intel':
+                match PLATFORM:
+                    case 'linux': # No 10-bit support
+                        w = resolution.split('x')[0]
+                        h = resolution.split('x')[1]
+                        subprocess.run(f'ffmpeg -hwaccel auto -hwaccel_output_format vaapi -i "{file_input}" -c:v h264_qsv -c:a copy -b:v 2M -maxrate 2M -vf "scale_vaapi=w={w}:h={h}:format=nv12" -threads {os.cpu_count()} -n "{file_output}.mp4"', shell=True, check=True)
+                        # (
+                        # ffmpeg
+                        # .input(file_input, hwaccel='auto', hwaccel_output_format='vaapi')
+                        # .output(
+                        #     file_output+'.mp4',
+                        #     **{'c:v':detect_encoder('h264-intel'),
+                        #     'c:a':'copy',
+                        #     'b:v':'2M',
+                        #     'maxrate':'2M',
+                        #     'vf':f'scale_vaapi=w={w}:h={h}:format=nv12'},
+                        #     threads=os.cpu_count(),
+                        #     n=None # Never overwrite files
+                        # )
+                        # .run()
+                        # )
+                    case _:
+                        subprocess.run(f'ffmpeg -hwaccel auto -i "{file_input}" -c:v h264_qsv -c:a copy -b:v 2M -pix_fmt nv12 -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mp4"', shell=True, check=True)
+                        # (
+                        # ffmpeg
+                        # .input(file_input, hwaccel='auto')
+                        # .output(
+                        #     file_output+'.mp4',
+                        #     **{'c:v':'h264_qsv',
+                        #     'c:a':'copy',
+                        #     'b:v':'2M',
+                        #     'pix_fmt':'nv12',
+                        #     's':resolution},
+                        #     threads=os.cpu_count(),
+                        #     n=None # Never overwrite files
+                        # )
+                        # .run()
+                        # )
+            case 'dnxhr':
+                subprocess.run(f'ffmpeg -hwaccel auto -i "{file_input}" -c:v dnxhd -c:a copy -b:v 2M -profile:v dnxhr_lb -pix_fmt yuv422p -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mov"', shell=True, check=True)
+                # (
+                # ffmpeg
+                # .input(file_input, hwaccel='auto')
+                # .output(
+                #     file_output+'.mov',
+                #     **{'c:v':'dnxhd',
+                #     'c:a':'copy',
+                #     'b:v':'2M',
+                #     'profile:v':'dnxhr_lb',
+                #     'pix_fmt':'yuv422p',
+                #     's':resolution},
+                #     threads=os.cpu_count(),
+                #     n=None # Never overwrite files
+                # )
+                # .run()
+                # )
+            case 'prores-proxy':
+                subprocess.run(f'ffmpeg -hwaccel auto -i "{file_input}" -c:v {detect_encoder('prores')} -c:a copy -b:v 2M -profile:v 0 -pix_fmt yuv422p -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mov"', shell=True, check=True)
+                # (
+                # ffmpeg
+                # .input(file_input, hwaccel='auto')
+                # .output(
+                #     file_output+'.mov',
+                #     **{'c:v':detect_encoder('prores'),
+                #     'c:a':'copy',
+                #     'b:v':'2M',
+                #     'profile:v':0,
+                #     'pix_fmt':'yuv422p',
+                #     's':resolution},
+                #     threads=os.cpu_count(),
+                #     n=None # Never overwrite files
+                # )
+                # .run()
+                # )
+            case 'prores-lt':
+                subprocess.run(f'ffmpeg -hwaccel auto -i "{file_input}" -c:v {detect_encoder('prores')} -c:a copy -b:v 2M -profile:v 1 -pix_fmt yuv422p -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mov"', shell=True, check=True)
+                # (
+                # ffmpeg
+                # .input(file_input, hwaccel='auto')
+                # .output(
+                #     file_output+'.mov',
+                #     **{'c:v':detect_encoder('prores'),
+                #     'c:a':'copy',
+                #     'b:v':'2M',
+                #     'profile:v':1,
+                #     'pix_fmt':'yuv422p',
+                #     's':resolution},
+                #     threads=os.cpu_count(),
+                #     n=None # Never overwrite files
+                # )
+                # .run()
+                # )
 
 
 
