@@ -21,8 +21,8 @@ By filmmakers, for filmmakers ;)
 Make sure you have any of the following [Python](https://www.python.org/) versions installed (tested with tox):  
 | Version                                                             | Comments               |
 | ------------------------------------------------------------------- | ---------------------- |
-| [3.14.0rc1](https://www.python.org/downloads/release/python-3140rc1/) | beta                   |
-| **[3.13](https://www.python.org/downloads/release/python-3136/)**   | recommended            |
+| [3.14](https://www.python.org/downloads/release/python-3140rc2/)    | testing                |
+| **[3.13](https://www.python.org/downloads/release/python-3137/)**   | recommended            |
 | [3.12](https://www.python.org/downloads/release/python-31210/)      |                        |
 | [3.11](https://www.python.org/downloads/release/python-3119/)       |                        |
 | [3.10](https://www.python.org/downloads/release/python-31011/)      |                        |
