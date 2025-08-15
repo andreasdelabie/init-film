@@ -157,16 +157,19 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=detect_defaults('cod
                 )
                 .run()
             )
-            case 'h264-intel': (
+            case 'h264-intel': # No 10-bit support
+                w = resolution.split('x')[0]
+                h = resolution.split('x')[1]
+                (
                 ffmpeg
-                .input(file_input, hwaccel='auto')
+                .input(file_input, hwaccel='vaapi', hwaccel_output_format='vaapi')
                 .output(
                     file_output+'.mp4',
-                    **{'c:v':'h264_qsv',
+                    **{'c:v':'h264_vaapi',
                     'c:a':'copy',
                     'b:v':'2M',
-                    'pix_fmt':'yuv420p',
-                    's':resolution},
+                    'maxrate':'2M',
+                    'vf':f'scale_vaapi=w={w}:h={h}:format=nv12',},
                     threads=os.cpu_count(),
                     n=None # Never overwrite files
                 )
