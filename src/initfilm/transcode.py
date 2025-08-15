@@ -81,6 +81,10 @@ def detect_encoder(codec:str) -> str:
                 if input('$ ').lower() == 'y':
                     return 'h264_videotoolbox'
             return 'libx264'
+        case 'h264-amd':
+            if platform.system().lower() == 'linux':
+                return 'h264_vaapi'
+            return 'h264_amf'
         case 'prores':
             if platform.system().lower() == 'darwin':
                 print('Would you like to use EXPERIMENTAL ProRes hardware acceleration? (y/N)')
@@ -143,7 +147,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=detect_defaults('cod
                 .input(file_input, hwaccel='auto')
                 .output(
                     file_output+'.mp4',
-                    **{'c:v':'h264_amf',
+                    **{'c:v':detect_encoder('h264-amd'),
                     'c:a':'copy',
                     'b:v':'2M',
                     'pix_fmt':'yuv420p',
