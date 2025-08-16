@@ -1,7 +1,7 @@
 {
     "h264": {
         "generic": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v libx264 -c:a copy -b:v 2M -preset veryfast -pix_fmt yuv422p -s {resolution} -threads {threads} -n \"{file_output}.mp4\"",
-        "darwin": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v h264_videotoolbox -c:a copy -b:v 2M -preset veryfast -pix_fmt yuv422p -s {resolution} -threads {threads} -n \"{file_output}.mp4\""
+        "darwin": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v h264_videotoolbox -c:a copy -b:v 2M -preset veryfast -pix_fmt yuv422p -s {resolution} -threads {threads} -allow_sw 1 -n \"{file_output}.mp4\""
     },
     "h264-nvidia": {
         "windows": "ffmpeg -v error -stats -hwaccel cuda -i \"{file_input}\" -c:v h264_nvenc -c:a copy -b:v 2M -preset p1 -tune ll -pix_fmt yuv422p -s {resolution} -threads {threads} -n \"{file_output}.mp4\"",
@@ -20,10 +20,10 @@
     },
     "prores-proxy": {
         "generic": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v prores -c:a copy -profile:v 0 -pix_fmt yuv422p -s {resolution} -threads {threads} -n \"{file_output}.mov\"",
-        "darwin": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v prores_videotoolbox -c:a copy -profile:v 0 -pix_fmt yuv422p -s {resolution} -threads {threads} -n \"{file_output}.mov\""
+        "darwin": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v prores_videotoolbox -c:a copy -profile:v 0 -pix_fmt yuv444p -s {resolution} -threads {threads} -allow_sw 1 -n \"{file_output}.mov\""
     },
     "prores-lt": {
         "generic": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v prores -c:a copy -profile:v 1 -pix_fmt yuv422p -s {resolution} -threads {threads} -n \"{file_output}.mov\"",
-        "darwin": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v prores_videotoolbox -c:a copy -profile:v 1 -pix_fmt yuv422p -s {resolution} -threads {threads} -n \"{file_output}.mov\""
+        "darwin": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v prores_videotoolbox -c:a copy -profile:v 1 -pix_fmt yuv444p -s {resolution} -threads {threads} -allow_sw 1 -n \"{file_output}.mov\""
     }
 }
