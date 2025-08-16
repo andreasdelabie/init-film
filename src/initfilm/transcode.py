@@ -15,7 +15,7 @@
 
 
 
-import os, pathlib, re, platform, subprocess
+import os, pathlib, re, platform, subprocess, sysconfig, json
 from . import config
 from .clearconsole import clearConsole
 
@@ -36,7 +36,7 @@ def find_folder(folder_footage:str, subfolder:str) -> str:
     matches = []
 
     for folder in os.listdir(folder_footage):
-        if re.match(f'(\d|\d\d)(.\s|\s){subfolder}', folder):
+        if re.match(f'(\d|\d\d)(.\s|\s){subfolder}', folder): # Match folder names like '01 RAW', '2. PROXIES', etc.
             matches.append(os.path.join(folder_footage, folder))
 
     if not matches:
@@ -69,33 +69,34 @@ def detect_defaults(returns:str) -> str:
             return default_codec
         case 'resolution':
             return default_resolution
+        
 
 
-def detect_encoder(codec:str) -> str:
-    '''Detect encoder to use for current platform.
+def get_preset(codec:str) -> str:
+    '''Get the FFmpeg preset for the given codec and platform.
     Args:
-        codec (str): Codec to use for transcoding (ex. 'h264', 'prores').
+        codec (str): The codec to get the preset for.
     Returns:
-        encoder (str): Encoder to use for transcoding.'''
+        preset (str): The FFmpeg preset for the given codec and platform. **Needs to be formatted!**  
+        ex: `get_preset('h264').format(file_input=os.path.join(folder_raw,file))`'''
     
-    match codec:
-        case 'h264':
-            if PLATFORM == 'darwin':
-                print('Would you like to use EXPERIMENTAL H.264 hardware acceleration? (y/N)')
-                if input('$ ').lower() == 'y':
-                    return 'h264_videotoolbox'
-            return 'libx264'
-        case 'prores':
-            if PLATFORM == 'darwin':
-                print('Would you like to use EXPERIMENTAL ProRes hardware acceleration? (y/N)')
-                if input('$ ').lower() == 'y':
-                    return 'prores_videotoolbox'
-            return 'prores'
+    python_sitepackages = sysconfig.get_path('purelib')
+
+    with open(f'{python_sitepackages}/initfilm/ffmpeg_presets.json', 'r') as file:
+        presets = json.load(file)
+
+    try:
+        return presets[codec][PLATFORM]
+    except KeyError:
+        try:
+            return presets[codec]['generic']
+        except KeyError:
+            raise NotImplementedError (f"Codec '{codec}' is not supported on your platform ({PLATFORM})")
 
 
 
 def transcode(folder_raw:str, folder_proxies:str, codec:str=detect_defaults('codec'), resolution:str=detect_defaults('resolution')):
-    '''Main transcode function. Transcodes all files in RAW folder to PROXIES folder.
+    '''Transcode all video files in RAW folder to PROXIES folder.
     Args:
         folder_raw (str): Full path to RAW folder.
         folder_proxies (str): Full path to PROXIES folder.
@@ -105,170 +106,25 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=detect_defaults('cod
     for file in os.listdir(folder_raw):
         if not file.lower().endswith(('.mp4', '.mov', '.avi', '.mts', '.mxf', '.mkv', '.wmv', '.flv')): # Only process video files
             continue
-        file_input = os.path.join(folder_raw, file)
-        file_output = f'{os.path.join(folder_proxies, pathlib.Path(file).stem)}_proxy_{codec}_{resolution}'
 
-        match codec:
-            case 'h264':
-                subprocess.run(f'ffmpeg -hwaccel auto -i "{file_input}" -c:v {detect_encoder('h264')} -c:a copy -b:v 2M -preset veryfast -pix_fmt yuv420p -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mp4"', shell=True, check=True)
-                # (
-                # ffmpeg
-                # .input(file_input, hwaccel='auto')
-                # .output(
-                #     file_output+'.mp4',
-                #     **{'c:v':detect_encoder('h264'),
-                #     'c:a':'copy',
-                #     'b:v':'2M',
-                #     'preset':'veryfast',
-                #     'pix_fmt':'yuv422p',
-                #     's':resolution},
-                #     threads=os.cpu_count(),
-                #     n=None # Never overwrite files
-                # )
-                # .run()
-                # )
-            case 'h264-nvidia':
-                subprocess.run(f'ffmpeg -hwaccel cuda -i "{file_input}" -c:v h264_nvenc -c:a copy -b:v 2M -preset p1 -tune ll -pix_fmt yuv444p -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mp4"', shell=True, check=True)
-                # (
-                # ffmpeg
-                # .input(file_input, hwaccel='cuda')
-                # .output(
-                #     file_output+'.mp4',
-                #     **{'c:v':'h264_nvenc',
-                #     'c:a':'copy',
-                #     'b:v':'2M',
-                #     'preset':'p1',
-                #     'tune':'ll',
-                #     'pix_fmt':'yuv444p',
-                #     's':resolution},
-                #     threads=os.cpu_count(),
-                #     n=None # Never overwrite files
-                # )
-                # .run()
-                # )
-            case 'h264-amd': 
-                match PLATFORM:
-                    case 'linux': # No 10-bit support
-                        w = resolution.split('x')[0]
-                        h = resolution.split('x')[1]
-                        subprocess.run(f'ffmpeg -hwaccel auto -hwaccel_output_format vaapi -i "{file_input}" -c:v h264_qsv -c:a copy -b:v 2M -maxrate 2M -vf "scale_vaapi=w={w}:h={h}:format=nv12" -threads {os.cpu_count()} -n "{file_output}.mp4"', shell=True, check=True)
-                    case _:
-                        subprocess.run(f'ffmpeg -hwaccel auto -i "{file_input}" -c:v h264_amf -c:a copy -b:v 2M -pix_fmt yuv422p -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mp4"', shell=True, check=True)
-                # (
-                # ffmpeg
-                # .input(file_input, hwaccel='auto')
-                # .output(
-                #     file_output+'.mp4',
-                #     **{'c:v':detect_encoder('h264-amd'),
-                #     'c:a':'copy',
-                #     'b:v':'2M',
-                #     'pix_fmt':'yuv420p',
-                #     's':resolution},
-                #     threads=os.cpu_count(),
-                #     n=None # Never overwrite files
-                # )
-                # .run()
-                # )
-            case 'h264-intel':
-                match PLATFORM:
-                    case 'linux': # No 10-bit support
-                        w = resolution.split('x')[0]
-                        h = resolution.split('x')[1]
-                        subprocess.run(f'ffmpeg -hwaccel auto -hwaccel_output_format vaapi -i "{file_input}" -c:v h264_qsv -c:a copy -b:v 2M -maxrate 2M -vf "scale_vaapi=w={w}:h={h}:format=nv12" -threads {os.cpu_count()} -n "{file_output}.mp4"', shell=True, check=True)
-                        # (
-                        # ffmpeg
-                        # .input(file_input, hwaccel='auto', hwaccel_output_format='vaapi')
-                        # .output(
-                        #     file_output+'.mp4',
-                        #     **{'c:v':detect_encoder('h264-intel'),
-                        #     'c:a':'copy',
-                        #     'b:v':'2M',
-                        #     'maxrate':'2M',
-                        #     'vf':f'scale_vaapi=w={w}:h={h}:format=nv12'},
-                        #     threads=os.cpu_count(),
-                        #     n=None # Never overwrite files
-                        # )
-                        # .run()
-                        # )
-                    case _:
-                        subprocess.run(f'ffmpeg -hwaccel auto -i "{file_input}" -c:v h264_qsv -c:a copy -b:v 2M -pix_fmt nv12 -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mp4"', shell=True, check=True)
-                        # (
-                        # ffmpeg
-                        # .input(file_input, hwaccel='auto')
-                        # .output(
-                        #     file_output+'.mp4',
-                        #     **{'c:v':'h264_qsv',
-                        #     'c:a':'copy',
-                        #     'b:v':'2M',
-                        #     'pix_fmt':'nv12',
-                        #     's':resolution},
-                        #     threads=os.cpu_count(),
-                        #     n=None # Never overwrite files
-                        # )
-                        # .run()
-                        # )
-            case 'dnxhr':
-                subprocess.run(f'ffmpeg -hwaccel auto -i "{file_input}" -c:v dnxhd -c:a copy -b:v 2M -profile:v dnxhr_lb -pix_fmt yuv422p -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mov"', shell=True, check=True)
-                # (
-                # ffmpeg
-                # .input(file_input, hwaccel='auto')
-                # .output(
-                #     file_output+'.mov',
-                #     **{'c:v':'dnxhd',
-                #     'c:a':'copy',
-                #     'b:v':'2M',
-                #     'profile:v':'dnxhr_lb',
-                #     'pix_fmt':'yuv422p',
-                #     's':resolution},
-                #     threads=os.cpu_count(),
-                #     n=None # Never overwrite files
-                # )
-                # .run()
-                # )
-            case 'prores-proxy':
-                subprocess.run(f'ffmpeg -hwaccel auto -i "{file_input}" -c:v {detect_encoder('prores')} -c:a copy -b:v 2M -profile:v 0 -pix_fmt yuv422p -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mov"', shell=True, check=True)
-                # (
-                # ffmpeg
-                # .input(file_input, hwaccel='auto')
-                # .output(
-                #     file_output+'.mov',
-                #     **{'c:v':detect_encoder('prores'),
-                #     'c:a':'copy',
-                #     'b:v':'2M',
-                #     'profile:v':0,
-                #     'pix_fmt':'yuv422p',
-                #     's':resolution},
-                #     threads=os.cpu_count(),
-                #     n=None # Never overwrite files
-                # )
-                # .run()
-                # )
-            case 'prores-lt':
-                subprocess.run(f'ffmpeg -hwaccel auto -i "{file_input}" -c:v {detect_encoder('prores')} -c:a copy -b:v 2M -profile:v 1 -pix_fmt yuv422p -s {resolution} -threads {os.cpu_count()} -n "{file_output}.mov"', shell=True, check=True)
-                # (
-                # ffmpeg
-                # .input(file_input, hwaccel='auto')
-                # .output(
-                #     file_output+'.mov',
-                #     **{'c:v':detect_encoder('prores'),
-                #     'c:a':'copy',
-                #     'b:v':'2M',
-                #     'profile:v':1,
-                #     'pix_fmt':'yuv422p',
-                #     's':resolution},
-                #     threads=os.cpu_count(),
-                #     n=None # Never overwrite files
-                # )
-                # .run()
-                # )
+        preset = get_preset(codec).format(
+            file_input = os.path.join(folder_raw, file),
+            file_output = f'{os.path.join(folder_proxies, pathlib.Path(file).stem)}_proxy_{codec}_{resolution}',
+            resolution=resolution,
+            w = resolution.split('x')[0],
+            h = resolution.split('x')[1],
+            threads=os.cpu_count()
+        )
+
+        print(f'Transcoding {file} to {codec} {resolution}...')
+        subprocess.run(preset, shell=True, check=True)
 
 
 
-# TODO: Pick a better name for this function
-def transcode_footage(folder_footage:str, codec:str=detect_defaults('codec'), resolution:str=detect_defaults('resolution')):
-    '''Find RAW and PROXIES folders in FOOTAGE folder and transcode files.
+def create_proxies(folder_footage:str, codec:str=detect_defaults('codec'), resolution:str=detect_defaults('resolution')):
+    '''Find RAW and PROXIES folders in FOOTAGE folder and create proxies.
     Args:
-        folder_footage (str): Full path to footage folder.
+        folder_footage (str): Full path to footage folder. (Use '.' for current working directory)
         codec (str): Codec to use for transcoding (default: 'h264').
         resolution (str): Resolution to use for transcoding (default: '1280x720').'''
 

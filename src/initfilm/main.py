@@ -454,8 +454,7 @@ def createProxies():
 
     clearConsole()
     print('Would you like to create proxies for RAW footage? (Y/n)\n(You can always do this later! See --help)')
-    transcode_selection = input('$ ').lower()
-    if transcode_selection == 'n':
+    if input('$ ').lower() == 'n':
         print('Skipping proxy creation.')
     
     else:
@@ -476,4 +475,4 @@ def createProxies():
         else:
             resolution = transcode.detect_defaults('resolution')
 
-        transcode.transcode_footage(os.path.join(projectDirectory, proxies_footage), codec, resolution)
+        transcode.create_proxies(os.path.join(projectDirectory, proxies_footage), codec, resolution)
