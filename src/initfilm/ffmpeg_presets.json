@@ -20,10 +20,10 @@
     },
     "prores-proxy": {
         "generic": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v prores -c:a copy -profile:v 0 -pix_fmt yuv420p -s {resolution} -threads {threads} -n \"{file_output}.mov\"",
-        "darwin": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v prores_videotoolbox -c:a copy -profile:v 0 -pix_fmt yuv444p -s {resolution} -threads {threads} -allow_sw 1 -n \"{file_output}.mov\""
+        "darwin": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v prores_videotoolbox -c:a copy -profile:v 0 -pix_fmt nv12 -s {resolution} -threads {threads} -allow_sw 1 -n \"{file_output}.mov\""
     },
     "prores-lt": {
         "generic": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v prores -c:a copy -profile:v 1 -pix_fmt yuv420p -s {resolution} -threads {threads} -n \"{file_output}.mov\"",
-        "darwin": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v prores_videotoolbox -c:a copy -profile:v 1 -pix_fmt yuv444p -s {resolution} -threads {threads} -allow_sw 1 -n \"{file_output}.mov\""
+        "darwin": "ffmpeg -v error -stats -hwaccel auto -i \"{file_input}\" -c:v prores_videotoolbox -c:a copy -profile:v 1 -pix_fmt nv12 -s {resolution} -threads {threads} -allow_sw 1 -n \"{file_output}.mov\""
     }
 }
