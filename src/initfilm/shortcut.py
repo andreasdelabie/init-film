@@ -1,55 +1,72 @@
+# Copyright (C) 2025  Andreas Delabie
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+
 import os, sysconfig, darkdetect
 
 
 
 def add():
-    """Adds the Init-Film shortcut to the Windows context menu."""
+    '''Adds the Init-Film shortcut to the Windows context menu.'''
 
 
     osname = os.name
     if osname != 'nt':
-        print("This feature currently only works on Windows!")
+        print('This feature currently only works on Windows!')
         exit()
     else:
         import winreg
 
 
     try:
-        python_scripts = sysconfig.get_path("scripts")
-        python_sitepackages = sysconfig.get_path("purelib")
+        python_scripts = sysconfig.get_path('scripts')
+        python_sitepackages = sysconfig.get_path('purelib')
         windows_theme = darkdetect.theme()
 
         location = winreg.HKEY_CURRENT_USER
-        shell = winreg.CreateKey(location, "Software\\Classes\\Directory\\Background\\shell")
-        initfilm = winreg.CreateKey(shell, "Init-Film")
-        command = winreg.CreateKey(initfilm, "command")
+        shell = winreg.CreateKey(location, 'Software\\Classes\\Directory\\Background\\shell')
+        initfilm = winreg.CreateKey(shell, 'Init-Film')
+        command = winreg.CreateKey(initfilm, 'command')
 
-        winreg.SetValueEx(initfilm, "", 0, winreg.REG_SZ, "Start Init-Film Project") # Shortcut name
-        winreg.SetValueEx(command, "", 0, winreg.REG_SZ, f"{python_scripts}/init-film.exe") # Shortcut executable path
+        winreg.SetValueEx(initfilm, '', 0, winreg.REG_SZ, 'Start Init-Film Project') # Shortcut name
+        winreg.SetValueEx(command, '', 0, winreg.REG_SZ, f'{python_scripts}/init-film.exe') # Shortcut executable path
 
         if windows_theme == 'Dark':
-            winreg.SetValueEx(initfilm, "Icon", 0, winreg.REG_SZ, f"{python_sitepackages}/initfilm/Init-Film_Icon_White.ico")
+            winreg.SetValueEx(initfilm, 'Icon', 0, winreg.REG_SZ, f'{python_sitepackages}/initfilm/Init-Film_Icon_White.ico')
         else:
-            winreg.SetValueEx(initfilm, "Icon", 0, winreg.REG_SZ, f"{python_sitepackages}/initfilm/Init-Film_Icon_Black.ico")
+            winreg.SetValueEx(initfilm, 'Icon', 0, winreg.REG_SZ, f'{python_sitepackages}/initfilm/Init-Film_Icon_Black.ico')
         
-        print("Successfully added Init-Film to context menu!")
+        print('Successfully added Init-Film to context menu!')
 
 
     except Exception as err:
         if str(err).__contains__('WinError 5'):
-            print(err, "\n\nAre you administrator?")
+            print(err, '\n\nAre you administrator?')
         else:
             print(err)
 
 
 
 def remove():
-    """Removes the Init-Film shortcut to the Windows context menu."""
+    '''Removes the Init-Film shortcut to the Windows context menu.'''
 
     
     osname = os.name
     if osname != 'nt':
-        print("This feature currently only works on Windows!")
+        print('This feature currently only works on Windows!')
         exit()
     else:
         import winreg
@@ -57,26 +74,26 @@ def remove():
 
     try:
         location = winreg.HKEY_CURRENT_USER
-        shell = winreg.CreateKey(location, "Software\\Classes\\Directory\\Background\\shell")
-        initfilm = winreg.CreateKey(shell, "Init-Film")
-        command = winreg.CreateKey(initfilm, "command")
+        shell = winreg.CreateKey(location, 'Software\\Classes\\Directory\\Background\\shell')
+        initfilm = winreg.CreateKey(shell, 'Init-Film')
+        command = winreg.CreateKey(initfilm, 'command')
 
-        winreg.DeleteValue(command, "")
-        winreg.DeleteValue(initfilm, "")
-        winreg.DeleteValue(initfilm, "Icon")
+        winreg.DeleteValue(command, '')
+        winreg.DeleteValue(initfilm, '')
+        winreg.DeleteValue(initfilm, 'Icon')
 
-        winreg.DeleteKey(command, "")
+        winreg.DeleteKey(command, '')
         winreg.CloseKey(command)
-        winreg.DeleteKey(initfilm, "")
+        winreg.DeleteKey(initfilm, '')
         winreg.CloseKey(initfilm)
         
-        print("Successfully removed Init-Film from context menu!")
+        print('Successfully removed Init-Film from context menu!')
 
 
     except Exception as err:
         if str(err).__contains__('WinError 5'):
-            print(err, "\n\nAre you administrator?")
+            print(err, '\n\nAre you administrator?')
         elif str(err).__contains__('WinError 2'):
-            print(err, "\n\nThis probably means the shortcut has already been removed, or hasn't been installed correctly...")
+            print(err, '\n\nThis probably means the shortcut has already been removed, or hasn\'t been installed correctly...')
         else:
             print(err)

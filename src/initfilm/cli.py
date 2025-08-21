@@ -1,86 +1,54 @@
-import sys, importlib.metadata
-import initfilm.main
-import initfilm.shortcut
-import initfilm.config
-import initfilm.templates
+# Copyright (C) 2025  Andreas Delabie
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-def main():
-    version = importlib.metadata.version("init-film")
+
+import typer, initfilm
+from typing_extensions import Annotated
+from . import main, config, transcode, ffmpeg_installscript, license
 
 
-    if len(sys.argv) > 1:
-        argument = sys.argv[1]
 
-        if argument == "--help" or argument == "-h":
-            print(f'''\
-------------------
-Init-Film v{version}
-By Andreas Delabie
-------------------
-
-Usage: init-film [option]
-e.g. init-film --set-number-style double
-
-Options:
-    --set-prefix <option>           Set prefix to be 'visible' or 'hidden'
-    --set-number-style <style>      Set number style to default (1. PROJECT FILES) or double (01. PROJECT FILES)
-    --set-separator-style <style>   Set separator style to dot (default), underscore, parenthesis or space
-
-    --set-templates-path <path>     Set templates path (source path) to 'python' or custom path. ALWAYS USE FORWARD SLASHES!
-    --show-templates-path           Print templates path
-
-    --show-config                   Print current configuration
-
-    --add-shortcut                  Adds the Init-Film shortcut to the Windows context menu (right click menu)
-    --remove-shortcut               Removes the Init-Film shortcut to the Windows context menu (right click menu)
-
-    -v --version                    Print current version
-    -h --help                       Shows this screen
-''')
-
-        elif argument == "--set-prefix":
-            if len(sys.argv) > 2:
-                initfilm.config.setPrefixVisibility(sys.argv[2])
-            else:
-                print("Please specify if you want the prefix to be 'visible' or 'hidden'")
-
-        elif argument == "--set-number-style":
-            if len(sys.argv) > 2:
-                initfilm.config.setNumberStyle(sys.argv[2])
-            else:
-                print("Please specify a valid number style like 'default' or 'double'.")
-        
-        elif argument == "--set-separator-style":
-            if len(sys.argv) > 2:
-                initfilm.config.setSeparatorStyle(sys.argv[2])
-            else:
-                print("Please specify a valid separator style like 'dot', 'underscore', 'parenthesis' or 'space'.")
-        
-        elif argument == "--set-templates-path":
-            if len(sys.argv) > 2:
-                initfilm.config.set("templates", "path", sys.argv[2])
-            else:
-                print("Please specify a templates path like 'python' or a custom path (ex. C:/Users/Spielberg/Videos/templates).")
-        
-        elif argument == "--show-templates-path":
-            print(initfilm.templates.template_path)
-        
-        elif argument == "--show-config":
-            initfilm.config.show()
-
-        elif argument == "--add-shortcut":
-            initfilm.shortcut.add()
-
-        elif argument == "--remove-shortcut":
-            initfilm.shortcut.remove()
-        
-        elif argument == "--version" or argument == "-v":
-            print(version)
-
-        else:
-            print("Unknown command, use --help or -h for help")
+app = typer.Typer(add_completion=False, context_settings={'help_option_names': ['--help', '-h']})
+app.add_typer(license.app, name='license', help='Show license information.')
+app.add_typer(config.app, name='config', help='Manage configuration settings.')
+def cli():
+    app()
 
 
-    else:
-        initfilm.main.createFolder_level0()
+
+@app.callback(invoke_without_command=True)
+def default(context: typer.Context):
+    if context.invoked_subcommand is None: # Only run if no subcommand is provided
+        main.createFolder_level0()
+
+@app.command()
+def create_proxies(
+    folder_footage:Annotated[str, typer.Argument(help="Full path to footage folder. (Use '.' for current working directory)")],
+    codec:Annotated[str, typer.Option('--codec', '-c', help="Use 'h264', 'h264-nvidia', 'h264-amd', 'h264-intel', 'dnxhr', 'prores-proxy' or 'prores-lt'")]=transcode.detect_defaults('codec'),
+    resolution:Annotated[str, typer.Option('--resolution', '-r', help="Ex. '1280x720', '1920x1080', '3840x2160', ...")]=transcode.detect_defaults('resolution')):
+    '''Create proxies for footage in the specified footage folder.'''
+    transcode.create_proxies(folder_footage, codec, resolution)
+
+@app.command()
+def install_ffmpeg():
+    '''Install FFmpeg (needed to transcode footage).'''
+    ffmpeg_installscript.main()
+
+@app.command()
+def version():
+    '''Print the current version.'''
+    version = initfilm.__version__
+    print(version)
