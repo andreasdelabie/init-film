@@ -37,7 +37,7 @@ def default(context: typer.Context):
 @app.command()
 def create_proxies(
     folder_footage:Annotated[str, typer.Argument(help="Full path to footage folder. (Use '.' for current working directory)")],
-    codec:Annotated[str, typer.Option('--codec', '-c', help="Use 'h264', 'h264-nvidia', 'h264-amd', 'h264-intel', 'dnxhr', 'prores-proxy' or 'prores-lt'")]=transcode.detect_defaults('codec'),
+    codec:Annotated[str, typer.Option('--codec', '-c', help=f'Supported: {transcode.list_presets()}')]=transcode.detect_defaults('codec'),
     resolution:Annotated[str, typer.Option('--resolution', '-r', help="Ex. '1280x720', '1920x1080', '3840x2160', ...")]=transcode.detect_defaults('resolution')):
     '''Create proxies for footage in the specified footage folder.'''
     transcode.create_proxies(folder_footage, codec, resolution)
