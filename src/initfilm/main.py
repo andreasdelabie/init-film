@@ -453,14 +453,13 @@ def createProxies():
     '''Ask user to make proxies & input codec and resolution. Transcode footage.'''
 
     clearConsole()
-    print('Would you like to create proxies for RAW footage? (Y/n)\n(You can always do this later! See --help)')
-    if input('$ ').lower() == 'n':
+    print('Would you like to create proxies for RAW footage?\n(You can always do this later! See --help)')
+    if input('(Y/n)$ ').lower() == 'n':
         print('Skipping proxy creation.')
     
     else:
         clearConsole()
-        transcode.detect_defaults()
-        print(f'Select codec (supported: h264, h264-nvidia, h264-amd, h264-intel, dnxhr, prores-proxy, prores-lt):')
+        print(f'Select codec (supported: {transcode.list_presets()}):')
         codec_selection = input('$ ').lower()
         if codec_selection:
             codec = codec_selection

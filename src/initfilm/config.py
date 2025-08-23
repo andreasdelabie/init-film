@@ -67,7 +67,7 @@ def get(name:str, parameter:str) -> str:
 @app.command()
 def set_prefix_visibility(visibility:str):
     '''Set prefix visibility to 'visible' or 'hidden'.'''
-    match input:
+    match visibility:
         case 'visible' | 'hidden':
             set('prefix', 'visibility', visibility)
         case _:
@@ -96,14 +96,10 @@ def set_templates_path(path:str):
     '''Set templates path (source path) to 'python' or custom path. ALWAYS USE FORWARD SLASHES!'''
     set('templates', 'path', path)
 
-@app.command()
+from . import transcode
+@app.command(help=f'Set default proxy codec to {transcode.list_presets()}.')
 def set_proxy_codec(codec:str):
-    '''Set default proxy codec to 'h264', 'h264-nvidia', 'h264-amd', 'h264-intel', 'dnxhr', 'prores-proxy' or 'prores-lt'.'''
-    match codec:
-        case 'h264' | 'h264-nvidia' | 'h264-amd' | 'h264-intel' | 'dnxhr' | 'prores-proxy' | 'prores-lt':
-            set('proxies', 'default_codec', codec)
-        case _:
-            print("Invalid codec! Valid options are 'h264', 'h264-nvidia', 'h264-amd', 'h264-intel', 'dnxhr', 'prores-proxy' or 'prores-lt'.")
+    set('proxies', 'default_codec', codec)
 
 @app.command()
 def set_proxy_resolution(resolution:str):

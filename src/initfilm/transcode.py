@@ -22,6 +22,7 @@ from .clearconsole import clearConsole
 
 
 PLATFORM = platform.system().lower()
+python_sitepackages = sysconfig.get_path('purelib')
 
 
 
@@ -43,6 +44,17 @@ def find_folder(folder_footage:str, subfolder:str) -> str:
         raise FileNotFoundError(f"No folder named '{subfolder}' found in {folder_footage}")
 
     return matches[0]
+
+
+
+def list_presets() -> str:
+    '''List all available FFmpeg codec presets.'''
+
+    with open(f'{python_sitepackages}/initfilm/ffmpeg_presets.json', 'r') as file:
+        presets = json.load(file)
+        presets_list = list(presets.keys())
+
+    return str(presets_list)[1:-1] # Remove brackets from list string
 
 
 
@@ -100,8 +112,8 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=detect_defaults('cod
     Args:
         folder_raw (str): Full path to RAW folder.
         folder_proxies (str): Full path to PROXIES folder.
-        codec (str): Codec to use for transcoding (default: 'h264').
-        resolution (str): Resolution to use for transcoding (default: '1280x720').'''
+        codec (str): Codec to use for transcoding.
+        resolution (str): Resolution to use for transcoding.'''
     
     for file in os.listdir(folder_raw):
         if not file.lower().endswith(('.mp4', '.mov', '.avi', '.mts', '.mxf', '.mkv', '.wmv', '.flv')): # Only process video files
@@ -125,8 +137,8 @@ def create_proxies(folder_footage:str, codec:str=detect_defaults('codec'), resol
     '''Find RAW and PROXIES folders in FOOTAGE folder and create proxies.
     Args:
         folder_footage (str): Full path to footage folder. (Use '.' for current working directory)
-        codec (str): Codec to use for transcoding (default: 'h264').
-        resolution (str): Resolution to use for transcoding (default: '1280x720').'''
+        codec (str): Codec to use for transcoding.
+        resolution (str): Resolution to use for transcoding.'''
 
     if folder_footage == '.':
         folder_footage = os.getcwd()
