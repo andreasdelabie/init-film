@@ -9,6 +9,7 @@
     },
     "proxies": {
         "default_codec": "h264",
-        "default_resolution": "1280x720"
+        "default_resolution": "1280x720",
+        "filename": "simple"
     }
 }

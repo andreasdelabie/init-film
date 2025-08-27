@@ -91,8 +91,6 @@ def get_preset(codec:str) -> str:
     Returns:
         preset (str): The FFmpeg preset for the given codec and platform. **Needs to be formatted!**  
         ex: `get_preset('h264').format(file_input=os.path.join(folder_raw,file))`'''
-    
-    python_sitepackages = sysconfig.get_path('purelib')
 
     with open(f'{python_sitepackages}/initfilm/ffmpeg_presets.json', 'r') as file:
         presets = json.load(file)
@@ -107,13 +105,14 @@ def get_preset(codec:str) -> str:
 
 
 
-def transcode(folder_raw:str, folder_proxies:str, codec:str=detect_defaults('codec'), resolution:str=detect_defaults('resolution')):
+def transcode(folder_raw:str, folder_proxies:str, codec:str=detect_defaults('codec'), resolution:str=detect_defaults('resolution'), filename:str=config.get('proxies', 'filename')):
     '''Transcode all video files in RAW folder to PROXIES folder.
     Args:
         folder_raw (str): Full path to RAW folder.
         folder_proxies (str): Full path to PROXIES folder.
         codec (str): Codec to use for transcoding.
-        resolution (str): Resolution to use for transcoding.'''
+        resolution (str): Resolution to use for transcoding.
+        filename (str): Filename format.'''
     
     for file in os.listdir(folder_raw):
         if not file.lower().endswith(('.mp4', '.mov', '.avi', '.mts', '.mxf', '.mkv', '.wmv', '.flv')): # Only process video files
@@ -121,7 +120,7 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=detect_defaults('cod
 
         preset = get_preset(codec).format(
             file_input = os.path.join(folder_raw, file),
-            file_output = f'{os.path.join(folder_proxies, pathlib.Path(file).stem)}_proxy_{codec}_{resolution}',
+            file_output = f'{os.path.join(folder_proxies, pathlib.Path(file).stem)}_Proxy' if filename == 'simple' else f'{os.path.join(folder_proxies, pathlib.Path(file).stem)}_proxy_{codec}_{resolution}',
             resolution=resolution,
             w = resolution.split('x')[0],
             h = resolution.split('x')[1],
@@ -133,12 +132,13 @@ def transcode(folder_raw:str, folder_proxies:str, codec:str=detect_defaults('cod
 
 
 
-def create_proxies(folder_footage:str, codec:str=detect_defaults('codec'), resolution:str=detect_defaults('resolution')):
+def create_proxies(folder_footage:str, codec:str=detect_defaults('codec'), resolution:str=detect_defaults('resolution'), filename:str=config.get('proxies', 'filename')):
     '''Find RAW and PROXIES folders in FOOTAGE folder and create proxies.
     Args:
         folder_footage (str): Full path to footage folder. (Use '.' for current working directory)
         codec (str): Codec to use for transcoding.
-        resolution (str): Resolution to use for transcoding.'''
+        resolution (str): Resolution to use for transcoding.
+        filename (str): Filename format.'''
 
     if folder_footage == '.':
         folder_footage = os.getcwd()
@@ -158,6 +158,6 @@ def create_proxies(folder_footage:str, codec:str=detect_defaults('codec'), resol
             folder_input = subfolders_raw[int(id) - 1]
             folder_input = os.path.join(folder_raw, folder_input)
 
-            transcode(folder_input, folder_proxies, codec, resolution)
+            transcode(folder_input, folder_proxies, codec, resolution, filename)
     else:
-        transcode(folder_raw, folder_proxies, codec, resolution)
+        transcode(folder_raw, folder_proxies, codec, resolution, filename)

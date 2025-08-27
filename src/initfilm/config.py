@@ -107,6 +107,15 @@ def set_proxy_resolution(resolution:str):
     set('proxies', 'default_resolution', resolution)
 
 @app.command()
+def set_proxy_filename(filename:str):
+    '''Set proxy filename to 'simple' (FILE_Proxy) or 'extended' (FILE_Proxy_CODEC_RESOLUTION).'''
+    match filename:
+        case 'simple' | 'extended':
+            set('proxies', 'filename', filename)
+        case _:
+            print("Invalid proxy filename! Valid options are 'simple' or 'extended'.")
+
+@app.command()
 def show():
     '''Print the current configuration.'''
     with open(f'{python_sitepackages}/initfilm/config.json', 'r') as file:

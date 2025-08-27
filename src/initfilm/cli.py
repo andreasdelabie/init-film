@@ -38,9 +38,10 @@ def default(context: typer.Context):
 def create_proxies(
     folder_footage:Annotated[str, typer.Argument(help="Full path to footage folder. (Use '.' for current working directory)")],
     codec:Annotated[str, typer.Option('--codec', '-c', help=f'Supported: {transcode.list_presets()}')]=transcode.detect_defaults('codec'),
-    resolution:Annotated[str, typer.Option('--resolution', '-r', help="Ex. '1280x720', '1920x1080', '3840x2160', ...")]=transcode.detect_defaults('resolution')):
+    resolution:Annotated[str, typer.Option('--resolution', '-r', help="Ex. '1280x720', '1920x1080', '3840x2160', ...")]=transcode.detect_defaults('resolution'),
+    filename:Annotated[str, typer.Option('--filename', '-f', help="Set proxy filename to 'simple' (FILE_Proxy) or 'extended' (FILE_Proxy_CODEC_RESOLUTION).")]=config.get('proxies', 'filename')):
     '''Create proxies for footage in the specified footage folder.'''
-    transcode.create_proxies(folder_footage, codec, resolution)
+    transcode.create_proxies(folder_footage, codec, resolution, filename)
 
 @app.command()
 def install_ffmpeg():
