@@ -59,7 +59,8 @@ def prefix(number_input:int) -> str:
 
 
 def createFolder_level0():
-    global projectDirectory, workingTitle
+    global projectDirectory, workingTitle, proxies_footage
+    proxies_footage = None
 
     clearConsole()
     print(f'''Init-Film v{initfilm.__version__}  Copyright (C) 2025  Andreas Delabie
@@ -269,7 +270,6 @@ Type numbers to select or type custom folder names (separate by SPACE)''')
     level2_footage_selection = input('$ ').split()
     global level2_footage_folderNumber, proxies_footage
     level2_footage_folderNumber = 1
-    proxies_footage = None
 
     for string in level2_footage_selection:
         match string:
