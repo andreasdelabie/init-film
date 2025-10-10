@@ -27,7 +27,7 @@ authors = [
 description = "Tired of manually creating folder structures for your film/video projects? Want a folder structure that dynamically changes based on the needs for your project? Then Init-Film was made for you! By filmmakers, for filmmakers ;)"
 readme = "README.md"
 license = "GPL-3.0-or-later"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
     "darkdetect>=0.8",
     "pyperclip>=1.9",
