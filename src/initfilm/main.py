@@ -75,7 +75,9 @@ Enter project name:''')
     currentDirectory = os.getcwd()
     projectDirectory = os.path.join(currentDirectory, workingTitle)
 
-    os.mkdir(projectDirectory)
+    try: os.mkdir(projectDirectory)
+    except Exception as e: print(e)
+    
     if templates.check('') == True:
         templates.copy('', projectDirectory, workingTitle)
 
@@ -91,7 +93,9 @@ def createFolder_level1(number:int, name:str):
     level1_folder_name = f'{prefix(number)}{name}'
     level1_folder_directory = os.path.join(projectDirectory, level1_folder_name)
 
-    os.mkdir(level1_folder_directory)
+    try: os.mkdir(level1_folder_directory)
+    except FileExistsError: pass
+
     if templates.check(name) == True:
         templates.copy(name, level1_folder_directory, level1_folder_name)
 
@@ -150,7 +154,9 @@ def createFolder_level2(parent:str, number:int, name:str, relative_template_path
     level2_folder_name = f'{prefix(number)}{name}'
     level2_folder_directory = os.path.join(projectDirectory, parent, level2_folder_name)
 
-    os.mkdir(level2_folder_directory)
+    try: os.mkdir(level2_folder_directory)
+    except FileExistsError: pass
+
     if templates.check(relative_template_path) == True:
         templates.copy(relative_template_path, level2_folder_directory, level2_folder_name)
 
@@ -416,7 +422,9 @@ def createFolder_level3(parent_level1:str, parent_level2:str, number:int, name:s
     level3_folder_name = f'{prefix(number)}{name}'
     level3_folder_directory = os.path.join(projectDirectory, parent_level1, parent_level2, level3_folder_name)
 
-    os.mkdir(level3_folder_directory)
+    try: os.mkdir(level3_folder_directory)
+    except FileExistsError: pass
+
     if templates.check(relative_template_path) == True:
         templates.copy(relative_template_path, level3_folder_directory, level3_folder_name)
 
