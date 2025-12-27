@@ -42,7 +42,7 @@ def check(relative_source_path:str) -> bool:
     source_path = os.path.join(template_path, relative_source_path)
 
     try:
-        files = [f for f in os.listdir(source_path) if os.path.isfile(os.path.join(source_path, f)) and f != '.DS_Store'] # Lists all contents in source_path & excludes folders and .DS_Store files
+        files = [f for f in os.listdir(source_path) if f != '.DS_Store'] # Lists all contents in source_path & excludes .DS_Store files
 
         if files == []:
             return False
@@ -63,11 +63,14 @@ def copy(relative_source_path:str, destination_path:str, destination_name:str):
     '''
 
     source_path = os.path.join(template_path, relative_source_path)
-    files = [f for f in os.listdir(source_path) if os.path.isfile(os.path.join(source_path, f)) and f != '.DS_Store'] # Lists all contents in source_path & excludes folders and .DS_Store files
+    files = [f for f in os.listdir(source_path) if f != '.DS_Store'] # Lists all contents in source_path & excludes .DS_Store files
 
     clearConsole()
-    print(f'Select needed files for {destination_name}\n')
+    print(f'Select needed files/folders for {destination_name}\n')
     for id, template in enumerate(files, start=1):
+        if os.path.isdir(f'{source_path}/{template}'):
+            print(f'    {id}) /{template} (folder)')
+            continue
         print(f'    {id}) {template}')
     print('\nType numbers to select (separate by SPACE)')
     selection = input('$ ').split()
@@ -76,6 +79,10 @@ def copy(relative_source_path:str, destination_path:str, destination_name:str):
         template = files[int(id) - 1]
 
         with yaspin.yaspin(color='yellow', text=f'Copying {template} to {destination_name}...') as spinner:
-            shutil.copy2(f'{source_path}/{template}', destination_path)
+            if os.path.isdir(f'{source_path}/{template}'):
+                shutil.copytree(f'{source_path}/{template}', f'{destination_path}/{template}', dirs_exist_ok=True)
+                continue
+            else:
+                shutil.copy2(f'{source_path}/{template}', destination_path)
             spinner.text = f'Copying {template} to {destination_name} completed!'
             spinner.ok('✔')
