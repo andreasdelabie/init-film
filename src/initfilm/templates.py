@@ -80,6 +80,7 @@ def copy(relative_source_path:str, destination_path:str, destination_name:str):
 
         with yaspin.yaspin(color='yellow', text=f'Copying {template} to {destination_name}...') as spinner:
             if os.path.isdir(f'{source_path}/{template}'):
+                # TODO: Respect folder prefixes
                 shutil.copytree(f'{source_path}/{template}', f'{destination_path}/{template}', dirs_exist_ok=True)
                 continue
             else:
