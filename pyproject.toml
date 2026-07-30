@@ -32,7 +32,8 @@ dependencies = [
     "darkdetect>=0.8",
     "pyperclip>=1.9",
     "yaspin>=3.1",
-    "typer>=0.16.0"
+    "typer>=0.16.0",
+    "typing_extensions>=4.15"
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -42,6 +43,11 @@ classifiers = [
     "Environment :: Console",
     "Intended Audience :: End Users/Desktop",
     "Topic :: Multimedia :: Video"
+]
+
+[dependency-groups]
+dev = [
+    "tox>=4.58.0",
 ]
 
 [project.urls]
