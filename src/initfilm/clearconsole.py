@@ -1,4 +1,4 @@
-# Copyright (C) 2025  Andreas Delabie
+# Copyright (C) 2026  Andreas Delabie
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 
 
 
-import os
+import os, subprocess
 
 
 
@@ -24,6 +24,6 @@ def clearConsole():
 
     osname = os.name
     if osname == 'nt':
-        _ = os.system('cls') # For Windows
+        _ = subprocess.run('cls', shell=True) # For Windows
     else:
-        _ = os.system('clear') # For macOS & Linux
+        _ = subprocess.run('clear', shell=True) # For macOS & Linux
