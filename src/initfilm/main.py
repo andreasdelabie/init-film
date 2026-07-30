@@ -1,4 +1,4 @@
-# Copyright (C) 2025  Andreas Delabie
+# Copyright (C) 2026  Andreas Delabie
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ def createFolder_level0():
     proxies_footage = None
 
     clearConsole()
-    print(f'''Init-Film v{initfilm.__version__}  Copyright (C) 2025  Andreas Delabie
+    print(f'''Init-Film v{initfilm.__version__}  Copyright (C) 2026  Andreas Delabie
 This program comes with ABSOLUTELY NO WARRANTY; for details type `init-film license warranty`.
 This is free software, and you are welcome to redistribute it
 under certain conditions; type `init-film license conditions` for details.
