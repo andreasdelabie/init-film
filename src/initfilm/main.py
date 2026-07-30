@@ -257,7 +257,7 @@ Type custom folder names (separate by SPACE)''')
             case '4': createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, 'OVERLAYS', 'ASSETS/OVERLAYS')
             case '5': createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, 'REFERENCE', 'ASSETS/REFERENCE')
             case _: createFolder_level2(f'{prefix(level1_project_folderNumber)}ASSETS', level2_assets_folderNumber, string.upper(), f'ASSETS/{string.upper()}')
-    level2_assets_folderNumber = level2_assets_folderNumber + 1
+        level2_assets_folderNumber = level2_assets_folderNumber + 1
 
 
 
