@@ -49,10 +49,10 @@ def install_mac():
         match input('(silicon/intel)$ '):
             case 'silicon':
                 subprocess.call('curl -O https://www.osxexperts.net/ffmpeg81arm.zip', shell=True)
-                subprocess.call('sudo unzip ffmpeg80arm.zip -d /opt/ffmpeg', shell=True)
+                subprocess.call('sudo unzip ffmpeg81arm.zip -d /opt/ffmpeg', shell=True)
             case 'intel':
                 subprocess.call('curl -O https://www.osxexperts.net/ffmpeg81intel.zip', shell=True)
-                subprocess.call('sudo unzip ffmpeg80intel.zip -d /opt/ffmpeg', shell=True)
+                subprocess.call('sudo unzip ffmpeg81intel.zip -d /opt/ffmpeg', shell=True)
         subprocess.call('echo "/opt/ffmpeg" | sudo tee -a /etc/paths', shell=True)
     except Exception as e:
         print(f"An error occurred while trying to install FFmpeg on MacOS: {e}")
